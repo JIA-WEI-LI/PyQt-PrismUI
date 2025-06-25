@@ -1,36 +1,38 @@
-from PyQt5.QtWidgets import QPushButton, QWidget
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QSize
+from functools import singledispatchmethod
+from typing import Union, Optional
+from PyQt5.QtWidgets import QPushButton, QWidget, QApplication
+from PyQt5.QtGui import QIcon, QPainter
+from PyQt5.QtCore import QSize, QRectF, Qt
 
 class PushButton(QPushButton):
+    """ 
+    PushButton with flexible constructor:
+    
+    - PushButton(parent: QWidget = None)
+    - PushButton(text: str, parent: QWidget = None, icon: Union[str, QIcon] = None)
+    - PushButton(icon: Union[str, QIcon], text: str, parent: QWidget = None)
+    """
     def __init__(self, *args, **kwargs):
-        parent = kwargs.get("parent", None)
         text = None
         icon = None
+        parent = None
 
-        # 解析 args
-        if args:
-            if isinstance(args[0], QWidget):
-                parent = args[0]
-            elif isinstance(args[0], str):
-                text = args[0]
-                if len(args) > 1:
-                    if isinstance(args[1], (QIcon, str)):
-                        icon = args[1]
-                    elif isinstance(args[1], QWidget):
-                        parent = args[1]
-                if len(args) > 2:
-                    parent = args[2]
-            elif isinstance(args[0], (QIcon, str)):
-                icon = args[0]
-                if len(args) > 1 and isinstance(args[1], str):
-                    text = args[1]
-                if len(args) > 2 and isinstance(args[2], QWidget):
-                    parent = args[2]
+        for arg in args:
+            if isinstance(arg, str) and text is None:
+                text = arg
+            elif isinstance(arg, (QIcon, str)) and icon is None:
+                icon = arg
+            elif isinstance(arg, QWidget) and parent is None:
+                parent = arg
+
+        parent = kwargs.get("parent", parent)
+        text = kwargs.get("text", text)
+        icon = kwargs.get("icon", icon)
 
         super().__init__(parent)
-
-        self.setIconSize(QSize(24, 24))  # 改大點
+        self.isPressed = False
+        self.isHover = False
+        self.setIconSize(QSize(16, 16))
 
         if text:
             self.setText(text)
@@ -39,16 +41,12 @@ class PushButton(QPushButton):
         else:
             self.setIcon(QIcon())
 
+        self._icon = self.icon()
         self._initStyle()
-
-    def setIcon(self, icon):
-        if isinstance(icon, str):
-            icon = QIcon(icon)
-        super().setIcon(icon)
 
     def _initStyle(self):
         self.setStyleSheet("""
-            QPushButton {
+            PushButton {
                 background: rgba(255, 255, 255, 0.06);
                 border: 1px solid rgba(255, 255, 255, 0.05);
                 border-radius: 5px;
@@ -56,16 +54,79 @@ class PushButton(QPushButton):
                 padding: 5px 12px;
                 outline: none;
             }
-            QPushButton:hover {
+            PushButton:hover {
                 background: rgba(255, 255, 255, 0.08);
             }
-            QPushButton:pressed {
+            PushButton:pressed {
                 color: rgba(255, 255, 255, 0.78);
                 background: rgba(255, 255, 255, 0.03);
             }
-            QPushButton:disabled {
+            PushButton:disabled {
                 color: rgba(255, 255, 255, 0.36);
                 background: rgba(255, 255, 255, 0.04);
                 border: 1px solid rgba(255, 255, 255, 0.05);
             }
+            PushButton[hasIcon=false] {
+                padding: 5px 12px 6px 12px;
+            }
+            PushButton[hasIcon=true] {
+                padding: 5px 12px 6px 36px;
+            }
         """)
+
+    def setIcon(self, icon: Union[str, QIcon]):
+        if isinstance(icon, str):
+            icon = QIcon(icon)
+        super().setIcon(icon)
+        self._icon = icon
+
+# region Event
+    def mousePressEvent(self, e):
+        self.isPressed = True
+        super().mousePressEvent(e)
+
+    def mouseReleaseEvent(self, e):
+        self.isPressed = False
+        super().mouseReleaseEvent(e)
+
+    def enterEvent(self, e):
+        self.isHover = True
+        self.update()
+        super().enterEvent(e)
+
+    def leaveEvent(self, e):
+        self.isHover = False
+        self.update()
+        super().leaveEvent(e)
+# endregion
+    def paintEvent(self, e):
+        super().paintEvent(e)
+
+        if self._icon.isNull():
+            return
+
+        painter = QPainter(self)
+        painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform)
+
+        if not self.isEnabled():
+            painter.setOpacity(0.36)
+        elif self.isPressed:
+            painter.setOpacity(0.78)
+
+        w = self.iconSize().width()
+        h = self.iconSize().height()
+        y = (self.height() - h) / 2
+
+        text_width = self.fontMetrics().width(self.text()) if self.text() else 0
+        spacing = 6
+
+        total_width = w + spacing + text_width if text_width else w
+        x = (self.width() - total_width) / 2
+
+        if self.layoutDirection() == Qt.RightToLeft:
+            x = self.width() - x - w
+
+        rect = QRectF(x, y, w, h)
+        self._icon.paint(painter, rect.toRect())
+
+        painter.end()
