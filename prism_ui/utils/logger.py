@@ -26,6 +26,9 @@ if ENABLE_FILE_LOG:
 root_logger = logging.getLogger()
 root_logger.setLevel(logging.DEBUG if DEBUG_MODE else logging.INFO)
 
+for h in root_logger.handlers[:]:
+    root_logger.removeHandler(h)
+
 if not any(isinstance(h, logging.StreamHandler) for h in root_logger.handlers):
     root_logger.addHandler(console_handler)
 if file_handler and not any(isinstance(h, logging.FileHandler) for h in root_logger.handlers):
@@ -33,6 +36,7 @@ if file_handler and not any(isinstance(h, logging.FileHandler) for h in root_log
 
 module_levels = {
     "prism_ui.tools.icon_resource_generator": logging.DEBUG,
+    "prism_ui.utils.theme_manager": logging.DEBUG,
 }
 
 for mod, level in module_levels.items():

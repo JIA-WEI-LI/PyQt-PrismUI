@@ -1,6 +1,7 @@
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-
+import logging
+logger = logging.getLogger(__name__)
 import re
 import subprocess
 import traceback
@@ -8,8 +9,7 @@ from xml.dom import minidom
 from xml.etree.ElementTree import Element, SubElement, tostring
 
 import prism_ui.utils.logger  
-import logging
-logger = logging.getLogger(__name__)
+
 
 # === Config Section ===
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

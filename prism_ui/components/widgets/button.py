@@ -1,8 +1,9 @@
-from functools import singledispatchmethod
 from typing import Union, Optional
-from PyQt5.QtWidgets import QPushButton, QWidget, QApplication
+from PyQt5.QtWidgets import QPushButton, QWidget
 from PyQt5.QtGui import QIcon, QPainter
 from PyQt5.QtCore import QSize, QRectF, Qt
+
+from prism_ui.common.stylesheet_enum import PrismStyleSheet
 
 class PushButton(QPushButton):
     """ 
@@ -18,12 +19,9 @@ class PushButton(QPushButton):
         parent = None
 
         for arg in args:
-            if isinstance(arg, str) and text is None:
-                text = arg
-            elif isinstance(arg, (QIcon, str)) and icon is None:
-                icon = arg
-            elif isinstance(arg, QWidget) and parent is None:
-                parent = arg
+            if isinstance(arg, str) and text is None: text = arg
+            elif isinstance(arg, (QIcon, str)) and icon is None: icon = arg
+            elif isinstance(arg, QWidget) and parent is None: parent = arg
 
         parent = kwargs.get("parent", parent)
         text = kwargs.get("text", text)
@@ -34,45 +32,12 @@ class PushButton(QPushButton):
         self.isHover = False
         self.setIconSize(QSize(16, 16))
 
-        if text:
-            self.setText(text)
-        if icon:
-            self.setIcon(icon)
-        else:
-            self.setIcon(QIcon())
+        if text: self.setText(text)
+        if icon: self.setIcon(icon)
+        else: self.setIcon(QIcon())
 
         self._icon = self.icon()
-        self._initStyle()
-
-    def _initStyle(self):
-        self.setStyleSheet("""
-            PushButton {
-                background: rgba(255, 255, 255, 0.06);
-                border: 1px solid rgba(255, 255, 255, 0.05);
-                border-radius: 5px;
-                color: white;
-                padding: 5px 12px;
-                outline: none;
-            }
-            PushButton:hover {
-                background: rgba(255, 255, 255, 0.08);
-            }
-            PushButton:pressed {
-                color: rgba(255, 255, 255, 0.78);
-                background: rgba(255, 255, 255, 0.03);
-            }
-            PushButton:disabled {
-                color: rgba(255, 255, 255, 0.36);
-                background: rgba(255, 255, 255, 0.04);
-                border: 1px solid rgba(255, 255, 255, 0.05);
-            }
-            PushButton[hasIcon=false] {
-                padding: 5px 12px 6px 12px;
-            }
-            PushButton[hasIcon=true] {
-                padding: 5px 12px 6px 36px;
-            }
-        """)
+        PrismStyleSheet.BUTTON.apply(self)
 
     def setIcon(self, icon: Union[str, QIcon]):
         if isinstance(icon, str):
