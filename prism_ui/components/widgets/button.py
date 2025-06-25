@@ -6,13 +6,6 @@ from PyQt5.QtCore import QSize, QRectF, Qt
 from prism_ui.common.stylesheet_enum import PrismStyleSheet
 
 class PushButton(QPushButton):
-    """ 
-    PushButton with flexible constructor:
-    
-    - PushButton(parent: QWidget = None)
-    - PushButton(text: str, parent: QWidget = None, icon: Union[str, QIcon] = None)
-    - PushButton(icon: Union[str, QIcon], text: str, parent: QWidget = None)
-    """
     def __init__(self, *args, **kwargs):
         text = None
         icon = None
@@ -64,6 +57,7 @@ class PushButton(QPushButton):
         self.update()
         super().leaveEvent(e)
 # endregion
+
     def paintEvent(self, e):
         super().paintEvent(e)
 
@@ -95,3 +89,6 @@ class PushButton(QPushButton):
         self._icon.paint(painter, rect.toRect())
 
         painter.end()
+
+class PrimaryPushButton(PushButton):
+    """PrimaryPushButton"""

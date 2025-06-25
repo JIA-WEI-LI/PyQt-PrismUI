@@ -1,0 +1,45 @@
+PushButton {
+    background: --ThemeColor_Control_Default;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    color: --ThemeColor_Text_Default;
+    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    padding: 5px 12px;
+    outline: none;
+}
+PushButton:hover {
+    background: --ThemeColor_Control_Secondary;
+    color: --ThemeColor_Text_Secondary;
+}
+PushButton:pressed {
+    background: --ThemeColor_Control_Tertiary;
+    color: --ThemeColor_Text_Tertiary;
+}
+PushButton:disabled {
+    background: --ThemeColor_Control_Disabled;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: --ThemeColor_Text_Disabled;
+}
+PushButton[hasIcon="false"] {
+    padding: 5px 12px 6px 12px;
+}
+PushButton[hasIcon="true"] {
+    padding: 5px 12px 6px 36px;
+}
+
+PrimaryPushButton {
+    background-color: --ThemeColor_Accent_Default;
+    color: --ThemeColor_Text_On_Accent_Default;
+}
+PrimaryPushButton:hover{
+    background-color: --ThemeColor_Accent_Secondary;
+    color: --ThemeColor_Text_On_Accent_Default;
+}
+PrimaryPushButton:pressed{
+    background-color: --ThemeColor_Accent_Tertiary;
+    color: TextOnAccentFillColorSecondaryBrush;
+}
+PrimaryPushButton:disabled{
+    background-color: --ThemeColor_Accent_Disabled;
+    color: --ThemeColor_Text_On_Accent_Disabled;
+}
