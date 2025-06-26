@@ -1,7 +1,7 @@
 from typing import Union, Optional, Callable
 from PyQt5.QtWidgets import QPushButton, QWidget
 from PyQt5.QtGui import QIcon, QPainter, QCursor, QDesktopServices, QMouseEvent
-from PyQt5.QtCore import QSize, QRectF, Qt, QUrl, QEvent
+from PyQt5.QtCore import QSize, QRectF, Qt, QUrl, QEvent, QTimer
 
 from prism_ui.common.stylesheet_enum import PrismStyleSheet
 from prism_ui.utils.theme_manager import theme_manager
@@ -49,7 +49,7 @@ class PushButton(QPushButton):
         self.updateIcon()
 
     def _get_font_color(self) -> str:
-        if self.isCheckable() and self.isChecked():
+        if self.isChecked():
             if self.isEnabled():
                 if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
                 elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Tertiary")
@@ -267,3 +267,40 @@ class HyperlinkButton(PushButton):
             if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
                 return True
         return super().eventFilter(obj, event)
+
+class RepeatButton(PushButton):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.setAutoRepeat(False)
+        self._repeat_delay = kwargs.pop("repeat_delay", 400)
+        self._repeat_interval = kwargs.pop("repeat_interval", 100)
+
+        self._repeat_timer = QTimer(self)
+        self._repeat_timer.timeout.connect(self._on_repeat_timeout)
+
+        self.pressed.connect(self._start_repeat)
+        self.released.connect(self._stop_repeat)
+        self.setProperty("class", "PushButton")
+
+    def _start_repeat(self):
+        self._repeat_timer.start(self._repeat_delay)
+
+    def _stop_repeat(self):
+        self._repeat_timer.stop()
+
+    def _on_repeat_timeout(self):
+        self.click()
+        self._repeat_timer.setInterval(self._repeat_interval)
+
+    def setRepeatDelay(self, delay_ms: int):
+        self._repeat_delay = delay_ms
+
+    def setRepeatInterval(self, interval_ms: int):
+        self._repeat_interval = interval_ms
+
+    def repeatDelay(self) -> int:
+        return self._repeat_delay
+
+    def repeatInterval(self) -> int:
+        return self._repeat_interval

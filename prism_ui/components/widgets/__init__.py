@@ -4,6 +4,7 @@ __all__ = [
     "HyperlinkButton",
     "PrimaryPushButton", 
     "PushButton",
+    "RepeatButton",
     "ToggleButton",
     "TransparentPushButton",
     "TransparentToggleButton",]
