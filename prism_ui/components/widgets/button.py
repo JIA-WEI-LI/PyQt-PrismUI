@@ -48,7 +48,7 @@ class PushButton(QPushButton):
         self._icon_source = icon_accessor
         self.updateIcon()
 
-    def _get_font_color(self) -> str:
+    def _get_icon_color(self) -> str:
         if self.isChecked():
             if self.isEnabled():
                 if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
@@ -69,7 +69,7 @@ class PushButton(QPushButton):
     def updateIcon(self):
         if hasattr(self, "_icon_source") and callable(self._icon_source):
             try:
-                color = self._get_font_color()
+                color = self._get_icon_color()
                 icon = self._icon_source(color)
                 if icon:
                     super().setIcon(icon)
@@ -78,23 +78,23 @@ class PushButton(QPushButton):
                 print(f"[PushButton] Failed to update icon: {e}")
 
 # region Event
-    def mousePressEvent(self, e):
+    def mousePressEvent(self, event):
         self.isPressed = True
-        super().mousePressEvent(e)
+        super().mousePressEvent(event)
 
-    def mouseReleaseEvent(self, e):
+    def mouseReleaseEvent(self, event):
         self.isPressed = False
-        super().mouseReleaseEvent(e)
+        super().mouseReleaseEvent(event)
 
-    def enterEvent(self, e):
+    def enterEvent(self, event):
         self.isHover = True
         self.update()
-        super().enterEvent(e)
+        super().enterEvent(event)
 
-    def leaveEvent(self, e):
+    def leaveEvent(self, event):
         self.isHover = False
         self.update()
-        super().leaveEvent(e)
+        super().leaveEvent(event)
 # endregion
 
     def showEvent(self, e):
@@ -138,7 +138,7 @@ class PrimaryPushButton(PushButton):
         super().__init__(*args, **kwargs)
         self.setProperty("class", "PrimaryPushButton")
 
-    def _get_font_color(self) -> str:
+    def _get_icon_color(self) -> str:
         if self.isEnabled():
             if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Secondary")
             elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Tertiary")
@@ -239,7 +239,7 @@ class HyperlinkButton(PushButton):
         if self._url:
             QDesktopServices.openUrl(self._normalize_url(self._url))
 
-    def _get_font_color(self) -> str:
+    def _get_icon_color(self) -> str:
         if self.isEnabled():
             if self.isHover:
                 return theme_manager.get_current_variables("--ThemeColor_Text_Accent_Secondary")
