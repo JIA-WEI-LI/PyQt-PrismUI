@@ -116,10 +116,9 @@ class CheckBox(QCheckBox):
         self.initStyleOption(opt)
         rect = self.style().subElementRect(QStyle.SubElement.SE_CheckBoxIndicator, opt, self)
 
-        # === 背景與邊框顏色 ===
         def _background_color():
             if not self.isEnabled():
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Control_Disabled'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Control_Strong_Disabled'))
             elif self.isChecked():
                 return QColor(theme_manager.get_current_variables('--ThemeColor_Accent_Default'))
             elif self.isHover:
@@ -137,12 +136,10 @@ class CheckBox(QCheckBox):
             else:
                 return QColor(theme_manager.get_current_variables('--ThemeColor_Text_Default'))
 
-        # === 畫圓角背景框 ===
         painter.setBrush(_background_color())
         painter.setPen(QPen(_border_color(), 0.1))
         painter.drawRoundedRect(rect.adjusted(0, 0, -1, -1), 5, 5)
 
-        # === 根據狀態取得 indicator_icon 顏色 ===
         color = self._get_indicator_icon_color()
         indicator_icon = None
 
@@ -158,7 +155,6 @@ class CheckBox(QCheckBox):
                 elif self.checkState() == Qt.CheckState.PartiallyChecked:
                     indicator_icon = QIcon(BlenderIcon.PARTICLES) if isinstance(BlenderIcon.PARTICLES, str) else BlenderIcon.PARTICLES
 
-        # === 繪製 icon ===
         if isinstance(indicator_icon, QIcon):
             pixmap = indicator_icon.pixmap(rect.size(), QIcon.Mode.Normal if self.isEnabled() else QIcon.Mode.Disabled)
             painter.drawPixmap(rect, pixmap)

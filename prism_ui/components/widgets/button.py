@@ -49,21 +49,12 @@ class PushButton(QPushButton):
         self.updateIcon()
 
     def _get_icon_color(self) -> str:
-        if self.isChecked():
-            if self.isEnabled():
-                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
-                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Tertiary")
-                else: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
-            elif not self.isEnabled():
-                color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Disabled")
-        else:
-            if self.isEnabled():
-                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
-                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
-                else: color = theme_manager.get_current_variables("--ThemeColor_Text_Default")
-            elif not self.isEnabled():
-                color = theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
-
+        if self.isEnabled():
+            if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
+            elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
+            else: color = theme_manager.get_current_variables("--ThemeColor_Text_Default")
+        elif not self.isEnabled():
+            color = theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
         return color
 
     def updateIcon(self):
@@ -173,6 +164,24 @@ class ToggleButton(PushButton):
         self._text_on = text_on
         self._text_off = text_off
         self._applyToggle()
+
+    def _get_icon_color(self) -> str:
+        if self.isChecked():
+            if self.isEnabled():
+                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
+                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Tertiary")
+                else: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
+            else:
+                color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Disabled")
+            print("[button] : ", color)
+        else:
+            if self.isEnabled():
+                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
+                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
+                else: color = theme_manager.get_current_variables("--ThemeColor_Text_Default")
+            else:
+                color = theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
+        return color
 
     def _applyToggle(self):
         if self._text_on and self._text_off:
@@ -304,3 +313,4 @@ class RepeatButton(PushButton):
 
     def repeatInterval(self) -> int:
         return self._repeat_interval
+    
