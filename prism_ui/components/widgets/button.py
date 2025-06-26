@@ -1,5 +1,5 @@
-from typing import Union, Optional, Callable
-from PyQt5.QtWidgets import QPushButton, QWidget
+from typing import Union, Callable
+from PyQt5.QtWidgets import QPushButton, QWidget, QToolButton
 from PyQt5.QtGui import QIcon, QPainter, QCursor, QDesktopServices, QMouseEvent
 from PyQt5.QtCore import QSize, QRectF, Qt, QUrl, QEvent, QTimer
 
@@ -136,7 +136,6 @@ class PrimaryPushButton(PushButton):
             else: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
         elif not self.isEnabled():
             color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Disabled")
-
         return color
 
 class ToggleButton(PushButton):
@@ -173,7 +172,6 @@ class ToggleButton(PushButton):
                 else: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
             else:
                 color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Disabled")
-            print("[button] : ", color)
         else:
             if self.isEnabled():
                 if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
@@ -313,4 +311,3 @@ class RepeatButton(PushButton):
 
     def repeatInterval(self) -> int:
         return self._repeat_interval
-    

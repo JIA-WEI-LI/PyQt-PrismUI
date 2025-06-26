@@ -4,7 +4,8 @@ from prism_ui.utils.theme_manager import theme_manager
 
 class PrismStyleSheet(Enum):
     BUTTON = "button"
-    CHECKBOX = "checkbox"
+    CHECKBOX = "check_box"
+    TOOL_BUTTOON = "tool_button" 
 
     def apply(self, widget):
         widget.setObjectName(self.value)
