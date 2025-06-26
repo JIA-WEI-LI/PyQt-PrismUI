@@ -122,6 +122,8 @@ class ThemeManager(QObject):
         for widget in list(self._widgets):
             if widget is not None:
                 self.apply_theme(widget)
+            if hasattr(widget, "updateIcon"):
+                widget.updateIcon()
 
     def _on_qss_file_changed(self, path: str):
         if path in self._cache:
