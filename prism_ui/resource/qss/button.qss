@@ -40,13 +40,13 @@ PushButton[class="TransparentToggleButton"]:checked {
     font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
 }
-PushButton[class="PrimaryPushButton"]:hover
+PushButton[class="PrimaryPushButton"]:hover,
 PushButton[class="ToggleButton"]:checked:hover,
 PushButton[class="TransparentToggleButton"]:checked:hover {
     background-color: --ThemeColor_Accent_Secondary;
     color: --ThemeColor_Text_On_Accent_Default;
 }
-PushButton[class="PrimaryPushButton"]:pressed
+PushButton[class="PrimaryPushButton"]:pressed,
 PushButton[class="ToggleButton"]:checked:pressed,
 PushButton[class="TransparentToggleButton"]:checked:pressed {
     background-color: --ThemeColor_Accent_Tertiary;
@@ -66,4 +66,25 @@ PushButton[class="TransparentToggleButton"] {
     color: --ThemeColor_Text_Default;
     font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
+}
+
+PushButton[class="HyperlinkButton"] {
+    background-color: transparent;
+    border-radius: 5px;
+    color: --ThemeColor_Text_Accent_Default;
+    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    padding: 5px 12px;
+    outline: none;
+}
+PushButton[class="HyperlinkButton"]:hover {
+    background-color: --ThemeColor_Control_Secondary;
+    color: --ThemeColor_Text_Accent_Secondary;
+}
+PushButton[class="HyperlinkButton"]:pressed {
+    background-color: --ThemeColor_Control_Tertiary;
+    color: --ThemeColor_Text_Accent_Tertiary;
+}
+PushButton[class="HyperlinkButton"]:disabled {
+    background-color: transparent;
+    color: --ThemeColor_Text_Accent_Disabled;
 }

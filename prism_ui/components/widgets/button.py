@@ -1,7 +1,7 @@
 from typing import Union, Optional, Callable
-from PyQt5.QtWidgets import QPushButton, QWidget, QStyleOptionButton, QStyle
-from PyQt5.QtGui import QIcon, QPainter, QPalette
-from PyQt5.QtCore import QSize, QRectF, Qt
+from PyQt5.QtWidgets import QPushButton, QWidget
+from PyQt5.QtGui import QIcon, QPainter, QCursor, QDesktopServices, QMouseEvent
+from PyQt5.QtCore import QSize, QRectF, Qt, QUrl, QEvent
 
 from prism_ui.common.stylesheet_enum import PrismStyleSheet
 from prism_ui.utils.theme_manager import theme_manager
@@ -204,3 +204,66 @@ class TransparentToggleButton(ToggleButton):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setProperty("class", "TransparentToggleButton")
+
+class HyperlinkButton(PushButton):
+    def __init__(self, *args, **kwargs):
+        self._url = kwargs.pop("url", None)
+        self.auto_prefix_http = kwargs.pop("auto_prefix_http", False)
+        self.ctrl_click_enabled = kwargs.pop("ctrl_click_enabled", False)
+        self.middle_click_enabled = kwargs.pop("middle_click_enabled", False)
+
+        super().__init__(*args, **kwargs)
+
+        self.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.setProperty("class", "HyperlinkButton")
+
+        if self._url:
+            self.setToolTip(self._url)
+
+        if self.ctrl_click_enabled:
+            self.installEventFilter(self)
+
+    def setUrl(self, url: str):
+        self._url = url
+        self.setToolTip(url)
+
+    def url(self) -> str:
+        return self._url
+
+    def _normalize_url(self, url: str) -> QUrl:
+        if self.auto_prefix_http and not url.lower().startswith(("http://", "https://")):
+            url = "http://" + url
+        return QUrl(url)
+
+    def _open_url(self):
+        if self._url:
+            QDesktopServices.openUrl(self._normalize_url(self._url))
+
+    def _get_font_color(self) -> str:
+        if self.isEnabled():
+            if self.isHover:
+                return theme_manager.get_current_variables("--ThemeColor_Text_Accent_Secondary")
+            elif self.isPressed:
+                return theme_manager.get_current_variables("--ThemeColor_Text_Accent_Tertiary")
+            else:
+                return theme_manager.get_current_variables("--ThemeColor_Text_Accent_Default")
+        else:
+            return theme_manager.get_current_variables("--ThemeColor_Text_Accent_Disabled")
+
+    def mouseReleaseEvent(self, event: QMouseEvent):
+        if event.button() == Qt.MouseButton.MiddleButton and self.middle_click_enabled:
+            self._open_url()
+        elif event.button() == Qt.MouseButton.LeftButton:
+            if self.ctrl_click_enabled:
+                if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+                    self._open_url()
+                return
+            else:
+                self._open_url()
+        super().mouseReleaseEvent(event)
+
+    def eventFilter(self, obj, event):
+        if obj is self and event.type() == QEvent.Type.MouseButtonRelease:
+            if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
+                return True
+        return super().eventFilter(obj, event)
