@@ -62,6 +62,7 @@ class ColorsMeta(type):
 
 
 class BaseColors(metaclass=ColorsMeta):
+    # Text type Color
     TextFillColorPrimaryBrush = ""
     TextFillColorSecondaryBrush = ""
     TextFillColorTertiaryBrush = ""
@@ -74,6 +75,7 @@ class BaseColors(metaclass=ColorsMeta):
     TextOnAccentFillColorSecondaryBrush = ""
     TextOnAccentFillColorDisabledBrush = ""
     TextOnAccentFillColorSelectedTextBrush = ""
+    # Fill type Color
     ControlFillColorDefaultBrush = ""
     ControlFillColorSecondaryBrush = ""
     ControlFillColorTertiaryBrush = ""

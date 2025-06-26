@@ -92,3 +92,6 @@ class PushButton(QPushButton):
 
 class PrimaryPushButton(PushButton):
     """PrimaryPushButton"""
+
+class TransparentPushButton(PushButton):
+    """TransparentsPushButton"""

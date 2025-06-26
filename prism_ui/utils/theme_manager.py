@@ -51,7 +51,6 @@ class ThemeManager(QObject):
             need_update = False
 
         colors = DarkThemeColors if theme == Theme.DARK else LightThemeColors
-        print(f">> ThemeManager - color = {colors}")
         variables = {
             '--ThemeColor_Text_Default':colors.TextFillColorPrimaryBrush,
             '--ThemeColor_Text_Secondary':colors.TextFillColorSecondaryBrush,
@@ -87,7 +86,7 @@ class ThemeManager(QObject):
         name = widget.objectName()
         if not name:
             return ""
-        return os.path.join(self._qss_root, self._style_name, "qss", f"{name}.qss")
+        return os.path.join(self._qss_root, "qss", f"{name}.qss")
 
     def _load_qss(self, path: str) -> str:
         if not os.path.isfile(path):
@@ -129,5 +128,5 @@ class ThemeManager(QObject):
             del self._cache[path]
         self.update_all_widgets()
 
-qss_root_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "resource", "themes")
+qss_root_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "resource")
 theme_manager = ThemeManager(qss_root=qss_root_path)

@@ -7,15 +7,18 @@ PushButton {
     padding: 5px 12px;
     outline: none;
 }
-PushButton:hover {
+PushButton:hover,
+TransparentPushButton:hover {
     background: --ThemeColor_Control_Secondary;
     color: --ThemeColor_Text_Secondary;
 }
-PushButton:pressed {
+PushButton:pressed,
+TransparentPushButton:pressed {
     background: --ThemeColor_Control_Tertiary;
     color: --ThemeColor_Text_Tertiary;
 }
-PushButton:disabled {
+PushButton:disabled,
+TransparentPushButton:disabled {
     background: --ThemeColor_Control_Disabled;
     border: 1px solid rgba(255, 255, 255, 0.05);
     color: --ThemeColor_Text_Disabled;
@@ -29,7 +32,9 @@ PushButton[hasIcon="true"] {
 
 PrimaryPushButton {
     background-color: --ThemeColor_Accent_Default;
+    border-radius: 5px;
     color: --ThemeColor_Text_On_Accent_Default;
+    padding: 5px 12px;
 }
 PrimaryPushButton:hover{
     background-color: --ThemeColor_Accent_Secondary;
@@ -42,4 +47,11 @@ PrimaryPushButton:pressed{
 PrimaryPushButton:disabled{
     background-color: --ThemeColor_Accent_Disabled;
     color: --ThemeColor_Text_On_Accent_Disabled;
+}
+
+TransparentPushButton {
+    background-color: transparent;
+    border-radius: 5px;
+    color: --ThemeColor_Text_Default;
+    padding: 5px 12px;
 }
