@@ -1,6 +1,7 @@
 import os
 import weakref
 from enum import Enum
+from typing import Optional
 from PyQt5.QtCore import QObject, pyqtSignal, QFileSystemWatcher
 from PyQt5.QtWidgets import QWidget
 
@@ -78,6 +79,30 @@ class ThemeManager(QObject):
             self._style_name = style_name
             self.style_changed.emit(style_name)
             self.update_all_widgets()
+
+    def get_current_variables(self, key: Optional[str] = None):
+        colors = DarkThemeColors if self._theme == Theme.DARK else LightThemeColors
+
+        variables = {
+            '--ThemeColor_Text_Default': colors.TextFillColorPrimaryBrush,
+            '--ThemeColor_Text_Secondary': colors.TextFillColorSecondaryBrush,
+            '--ThemeColor_Text_Tertiary': colors.TextFillColorTertiaryBrush,
+            '--ThemeColor_Text_Disabled': colors.TextFillColorDisabledBrush,
+            '--ThemeColor_Text_On_Accent_Default': colors.TextOnAccentFillColorPrimaryBrush,
+            '--ThemeColor_Text_On_Accent_Secondary': colors.TextOnAccentFillColorSecondaryBrush,
+            '--ThemeColor_Text_On_Accent_Disabled': colors.TextOnAccentFillColorDisabledBrush,
+            '--ThemeColor_Control_Default': colors.ControlFillColorDefaultBrush,
+            '--ThemeColor_Control_Secondary': colors.ControlFillColorSecondaryBrush,
+            '--ThemeColor_Control_Tertiary': colors.ControlFillColorTertiaryBrush,
+            '--ThemeColor_Control_Disabled': colors.ControlFillColorDisabledBrush,
+            '--ThemeColor_Accent_Default': colors.AccentFillColorDefaultBrush,
+            '--ThemeColor_Accent_Secondary': colors.AccentFillColorSecondaryBrush,
+            '--ThemeColor_Accent_Tertiary': colors.AccentFillColorTertiaryBrush,
+            '--ThemeColor_Accent_Disabled': colors.AccentFillColorDisabledBrush,
+        }
+        if key is None:
+            return variables
+        return variables.get(key)
 
     def current_theme(self):
         return self._theme

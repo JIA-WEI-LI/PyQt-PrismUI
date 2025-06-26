@@ -1,9 +1,10 @@
 from typing import Union, Optional, Callable
-from PyQt5.QtWidgets import QPushButton, QWidget
+from PyQt5.QtWidgets import QPushButton, QWidget, QStyleOptionButton, QStyle
 from PyQt5.QtGui import QIcon, QPainter, QPalette
 from PyQt5.QtCore import QSize, QRectF, Qt
 
 from prism_ui.common.stylesheet_enum import PrismStyleSheet
+from prism_ui.utils.theme_manager import theme_manager
 
 class PushButton(QPushButton):
     def __init__(self, *args, **kwargs):
@@ -23,9 +24,10 @@ class PushButton(QPushButton):
         super().__init__(parent)
         self.isPressed = False
         self.isHover = False
-        self.setIconSize(QSize(16, 16))
-
         self._icon_source = None
+
+        self.setProperty("class", "PushButton")
+        self.setIconSize(QSize(16, 16))
 
         if text: self.setText(text)
         if icon: self.setIcon(icon)
@@ -47,14 +49,22 @@ class PushButton(QPushButton):
         self.updateIcon()
 
     def _get_font_color(self) -> str:
-        palette = self.palette()
-        role = (
-            QPalette.ColorGroup.Disabled if not self.isEnabled()
-            else QPalette.ColorGroup.Active if self.isActiveWindow()
-            else QPalette.ColorGroup.Inactive
-        )
-        color = palette.color(role, QPalette.ColorRole.ButtonText)
-        return color.name()
+        if self.isCheckable() and self.isChecked():
+            if self.isEnabled():
+                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
+                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Tertiary")
+                else: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
+            elif not self.isEnabled():
+                color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Disabled")
+        else:
+            if self.isEnabled():
+                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
+                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
+                else: color = theme_manager.get_current_variables("--ThemeColor_Text_Default")
+            elif not self.isEnabled():
+                color = theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
+
+        return color
 
     def updateIcon(self):
         if hasattr(self, "_icon_source") and callable(self._icon_source):
@@ -124,7 +134,73 @@ class PushButton(QPushButton):
         painter.end()
 
 class PrimaryPushButton(PushButton):
-    """PrimaryPushButton"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setProperty("class", "PrimaryPushButton")
+
+    def _get_font_color(self) -> str:
+        if self.isEnabled():
+            if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Secondary")
+            elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Tertiary")
+            else: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
+        elif not self.isEnabled():
+            color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Disabled")
+
+        return color
+
+class ToggleButton(PushButton):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._text_on = None
+        self._text_off = None
+        self._icon_on = None
+        self._icon_off = None
+        
+        self._postInit()
+        self.setProperty("class", "ToggleButton")
+        
+    def _postInit(self):
+        self.setCheckable(True)
+        self.setChecked(False)
+        self.toggled.connect(self._on_toggle_state_changed)
+
+    def setToggleIcons(self, icon_on: Union[QIcon, Callable], icon_off: Union[QIcon, Callable]):
+        self._icon_on = icon_on
+        self._icon_off = icon_off
+        self._applyToggle()
+
+    def setToggleText(self, text_on: str, text_off: str):
+        self._text_on = text_on
+        self._text_off = text_off
+        self._applyToggle()
+
+    def _applyToggle(self):
+        if self._text_on and self._text_off:
+            text = self._text_on if self.isChecked() else self._text_off
+            self.setText(text)
+
+        if self._icon_on and self._icon_off:
+            icon = self._icon_on if self.isChecked() else self._icon_off
+            if callable(icon):
+                self.setIconSource(icon)
+            else:
+                self.setIcon(icon)
+
+    def _on_toggle_state_changed(self, checked: bool):
+        self._applyToggle()
+        self.updateIcon()
+
+    def setChecked(self, checked: bool):
+        super().setChecked(checked)
+        self._applyToggle()
+        self.updateIcon()
 
 class TransparentPushButton(PushButton):
-    """TransparentsPushButton"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setProperty("class", "TransparentPushButton")
+
+class TransparentToggleButton(ToggleButton):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setProperty("class", "TransparentToggleButton")

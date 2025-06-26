@@ -1,4 +1,5 @@
-PushButton {
+PushButton[class="PushButton"],
+PushButton[class="ToggleButton"] {
     background: --ThemeColor_Control_Default;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 5px;
@@ -7,51 +8,62 @@ PushButton {
     padding: 5px 12px;
     outline: none;
 }
-PushButton:hover,
-TransparentPushButton:hover {
+PushButton[class="PushButton"]:hover,
+PushButton[class="ToggleButton"]:hover,
+PushButton[class="TransparentPushButton"]:hover,
+PushButton[class="TransparentToggleButton"]:hover {
     background: --ThemeColor_Control_Secondary;
     color: --ThemeColor_Text_Secondary;
 }
-PushButton:pressed,
-TransparentPushButton:pressed {
+PushButton[class="PushButton"]:pressed,
+PushButton[class="ToggleButton"]:pressed,
+PushButton[class="TransparentPushButton"]:pressed,
+PushButton[class="TransparentToggleButton"]:pressed {
     background: --ThemeColor_Control_Tertiary;
     color: --ThemeColor_Text_Tertiary;
 }
-PushButton:disabled,
-TransparentPushButton:disabled {
+PushButton[class="PushButton"]:disabled,
+PushButton[class="ToggleButton"]:disabled,
+PushButton[class="TransparentPushButton"]:disabled,
+PushButton[class="TransparentToggleButton"]:disabled {
     background: --ThemeColor_Control_Disabled;
     border: 1px solid rgba(255, 255, 255, 0.05);
     color: --ThemeColor_Text_Disabled;
 }
-PushButton[hasIcon="false"] {
-    padding: 5px 12px 6px 12px;
-}
-PushButton[hasIcon="true"] {
-    padding: 5px 12px 6px 36px;
-}
 
-PrimaryPushButton {
+PushButton[class="PrimaryPushButton"],
+PushButton[class="ToggleButton"]:checked,
+PushButton[class="TransparentToggleButton"]:checked {
     background-color: --ThemeColor_Accent_Default;
     border-radius: 5px;
     color: --ThemeColor_Text_On_Accent_Default;
+    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
 }
-PrimaryPushButton:hover{
+PushButton[class="PrimaryPushButton"]:hover
+PushButton[class="ToggleButton"]:checked:hover,
+PushButton[class="TransparentToggleButton"]:checked:hover {
     background-color: --ThemeColor_Accent_Secondary;
     color: --ThemeColor_Text_On_Accent_Default;
 }
-PrimaryPushButton:pressed{
+PushButton[class="PrimaryPushButton"]:pressed
+PushButton[class="ToggleButton"]:checked:pressed,
+PushButton[class="TransparentToggleButton"]:checked:pressed {
     background-color: --ThemeColor_Accent_Tertiary;
     color: TextOnAccentFillColorSecondaryBrush;
 }
-PrimaryPushButton:disabled{
+PushButton[class="PrimaryPushButton"]:disabled,
+PushButton[class="ToggleButton"]:checked:disabled,
+PushButton[class="TransparentToggleButton"]:checked:disabled {
     background-color: --ThemeColor_Accent_Disabled;
     color: --ThemeColor_Text_On_Accent_Disabled;
 }
 
-TransparentPushButton {
+PushButton[class="TransparentPushButton"],
+PushButton[class="TransparentToggleButton"] {
     background-color: transparent;
     border-radius: 5px;
     color: --ThemeColor_Text_Default;
+    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
 }
