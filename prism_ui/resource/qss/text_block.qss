@@ -1,0 +1,9 @@
+QLabel[class="TextBlock"] {
+    color: --ThemeColor_Text_Default;
+    /* font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    font-size: 14px; */
+    padding: 2px;
+}
+QLabel[class="TextBlock"]:disabled {
+    color: --ThemeColor_Text_Disabled;
+}

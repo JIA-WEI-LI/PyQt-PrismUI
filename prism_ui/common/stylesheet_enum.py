@@ -6,6 +6,7 @@ class PrismStyleSheet(Enum):
     BUTTON = "button"
     CHECKBOX = "check_box"
     RADIO_BUTTON = "radio_button"
+    TEXT_BLOCK = "text_block"
     TOOL_BUTTOON = "tool_button" 
 
     def apply(self, widget):
