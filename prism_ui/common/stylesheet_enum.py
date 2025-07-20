@@ -5,6 +5,7 @@ from prism_ui.utils.theme_manager import theme_manager
 class PrismStyleSheet(Enum):
     BUTTON = "button"
     CHECKBOX = "check_box"
+    LISTVIEW = "list_view"
     RADIO_BUTTON = "radio_button"
     TEXT_BLOCK = "text_block"
     TOOL_BUTTOON = "tool_button" 

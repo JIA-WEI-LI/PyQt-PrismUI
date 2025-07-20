@@ -53,6 +53,7 @@ class ThemeManager(QObject):
 
         colors = DarkThemeColors if theme == Theme.DARK else LightThemeColors
         variables = {
+            # Text
             '--ThemeColor_Text_Default': colors.TextFillColorPrimaryBrush,
             '--ThemeColor_Text_Secondary': colors.TextFillColorSecondaryBrush,
             '--ThemeColor_Text_Tertiary': colors.TextFillColorTertiaryBrush,
@@ -66,6 +67,7 @@ class ThemeManager(QObject):
             '--ThemeColor_Text_On_Accent_Disabled': colors.TextOnAccentFillColorDisabledBrush,
             '--ThemeColor_Text_On_Accent_SelectedText': colors.TextOnAccentFillColorSelectedTextBrush,
 
+            # Fill
             '--ThemeColor_Control_Default': colors.ControlFillColorDefaultBrush,
             '--ThemeColor_Control_Secondary': colors.ControlFillColorSecondaryBrush,
             '--ThemeColor_Control_Tertiary': colors.ControlFillColorTertiaryBrush,
@@ -94,6 +96,29 @@ class ThemeManager(QObject):
             '--ThemeColor_Accent_Tertiary': colors.AccentFillColorTertiaryBrush,
             '--ThemeColor_Accent_Disabled': colors.AccentFillColorDisabledBrush,
             '--ThemeColor_Accent_SelectedTextBackground': colors.AccentFillColorSelectedTextBackgroundBrush,
+
+            # Stroke
+            '--ThemeColor_Card_Stroke_Default': colors.CardStrokeColorDefaultBrush,
+            '--ThemeColor_Card_Stroke_Solid': colors.CardStrokeColorDefaultSolidBrush,
+            '--ThemeColor_Control_ElevationBorder': colors.ControlElevationBorderBrush,
+            '--ThemeColor_Circle_ElevationBorder': colors.CircleElevationBorderBrush,
+            '--ThemeColor_TextControl_ElevationBorder': colors.TextControlElevationBorderBrush,
+            '--ThemeColor_TextControl_ElevationBorder_Focused': colors.TextControlElevationBorderFocusedBrush,
+            '--ThemeColor_AccentControl_ElevationBorder': colors.AccentControlElevationBorderBrush,
+            '--ThemeColor_Control_Stroke_Default': colors.ControlStrokeColorDefaultBrush,
+            '--ThemeColor_Control_Stroke_Secondary': colors.ControlStrokeColorSecondaryBrush,
+            '--ThemeColor_ControlOnAccent_Stroke_Default': colors.ControlStrokeColorOnAccentDefaultBrush,
+            '--ThemeColor_ControlOnAccent_Stroke_Secondary': colors.ControlStrokeColorOnAccentSecondaryBrush,
+            '--ThemeColor_ControlOnAccent_Stroke_Tertiary': colors.ControlStrokeColorOnAccentTertiaryBrush,
+            '--ThemeColor_ControlOnAccent_Stroke_Disabled': colors.ControlStrokeColorOnAccentDisabledBrush,
+            '--ThemeColor_Control_StrongFillOnImage_Stroke': colors.ControlStrokeColorForStrongFillWhenOnImageBrush,
+            '--ThemeColor_Control_Strong_Stroke_Default': colors.ControlStrongStrokeColorDefaultBrush,
+            '--ThemeColor_Control_Strong_Stroke_Disabled': colors.ControlStrongStrokeColorDisabledBrush,
+            '--ThemeColor_Surface_Stroke_Default': colors.SurfaceStrokeColorDefaultBrush,
+            '--ThemeColor_Surface_Stroke_Flyout': colors.SurfaceStrokeColorFlyoutBrush,
+            '--ThemeColor_Divider_Stroke_Default': colors.DividerStrokeColorDefaultBrush,
+            '--ThemeColor_Focus_Stroke_Outer': colors.FocusStrokeColorOuterBrush,
+            '--ThemeColor_Focus_Stroke_Inner': colors.FocusStrokeColorInnerBrush,
         }
 
         self.set_variables(variables)
@@ -111,6 +136,7 @@ class ThemeManager(QObject):
         colors = DarkThemeColors if self._theme == Theme.DARK else LightThemeColors
 
         variables = {
+            # Text
             '--ThemeColor_Text_Default': colors.TextFillColorPrimaryBrush,
             '--ThemeColor_Text_Secondary': colors.TextFillColorSecondaryBrush,
             '--ThemeColor_Text_Tertiary': colors.TextFillColorTertiaryBrush,
@@ -124,6 +150,7 @@ class ThemeManager(QObject):
             '--ThemeColor_Text_On_Accent_Disabled': colors.TextOnAccentFillColorDisabledBrush,
             '--ThemeColor_Text_On_Accent_SelectedText': colors.TextOnAccentFillColorSelectedTextBrush,
 
+            # Fill
             '--ThemeColor_Control_Default': colors.ControlFillColorDefaultBrush,
             '--ThemeColor_Control_Secondary': colors.ControlFillColorSecondaryBrush,
             '--ThemeColor_Control_Tertiary': colors.ControlFillColorTertiaryBrush,
@@ -152,6 +179,29 @@ class ThemeManager(QObject):
             '--ThemeColor_Accent_Tertiary': colors.AccentFillColorTertiaryBrush,
             '--ThemeColor_Accent_Disabled': colors.AccentFillColorDisabledBrush,
             '--ThemeColor_Accent_SelectedTextBackground': colors.AccentFillColorSelectedTextBackgroundBrush,
+
+            # Stroke
+            '--ThemeColor_Card_Stroke_Default': colors.CardStrokeColorDefaultBrush,
+            '--ThemeColor_Card_Stroke_Solid': colors.CardStrokeColorDefaultSolidBrush,
+            '--ThemeColor_Control_ElevationBorder': colors.ControlElevationBorderBrush,
+            '--ThemeColor_Circle_ElevationBorder': colors.CircleElevationBorderBrush,
+            '--ThemeColor_TextControl_ElevationBorder': colors.TextControlElevationBorderBrush,
+            '--ThemeColor_TextControl_ElevationBorder_Focused': colors.TextControlElevationBorderFocusedBrush,
+            '--ThemeColor_AccentControl_ElevationBorder': colors.AccentControlElevationBorderBrush,
+            '--ThemeColor_Control_Stroke_Default': colors.ControlStrokeColorDefaultBrush,
+            '--ThemeColor_Control_Stroke_Secondary': colors.ControlStrokeColorSecondaryBrush,
+            '--ThemeColor_ControlOnAccent_Stroke_Default': colors.ControlStrokeColorOnAccentDefaultBrush,
+            '--ThemeColor_ControlOnAccent_Stroke_Secondary': colors.ControlStrokeColorOnAccentSecondaryBrush,
+            '--ThemeColor_ControlOnAccent_Stroke_Tertiary': colors.ControlStrokeColorOnAccentTertiaryBrush,
+            '--ThemeColor_ControlOnAccent_Stroke_Disabled': colors.ControlStrokeColorOnAccentDisabledBrush,
+            '--ThemeColor_Control_StrongFillOnImage_Stroke': colors.ControlStrokeColorForStrongFillWhenOnImageBrush,
+            '--ThemeColor_Control_Strong_Stroke_Default': colors.ControlStrongStrokeColorDefaultBrush,
+            '--ThemeColor_Control_Strong_Stroke_Disabled': colors.ControlStrongStrokeColorDisabledBrush,
+            '--ThemeColor_Surface_Stroke_Default': colors.SurfaceStrokeColorDefaultBrush,
+            '--ThemeColor_Surface_Stroke_Flyout': colors.SurfaceStrokeColorFlyoutBrush,
+            '--ThemeColor_Divider_Stroke_Default': colors.DividerStrokeColorDefaultBrush,
+            '--ThemeColor_Focus_Stroke_Outer': colors.FocusStrokeColorOuterBrush,
+            '--ThemeColor_Focus_Stroke_Inner': colors.FocusStrokeColorInnerBrush,
         }
         if key is None:
             return variables

@@ -45,6 +45,28 @@ class ColorsMeta(type):
         "AccentFillColorTertiaryBrush",
         "AccentFillColorDisabledBrush",
         "AccentFillColorSelectedTextBackgroundBrush",
+        # Stroke type Color
+        "CardStrokeColorDefaultBrush",
+        "CardStrokeColorDefaultSolidBrush",
+        "ControlElevationBorderBrush",
+        "CircleElevationBorderBrush",
+        "TextControlElevationBorderBrush",
+        "TextControlElevationBorderFocusedBrush",
+        "AccentControlElevationBorderBrush",
+        "ControlStrokeColorDefaultBrush",
+        "ControlStrokeColorSecondaryBrush",
+        "ControlStrokeColorOnAccentDefaultBrush",
+        "ControlStrokeColorOnAccentSecondaryBrush",
+        "ControlStrokeColorOnAccentTertiaryBrush",
+        "ControlStrokeColorOnAccentDisabledBrush",
+        "ControlStrokeColorForStrongFillWhenOnImageBrush",
+        "ControlStrongStrokeColorDefaultBrush",
+        "ControlStrongStrokeColorDisabledBrush",
+        "SurfaceStrokeColorDefaultBrush",
+        "SurfaceStrokeColorFlyoutBrush",
+        "DividerStrokeColorDefaultBrush",
+        "FocusStrokeColorOuterBrush",
+        "FocusStrokeColorInnerBrush"
     ]
 
     def __new__(mcs, name, bases, namespace):
@@ -75,6 +97,7 @@ class BaseColors(metaclass=ColorsMeta):
     TextOnAccentFillColorSecondaryBrush = ""
     TextOnAccentFillColorDisabledBrush = ""
     TextOnAccentFillColorSelectedTextBrush = ""
+
     # Fill type Color
     ControlFillColorDefaultBrush = ""
     ControlFillColorSecondaryBrush = ""
@@ -104,3 +127,26 @@ class BaseColors(metaclass=ColorsMeta):
     AccentFillColorTertiaryBrush = ""
     AccentFillColorDisabledBrush = ""
     AccentFillColorSelectedTextBackgroundBrush = ""
+
+    # Stroke type Color
+    CardStrokeColorDefaultBrush = ""
+    CardStrokeColorDefaultSolidBrush = ""
+    ControlElevationBorderBrush = ""
+    CircleElevationBorderBrush = ""
+    TextControlElevationBorderBrush = ""
+    TextControlElevationBorderFocusedBrush = ""
+    AccentControlElevationBorderBrush = ""
+    ControlStrokeColorDefaultBrush = ""
+    ControlStrokeColorSecondaryBrush = ""
+    ControlStrokeColorOnAccentDefaultBrush = ""
+    ControlStrokeColorOnAccentSecondaryBrush = ""
+    ControlStrokeColorOnAccentTertiaryBrush = ""
+    ControlStrokeColorOnAccentDisabledBrush = ""
+    ControlStrokeColorForStrongFillWhenOnImageBrush = ""
+    ControlStrongStrokeColorDefaultBrush = ""
+    ControlStrongStrokeColorDisabledBrush = ""
+    SurfaceStrokeColorDefaultBrush = ""
+    SurfaceStrokeColorFlyoutBrush = ""
+    DividerStrokeColorDefaultBrush = ""
+    FocusStrokeColorOuterBrush = ""
+    FocusStrokeColorInnerBrush = ""

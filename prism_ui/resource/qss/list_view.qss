@@ -1,0 +1,21 @@
+ListView[class=ListView]{
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    color: --ThemeColor_Text_Default;
+    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    padding: 5px 12px;
+    padding-left: 24px;
+    outline: none;
+}
+ListView[class=ListView]:hover {
+    background: transparent;
+}
+ListView[class=ListView]:pressed {
+    background: transparent;
+}
+ListView[class=ListView]:disabled {
+    background: transparent;
+    border: none;
+    color: --ThemeColor_Text_Disabled;
+}

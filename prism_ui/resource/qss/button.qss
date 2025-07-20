@@ -1,6 +1,5 @@
 PushButton[class="PushButton"],
-PushButton[class="ToggleButton"],
-ToolButton[class="ToolButton"] {
+PushButton[class="ToggleButton"] {
     background: --ThemeColor_Control_Default;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 5px;
@@ -11,7 +10,6 @@ ToolButton[class="ToolButton"] {
 }
 PushButton[class="PushButton"]:hover,
 PushButton[class="ToggleButton"]:hover,
-ToolButton[class="ToolButton"]:hover,
 PushButton[class="TransparentPushButton"]:hover,
 PushButton[class="TransparentToggleButton"]:hover {
     background: --ThemeColor_Control_Secondary;
@@ -19,7 +17,6 @@ PushButton[class="TransparentToggleButton"]:hover {
 }
 PushButton[class="PushButton"]:pressed,
 PushButton[class="ToggleButton"]:pressed,
-ToolButton[class="ToolButton"]:pressed,
 PushButton[class="TransparentPushButton"]:pressed,
 PushButton[class="TransparentToggleButton"]:pressed {
     background: --ThemeColor_Control_Tertiary;
@@ -27,7 +24,6 @@ PushButton[class="TransparentToggleButton"]:pressed {
 }
 PushButton[class="PushButton"]:disabled,
 PushButton[class="ToggleButton"]:disabled,
-ToolButton[class="ToolButton"]:disabled,
 PushButton[class="TransparentPushButton"]:disabled,
 PushButton[class="TransparentToggleButton"]:disabled {
     background: --ThemeColor_Control_Disabled;
