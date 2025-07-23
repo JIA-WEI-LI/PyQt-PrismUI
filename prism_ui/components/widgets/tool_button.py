@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import QWidget, QToolButton
 from PyQt5.QtGui import QIcon, QPainter
 from PyQt5.QtCore import QSize, QRectF, Qt
 
-from prism_ui.common.stylesheet_enum import PrismStyleSheet
-from prism_ui.utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet
+from ...utils.theme_manager import theme_manager
 
 class ToolButton(QToolButton):
     def __init__(self, *args, **kwargs):

@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import QWidget, QRadioButton
 from PyQt5.QtGui import QIcon, QPainter, QColor
 from PyQt5.QtCore import QSize, QRectF, Qt
 
-from prism_ui.common.stylesheet_enum import PrismStyleSheet
-from prism_ui.utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet
+from ...utils.theme_manager import theme_manager
 
 class RadioButton(QRadioButton):
     def __init__(self, *args, **kwargs):

@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import QPushButton, QWidget, QToolButton
 from PyQt5.QtGui import QIcon, QPainter, QCursor, QDesktopServices, QMouseEvent
 from PyQt5.QtCore import QSize, QRectF, Qt, QUrl, QEvent, QTimer
 
-from prism_ui.common.stylesheet_enum import PrismStyleSheet
-from prism_ui.utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet
+from ...utils.theme_manager import theme_manager
 
 class PushButton(QPushButton):
     def __init__(self, *args, **kwargs):

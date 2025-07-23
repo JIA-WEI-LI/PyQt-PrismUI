@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import QLabel, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QCursor
 
-from prism_ui.common.stylesheet_enum import PrismStyleSheet
-from prism_ui.utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet
+from ...utils.theme_manager import theme_manager
 
 class TextBlock(QLabel):
     def __init__(self, *text: str, **kwargs):

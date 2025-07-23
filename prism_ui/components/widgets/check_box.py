@@ -3,9 +3,9 @@ from PyQt5.QtWidgets import QCheckBox, QWidget, QStyleOptionButton, QStyle
 from PyQt5.QtGui import QIcon, QPainter, QColor, QPen
 from PyQt5.QtCore import QSize, Qt, QRect
 
-from prism_ui.common.stylesheet_enum import PrismStyleSheet
-from prism_ui.common.blender_icon import BlenderIcon
-from prism_ui.utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet
+from ...common.blender_icon import BlenderIcon
+from ...utils.theme_manager import theme_manager
 
 class CheckBox(QCheckBox):
     def __init__(self, *args, **kwargs):

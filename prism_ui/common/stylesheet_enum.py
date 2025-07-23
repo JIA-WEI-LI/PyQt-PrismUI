@@ -1,6 +1,6 @@
 import os
 from enum import Enum
-from prism_ui.utils.theme_manager import theme_manager
+from ..utils.theme_manager import theme_manager
 
 class PrismStyleSheet(Enum):
     BUTTON = "button"

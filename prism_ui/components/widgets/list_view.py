@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QScrollArea, QLabel, QHBoxLayout
 from PyQt5.QtCore import Qt, pyqtSignal, QSize, QEvent
 
-from prism_ui.common.stylesheet_enum import PrismStyleSheet
-from prism_ui.utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet
+from ...utils.theme_manager import theme_manager
 
 class ListView(QWidget):
     def __init__(self, parent=None):
