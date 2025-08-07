@@ -68,7 +68,6 @@ class PushButton(QPushButton):
             except Exception as e:
                 print(f"[PushButton] Failed to update icon: {e}")
 
-# region Event
     def mousePressEvent(self, event):
         self.isPressed = True
         super().mousePressEvent(event)
@@ -86,7 +85,6 @@ class PushButton(QPushButton):
         self.isHover = False
         self.update()
         super().leaveEvent(event)
-# endregion
 
     def showEvent(self, e):
         super().showEvent(e)

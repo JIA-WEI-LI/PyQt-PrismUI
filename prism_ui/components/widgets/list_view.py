@@ -10,12 +10,12 @@ class ListView(QWidget):
 
         self.scroll = QScrollArea(self)
         self.scroll.setWidgetResizable(True)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
         self.container = QWidget()
-        self.layout = QVBoxLayout(self.container)
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.layout.setSpacing(0)
+        self.VLayout = QVBoxLayout(self.container)
+        self.VLayout.setContentsMargins(0, 0, 0, 0)
+        self.VLayout.setSpacing(0)
 
         self.scroll.setWidget(self.container)
 
@@ -28,7 +28,7 @@ class ListView(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_MacShowFocusRect, False)
 
     def addItem(self, item: QWidget):
-        self.layout.addWidget(item)
+        self.VLayout.addWidget(item)
 
 
 class ListItem(QWidget):
@@ -40,7 +40,7 @@ class ListItem(QWidget):
         self._is_selected = False
 
         self.label = QLabel(text)
-        self.label.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
         self.label.setStyleSheet(f"""
             color: {theme_manager.get_current_variables("--ThemeColor_Text_Primary")};
             padding: 6px 12px;
@@ -75,15 +75,15 @@ class ListItem(QWidget):
         self.setStyleSheet(f"background-color: {color}; border-radius: 4px;")
 
     def eventFilter(self, obj, event):
-        if event.type() == QEvent.Enter:
+        if event.type() == QEvent.Type.Enter:
             self._is_hover = True
             self.updateStyle()
-        elif event.type() == QEvent.Leave:
+        elif event.type() == QEvent.Type.Leave:
             self._is_hover = False
             self.updateStyle()
         return super().eventFilter(obj, event)
 
     def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.MouseButton.LeftButton:
             self.clicked.emit()
             self.setSelected(True)

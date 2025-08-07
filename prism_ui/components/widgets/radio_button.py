@@ -70,7 +70,6 @@ class RadioButton(QRadioButton):
             except Exception as e:
                 print(f"[RadioButton] Failed to update icon: {e}")
 
-    # region Events
     def mousePressEvent(self, event):
         self.isPressed = True
         super().mousePressEvent(event)

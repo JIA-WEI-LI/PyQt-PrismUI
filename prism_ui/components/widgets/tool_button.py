@@ -74,7 +74,6 @@ class ToolButton(QToolButton):
             except Exception as e:
                 print(f"[ToolButton] Failed to update icon: {e}")
 
-    # region Events
     def mousePressEvent(self, event):
         self.isPressed = True
         super().mousePressEvent(event)
@@ -92,7 +91,6 @@ class ToolButton(QToolButton):
         self.isHover = False
         self.update()
         super().leaveEvent(event)
-    # endregion
 
     def showEvent(self, event):
         super().showEvent(event)
