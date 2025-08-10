@@ -3,11 +3,12 @@ from PyQt5.QtWidgets import QCheckBox, QWidget, QStyleOptionButton, QStyle
 from PyQt5.QtGui import QIcon, QPainter, QColor, QPen
 from PyQt5.QtCore import QSize, Qt, QRect
 
+from .tool_tip import ToolTipMixin
 from ...common.stylesheet_enum import PrismStyleSheet
 from ...common.blender_icon import BlenderIcon
 from ...utils.theme_manager import theme_manager
 
-class CheckBox(QCheckBox):
+class CheckBox(QCheckBox, ToolTipMixin):
     def __init__(self, *args, **kwargs):
         text = None
         icon = None

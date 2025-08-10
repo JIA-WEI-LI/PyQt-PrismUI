@@ -26,7 +26,7 @@ class PushButton(QPushButton, ToolTipMixin):
         self.isPressed = False
         self.isHover = False
         self._icon_source = None
-        self._tooltip = None
+        self.tooltip = None
         self._tooltip_pos = None
 
         self.setProperty("class", "PushButton")

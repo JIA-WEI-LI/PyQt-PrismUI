@@ -3,10 +3,11 @@ from PyQt5.QtWidgets import QWidget, QToolButton
 from PyQt5.QtGui import QIcon, QPainter
 from PyQt5.QtCore import QSize, QRectF, Qt
 
+from .tool_tip import ToolTipMixin
 from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
-class ToolButton(QToolButton):
+class ToolButton(QToolButton, ToolTipMixin):
     def __init__(self, *args, **kwargs):
         icon = None
         parent = None

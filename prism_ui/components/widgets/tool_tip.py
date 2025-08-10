@@ -21,7 +21,6 @@ class ToolTipMixin:
             self.init_tooltip()
         else:
             self.tooltip.setText(text)
-            # self.init_tooltip()
 
     def setTooltipWithTitle(self, title: str, text: str):
         if not hasattr(self, "tooltip") or self.tooltip is None:
@@ -30,7 +29,6 @@ class ToolTipMixin:
         else:
             self.tooltip.setTitle(title)
             self.tooltip.setContent(text)
-            # self.init_tooltip()
 
     def setToolTipDelay(self, delay_ms: int):
         self._tooltip_delay = delay_ms
@@ -41,7 +39,7 @@ class ToolTipMixin:
                 self._tooltip_timer.start(self._tooltip_delay)
             elif event.type() == QEvent.Leave:
                 self._tooltip_timer.stop()
-                if hasattr(self, "_tooltip") and self.tooltip:
+                if hasattr(self, "tooltip") and self.tooltip:
                     self.tooltip.hide()
 
         parent_event_filter = getattr(super(), "eventFilter", None)
@@ -50,7 +48,7 @@ class ToolTipMixin:
         return False
 
     def _show_tooltip(self):
-        if hasattr(self, "_tooltip") and self.tooltip:
+        if hasattr(self, "tooltip") and self.tooltip:
             self.tooltip.adjustPos(self)
             self.tooltip.show()
 
@@ -64,18 +62,21 @@ class ToolTip(QFrame):
         self._verticalOffset = 0
         self._horizontalOffset = 0
 
-        self.useMousePosAsOrigin = False
+        self.useMousePosAsOrigin = True
+
+        self.setProperty("class", "ToolTip")
 
         self.container = self._createContainer()
         self.timer = QTimer(self)
 
         self.setLayout(QHBoxLayout())
         self.containerLayout = QHBoxLayout(self.container)
-        self.label = QLabel(text, self)
+        self.textLabel = QLabel(text, self)
+        self.textLabel.setObjectName("textLabel")
 
         self.layout().setContentsMargins(12, 8, 12, 12)
         self.layout().addWidget(self.container)
-        self.containerLayout.addWidget(self.label)
+        self.containerLayout.addWidget(self.textLabel)
         self.containerLayout.setContentsMargins(8, 6, 8, 6)
 
         self.opacityAni = QPropertyAnimation(self, b'windowOpacity', self)
@@ -112,11 +113,11 @@ class ToolTip(QFrame):
 
     def setText(self, text: str):
         self._text = text
-        self.label.setText(text)
+        self.textLabel.setText(text)
         self.container.adjustSize()
         self.adjustSize()
 
-    def setPlacementRect(self, rect: QRect):
+    def setPlacementRect(self, rect: Union[QRect, ]):
         self._placementRect = rect
 
     def setVerticalOffset(self, offset: int):
@@ -161,7 +162,7 @@ class ToolTip(QFrame):
                 placementRect = self._placementRect
             
             pos = QPoint(
-                placementRect.right() + self._horizontalOffset,
+                placementRect.left() + (placementRect.width() - tooltip_size.width()) // 2 + self._horizontalOffset,
                 placementRect.top() + (placementRect.height() - tooltip_size.height()) // 2 + self._verticalOffset
             )
 
@@ -171,12 +172,13 @@ class TooltipWithTitle(ToolTip):
     def __init__(self, title="", text="", parent=None):
         super().__init__(text="", parent=parent)
 
-        self.containerLayout.removeWidget(self.label)
-        self.label.deleteLater()
+        self.containerLayout.removeWidget(self.textLabel)
+        self.textLabel.deleteLater()
 
         self.titleLabel = QLabel(title, self)
         self.titleLabel.setObjectName("titleLabel")
         self.textLabel = QLabel(text, self)
+        self.textLabel.setObjectName("textLabel")
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.titleLabel)

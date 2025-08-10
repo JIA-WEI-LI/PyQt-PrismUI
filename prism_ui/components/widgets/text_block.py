@@ -3,10 +3,11 @@ from PyQt5.QtWidgets import QLabel, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QCursor
 
+from .tool_tip import ToolTipMixin
 from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
-class TextBlock(QLabel):
+class TextBlock(QLabel, ToolTipMixin):
     def __init__(self, *text: str, **kwargs):
         full_text = " ".join(text)
 

@@ -3,10 +3,11 @@ from PyQt5.QtWidgets import QWidget, QRadioButton
 from PyQt5.QtGui import QIcon, QPainter, QColor
 from PyQt5.QtCore import QSize, QRectF, Qt
 
+from .tool_tip import ToolTipMixin
 from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
-class RadioButton(QRadioButton):
+class RadioButton(QRadioButton, ToolTipMixin):
     def __init__(self, *args, **kwargs):
         icon = None
         parent = None
