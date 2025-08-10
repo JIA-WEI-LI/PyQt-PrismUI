@@ -33,7 +33,7 @@ class RadioButton(QRadioButton):
         if icon: self.setIcon(icon)
         else: self.setIcon(QIcon())
 
-        PrismStyleSheet.RADIO_BUTTON.apply(self)
+        PrismStyleSheet.RADIOBUTTON.apply(self)
         self.setAttribute(Qt.WidgetAttribute.WA_MacShowFocusRect, False)    # macOS
 
     def setIcon(self, icon: Union[QIcon, Callable]):

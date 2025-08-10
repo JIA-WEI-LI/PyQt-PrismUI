@@ -39,7 +39,7 @@ class ToolButton(QToolButton):
         else:
             self.setIcon(QIcon())
 
-        PrismStyleSheet.TOOL_BUTTOON.apply(self)
+        PrismStyleSheet.TOOLBUTTOON.apply(self)
 
     def setIcon(self, icon: Union[QIcon, Callable]):
         if callable(icon):

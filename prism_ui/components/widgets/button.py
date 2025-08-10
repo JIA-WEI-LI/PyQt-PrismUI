@@ -3,10 +3,11 @@ from PyQt5.QtWidgets import QPushButton, QWidget, QToolButton
 from PyQt5.QtGui import QIcon, QPainter, QCursor, QDesktopServices, QMouseEvent
 from PyQt5.QtCore import QSize, QRectF, Qt, QUrl, QEvent, QTimer
 
+from .tool_tip import ToolTipMixin
 from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
-class PushButton(QPushButton):
+class PushButton(QPushButton, ToolTipMixin):
     def __init__(self, *args, **kwargs):
         text = None
         icon = None
@@ -25,6 +26,8 @@ class PushButton(QPushButton):
         self.isPressed = False
         self.isHover = False
         self._icon_source = None
+        self._tooltip = None
+        self._tooltip_pos = None
 
         self.setProperty("class", "PushButton")
         self.setIconSize(QSize(16, 16))

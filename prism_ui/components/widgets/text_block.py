@@ -25,7 +25,7 @@ class TextBlock(QLabel):
         self.setWordWrap(True)
         self.setAlignment(alignment)
 
-        PrismStyleSheet.TEXT_BLOCK.apply(self)
+        PrismStyleSheet.TEXTBLOCK.apply(self)
 
         font = self.font()
         if font_family:
