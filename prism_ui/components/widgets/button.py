@@ -26,8 +26,6 @@ class PushButton(QPushButton, ToolTipMixin):
         self.isPressed = False
         self.isHover = False
         self._icon_source = None
-        self.tooltip = None
-        self._tooltip_pos = None
 
         self.setProperty("class", "PushButton")
         self.setIconSize(QSize(16, 16))

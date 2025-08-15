@@ -2,7 +2,10 @@ PushButton[class="PushButton"],
 PushButton[class="ToggleButton"] {
     background: --ThemeColor_Control_Default;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     color: --ThemeColor_Text_Default;
     font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
@@ -87,4 +90,68 @@ PushButton[class="HyperlinkButton"]:pressed {
 PushButton[class="HyperlinkButton"]:disabled {
     background-color: transparent;
     color: --ThemeColor_Text_Accent_Disabled;
+}
+
+PushButton[position="bottom-left"],
+PushButton[position="bottom-left"]:checked {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+PushButton[position="bottom-right"],
+PushButton[position="bottom-right"]:checked {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+PushButton[position="top-left"],
+PushButton[position="top-left"]:checked {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0px;
+}
+PushButton[position="top-right"],
+PushButton[position="top-right"]:checked {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 5px;
+}
+PushButton[position="left"],
+PushButton[position="left"]:checked {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0px;
+}
+PushButton[position="right"],
+PushButton[position="right"]:checked {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 5px;
+}
+PushButton[position="top"],
+PushButton[position="top"]:checked {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+PushButton[position="bottom"],
+PushButton[position="bottom"]:checked {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+PushButton[position="center"],
+PushButton[position="center"]:checked {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
 }

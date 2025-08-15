@@ -1,4 +1,5 @@
 from .button import *
+from .button_group import *
 from .check_box import *
 from .list_view import *
 from .radio_button import *
@@ -7,6 +8,7 @@ from .tool_button import *
 from .tool_tip import *
 
 __all__ = [
+    "BaseButtonGroup",
     "CheckBox",
     "HyperlinkButton",
     "ListItem",
@@ -14,8 +16,10 @@ __all__ = [
     "PrimaryPushButton", 
     "PrimaryToolButton", 
     "PushButton",
+    "PushButtonGroup",
     "RadioButton",
     "RepeatButton",
+    "SegmentedButtonGroup",
     "TextBlock",
     "ToggleButton",
     "ToggleToolButton",
