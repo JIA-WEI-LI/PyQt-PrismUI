@@ -73,11 +73,8 @@ class BaseButtonGroup(QWidget):
                 for c, text in enumerate(row):
                     btn_id = flat_idx if self.useFlatId else (r, c)
                     button: PushButton = self._createButton(text, btn_id)
-                    print(f" [button_group.py] BaseButtonGroup._setupLayout(): -> self._createButton({text}, {btn_id})")
                     corner = self._cornerRadiusForIndex(flat_idx, total)
-                    print(f" [button_group.py] BaseButtonGroup._setupLayout(): -> {corner} = self._cornerRadiusForIndex({flat_idx}, {total})")
                     button.setProperty("position", corner)
-                    print(f" [button_group.py] BaseButtonGroup._setupLayout(): -> {[bytes(name).decode() for name in button.dynamicPropertyNames()]}")
                     layout.addWidget(button, r, c)
                     flat_idx += 1
         else:
@@ -87,11 +84,8 @@ class BaseButtonGroup(QWidget):
             total = len(self._flatLabels)
             for idx, text in enumerate(self._flatLabels):
                 button: PushButton = self._createButton(text, idx)
-                print(f" [button_group.py] BaseButtonGroup._setupLayout(): -> self._createButton({text}, {idx})")
                 corner = self._cornerRadiusForIndex(idx, total)
-                print(f" [button_group.py] BaseButtonGroup._setupLayout(): -> {corner} = self._cornerRadiusForIndex({idx}, {total})")
                 button.setProperty("position", corner)
-                print(f" [button_group.py] BaseButtonGroup._setupLayout(): -> {[bytes(name).decode() for name in button.dynamicPropertyNames()]}")
                 layout.addWidget(button)
         return layout
     
@@ -187,12 +181,14 @@ class PushButtonGroup(BaseButtonGroup):
         labels: List[Union[str, List[str]]],
         parent: Optional[QWidget] = None,
         useFlatId: bool = False,
+        **kwargs,
     ):
         super().__init__(
             labels=labels,
             parent=parent,
             buttonClass=PushButton,
             useFlatId=useFlatId,
+            **kwargs,
         )
 
 class SegmentedButtonGroup(BaseButtonGroup):
@@ -201,24 +197,19 @@ class SegmentedButtonGroup(BaseButtonGroup):
         labels: List[Union[str, List[str]]],
         parent=None,
         useFlatId: bool = False,
-        defaultCheckedId: Optional[Union[int, tuple]] = None,
         **kwargs,
     ):
         super().__init__(
             labels=labels,
             parent=parent,
-            buttonClass=Union[SegmentedButton],
+            buttonClass=SegmentedButton,
             useFlatId=useFlatId,
             **kwargs,
         )
+        self._currentCheckedId = 0 if useFlatId else (0, 0)
+        self.setDefaultCheckedId(self._currentCheckedId)
 
-        if defaultCheckedId is None:
-            defaultCheckedId = 0 if useFlatId else (0, 0)
-
-        self._currentCheckedId = defaultCheckedId
-        self._setChecked(defaultCheckedId, True)
-
-        self.buttonClicked.connect(self._on_button_clicked)
+        self.buttonClicked.connect(self._setButtonClicked)
 
     def _setChecked(self, btn_id: Union[int, tuple], checked: bool):
         btn = self.button(btn_id)
@@ -228,6 +219,9 @@ class SegmentedButtonGroup(BaseButtonGroup):
     def checkedButtonId(self):
         return self._currentCheckedId
     
+    def setDefaultCheckedId(self, checkedId: Union[int, Tuple[int, int]]):
+        self._setButtonClicked(checkedId)
+    
     def setDefaultDisabledIds(self, disabledIds: Union[int, Tuple[int, int], List[int], List[Tuple[int, int]]]):
         if not isinstance(disabledIds, list):
             disabledIds = [disabledIds]
@@ -236,7 +230,7 @@ class SegmentedButtonGroup(BaseButtonGroup):
             self.disableButton(btn_id)
 
     @pyqtSlot(object)
-    def _on_button_clicked(self, btn_id):
+    def _setButtonClicked(self, btn_id):
         if btn_id == self._currentCheckedId:
             self._setChecked(btn_id, True)
             return
@@ -246,3 +240,96 @@ class SegmentedButtonGroup(BaseButtonGroup):
 
         self._setChecked(btn_id, True)
         self._currentCheckedId = btn_id
+
+class ToggleButtonGroup(BaseButtonGroup):
+    def __init__(
+        self,
+        labels: List[Union[str, List[str]]],
+        parent: Optional[QWidget] = None,
+        useFlatId: bool = False,
+        **kwargs
+    ):
+        super().__init__(
+            labels=labels,
+            parent=parent,
+            buttonClass=ToggleButton,
+            useFlatId=useFlatId,
+            **kwargs
+        )
+
+        self._initiallyDisabledIds = {
+            btn_id for btn_id, btn in self._idButtonMap.items() if not btn.isEnabled()
+        }
+
+        self.setMinChecked()
+        self.setMaxChecked()
+
+        for btn in self.buttons():
+            btn.toggled.connect(self._updateButtonsEnableState)
+
+        self._updateButtonsEnableState()
+
+    def _strictChecked(self, checked_list: List):
+        count = len(checked_list)
+        if self._maxChecked is not None and count > self._maxChecked:
+            raise ValueError(f"defaultCheckedIds length {count} exceeds maxChecked {self._maxChecked}")
+        if count < self._minChecked:
+            raise ValueError(f"defaultCheckedIds length {count} is less than minChecked {self._minChecked}")
+
+    def _updateButtonsEnableState(self):
+        checked_count = sum(btn.isChecked() for btn in self.buttons())
+        max_reached = self._maxChecked is not None and checked_count >= self._maxChecked
+
+        for btn_id, btn in self._idButtonMap.items():
+            if btn_id in self._initiallyDisabledIds:
+                continue
+
+            if max_reached:
+                if not btn.isChecked():
+                    btn.setEnabled(False)
+            else:
+                if not btn.isEnabled():
+                    btn.setEnabled(True)
+
+    def setDefaultCheckedIds(self, defaultCheckedIds: Union[int, Tuple[int, int], List[int], List[Tuple[int, int]]]):
+        if isinstance(defaultCheckedIds, (int, tuple)):
+            ids = [defaultCheckedIds]
+        else:
+            ids = list(defaultCheckedIds)
+
+        for btn in self.buttons():
+            btn.setChecked(False)
+
+        for btn_id in ids:
+            btn = self.button(btn_id)
+            if btn:
+                btn.setChecked(True)
+
+        self._defaultCheckedIds = ids
+        self._strictChecked(self._defaultCheckedIds)
+        self._updateButtonsEnableState()
+
+    def setDefaultDisabledIds(self, disabledIds: Union[int, Tuple[int, int], List[int], List[Tuple[int, int]]]):
+        if isinstance(disabledIds, (int, tuple)):
+            ids = {disabledIds}
+        else:
+            ids = set(disabledIds)
+
+        for btn_id, btn in self._idButtonMap.items():
+            if btn_id not in self._initiallyDisabledIds:
+                btn.setEnabled(True)
+
+        for btn_id in ids:
+            btn = self.button(btn_id)
+            if btn:
+                btn.setEnabled(False)
+
+        self._initiallyDisabledIds.update(ids)
+        self._updateButtonsEnableState()
+
+    def setMinChecked(self, count: int = 0):
+        self._minChecked = max(0, count)
+
+    def setMaxChecked(self, count: Optional[int] = None):
+        self._maxChecked = count if count is None or count >= 0 else 0
+        self._updateButtonsEnableState()

@@ -23,6 +23,7 @@ __all__ = [
     "SegmentedButtonGroup",
     "TextBlock",
     "ToggleButton",
+    "ToggleButtonGroup",
     "ToggleToolButton",
     "ToolButton",
     "ToolTip",
