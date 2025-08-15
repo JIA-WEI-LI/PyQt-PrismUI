@@ -163,6 +163,11 @@ class ToggleButton(PushButton):
         self._text_off = text_off
         self._applyToggle()
 
+    def setChecked(self, checked: bool):
+        super().setChecked(checked)
+        self._applyToggle()
+        self.updateIcon()
+
     def _get_icon_color(self) -> str:
         if self.isChecked():
             if self.isEnabled():
@@ -193,11 +198,6 @@ class ToggleButton(PushButton):
                 self.setIcon(icon)
 
     def _on_toggle_state_changed(self, checked: bool):
-        self._applyToggle()
-        self.updateIcon()
-
-    def setChecked(self, checked: bool):
-        super().setChecked(checked)
         self._applyToggle()
         self.updateIcon()
 
@@ -310,3 +310,8 @@ class RepeatButton(PushButton):
 
     def repeatInterval(self) -> int:
         return self._repeat_interval
+    
+class SegmentedButton(ToggleButton):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setProperty("class", "SegmentedButton")

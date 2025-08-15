@@ -3,9 +3,8 @@ from functools import partial
 from PyQt5.QtWidgets import QWidget, QPushButton, QGridLayout, QHBoxLayout
 from PyQt5.QtCore import pyqtSignal, pyqtSlot
 
-from .button import PushButton, ToggleButton
+from .button import PushButton, ToggleButton, SegmentedButton
 
-# TODO: 按鈕QSS在位置上仍未實際套用(如：左側按鈕右邊仍有圓角)
 class BaseButtonGroup(QWidget):
 
     buttonClicked = pyqtSignal(object)
@@ -208,7 +207,7 @@ class SegmentedButtonGroup(BaseButtonGroup):
         super().__init__(
             labels=labels,
             parent=parent,
-            buttonClass=ToggleButton,
+            buttonClass=Union[SegmentedButton],
             useFlatId=useFlatId,
             **kwargs,
         )
