@@ -5,7 +5,7 @@ from PyQt5.QtCore import QSize, Qt, QRect
 
 from .tool_tip import ToolTipMixin
 from ...common.stylesheet_enum import PrismStyleSheet
-from ...common.blender_icon import BlenderIcon
+from ...icon_manager.blender_icon import BlenderIcon
 from ...utils.theme_manager import theme_manager
 
 class CheckBox(QCheckBox, ToolTipMixin):

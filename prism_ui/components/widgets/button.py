@@ -1,5 +1,4 @@
-from typing import Union, Callable, Optional
-from functools import singledispatchmethod
+from typing import Union, Callable
 from PyQt5.QtWidgets import QPushButton, QWidget, QToolButton
 from PyQt5.QtGui import QIcon, QPainter, QCursor, QDesktopServices, QMouseEvent
 from PyQt5.QtCore import QSize, QRectF, Qt, QUrl, QEvent, QTimer
@@ -9,74 +8,67 @@ from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
 class PushButton(QPushButton, ToolTipMixin):
+    def __init__(self, *args, **kwargs):
+        text = None
+        icon = None
+        parent = None
 
-    @singledispatchmethod
-    def __init__(self, parent: Optional[QWidget] = None):
+        for arg in args:
+            if isinstance(arg, str) and text is None: text = arg
+            elif isinstance(arg, (QIcon, str)) and icon is None: icon = arg
+            elif isinstance(arg, QWidget) and parent is None: parent = arg
+
+        parent = kwargs.get("parent", parent)
+        text = kwargs.get("text", text)
+        icon = kwargs.get("icon", icon)
+
         super().__init__(parent)
-        self._init_base()
-
-    @__init__.register
-    def _(self, text: str, parent: Optional[QWidget] = None, icon: Union[QIcon, str, Callable, None] = None):
-        self._init_base()
-        self.setText(text)
-        if icon:
-            self.setIcon(icon)
-
-    @__init__.register
-    def _(self, icon: QIcon, text: str, parent: Optional[QWidget] = None):
-        self.__init__(text, parent, icon)
-
-    def _init_base(self):
         self.isPressed = False
         self.isHover = False
-        self._icon_source: Optional[Callable] = None
-        self._icon_cache: Optional[Callable] = None
-        self._last_color: Optional[str] = None
+        self._icon_source = None
 
         self.setProperty("class", "PushButton")
         self.setIconSize(QSize(16, 16))
-        self.setIcon(QIcon())
 
+        if text: self.setText(text)
+        if icon: self.setIcon(icon)
+        else: self.setIcon(QIcon())
+
+        # self._icon = self.icon()
         PrismStyleSheet.BUTTON.apply(self)
 
-#region Icon Setting
-    def setIcon(self, icon: Union[QIcon, Callable, None]):
+    def setIcon(self, icon: Union[QIcon, Callable]):
         if callable(icon):
             self.setIconSource(icon)
         else:
-            super().setIcon(icon or QIcon())
+            super().setIcon(icon)
             self._icon_source = None
-            self._icon_cache = icon or QIcon()
+            self._icon = icon
 
-    def setIconSource(self, icon_accessor: Callable):
+    def setIconSource(self, icon_accessor):
         self._icon_source = icon_accessor
-        self.updateIcon(force=True)
+        self.updateIcon()
 
     def _get_icon_color(self) -> str:
         if self.isEnabled():
-            if self.isHover: return theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
-            elif self.isPressed: return theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
-            else: return theme_manager.get_current_variables("--ThemeColor_Text_Default")
-        else:
-            return theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
+            if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
+            elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
+            else: color = theme_manager.get_current_variables("--ThemeColor_Text_Default")
+        elif not self.isEnabled():
+            color = theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
+        return color
 
-    def updateIcon(self, force:bool = False):
-        if not self._icon_source:
-            return
-        color = self._get_icon_color()
-        if not force and self._last_color == color:
-            return
-        self._last_color = color
-        try:
-            icon = self._icon_source(color)
-            if icon:
-                super().setIcon(icon)
-                self._icon_cache = icon
-        except Exception as e:
-            print(f"[PushButton] Failed to update icon: {e}")
-#endregion
+    def updateIcon(self):
+        if hasattr(self, "_icon_source") and callable(self._icon_source):
+            try:
+                color = self._get_icon_color()
+                icon = self._icon_source(color)
+                if icon:
+                    super().setIcon(icon)
+                    self._icon = icon
+            except Exception as e:
+                print(f"[PushButton] Failed to update icon: {e}")
 
-#region Events
     def mousePressEvent(self, event):
         self.isPressed = True
         super().mousePressEvent(event)
@@ -97,20 +89,17 @@ class PushButton(QPushButton, ToolTipMixin):
 
     def showEvent(self, e):
         super().showEvent(e)
-        self.updateIcon(force=True)
-#endregion
+        self.updateIcon()
 
-#region Painting Event
-    def paintEvent(self, event):
-        super().paintEvent(event)
+    def paintEvent(self, e):
+        super().paintEvent(e)
 
-        if not self.icon() or  self._icon_cache.isNull():
+        if self._icon.isNull():
             return
 
         painter = QPainter(self)
-        painter.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.SmoothPixmapTransform)
+        painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform)
 
-        # opacity
         if not self.isEnabled():
             painter.setOpacity(0.36)
         elif self.isPressed:
@@ -130,10 +119,9 @@ class PushButton(QPushButton, ToolTipMixin):
             x = self.width() - x - w
 
         rect = QRectF(x, y, w, h)
-        self._icon_cache.paint(painter, rect.toRect())
+        self._icon.paint(painter, rect.toRect())
 
         painter.end()
-#endregion
 
 class PrimaryPushButton(PushButton):
     def __init__(self, *args, **kwargs):
