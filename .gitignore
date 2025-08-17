@@ -22,3 +22,7 @@ test/
 
 # Log
 logs/
+
+# docs
+docs/
+build/

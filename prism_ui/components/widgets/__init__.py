@@ -13,7 +13,7 @@ __all__ = [
     "HyperlinkButton",
     "ListItem",
     "ListView",
-    "PrimaryPushButton", 
+    "PrimaryButton", 
     "PrimaryToolButton", 
     "PushButton",
     "PushButtonGroup",
