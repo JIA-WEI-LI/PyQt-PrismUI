@@ -3,7 +3,7 @@ RadioButton[class=RadioButton]{
     border: none;
     border-radius: 5px;
     color: --ThemeColor_Text_Default;
-    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    font: 18px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
     padding-left: 24px;
     outline: none;
