@@ -3,12 +3,12 @@ logger = logging.getLogger(__name__)
 
 class ColorsMeta(type):
     required_attrs = [
-        # Text type Color
+        # Text Colors
         "TextFillColorPrimaryBrush",
         "TextFillColorSecondaryBrush",
         "TextFillColorTertiaryBrush",
         "TextFillColorDisabledBrush",
-        "AccentTextFillColorPrimaryBrush",
+        "TextFillColorInverseBrush",
         "AccentTextFillColorSecondaryBrush",
         "AccentTextFillColorTertiaryBrush",
         "AccentTextFillColorDisabledBrush",
@@ -16,18 +16,17 @@ class ColorsMeta(type):
         "TextOnAccentFillColorSecondaryBrush",
         "TextOnAccentFillColorDisabledBrush",
         "TextOnAccentFillColorSelectedTextBrush",
-        # Fill type Color
+
+        # Fill Colors
         "ControlFillColorDefaultBrush",
         "ControlFillColorSecondaryBrush",
         "ControlFillColorTertiaryBrush",
-        "ControlFillColorQuarternaryBrush",
         "ControlFillColorDisabledBrush",
         "ControlFillColorTransparentBrush",
         "ControlFillColorInputActiveBrush",
         "ControlAltFillColorTransparentBrush",
         "ControlAltFillColorSecondaryBrush",
         "ControlAltFillColorTertiaryBrush",
-        "ControlAltFillColorQuarternaryBrush",
         "ControlAltFillColorDisabledBrush",
         "ControlSolidFillColorDefaultBrush",
         "ControlStrongFillColorDefaultBrush",
@@ -40,19 +39,18 @@ class ColorsMeta(type):
         "ControlOnImageFillColorSecondaryBrush",
         "ControlOnImageFillColorTertiaryBrush",
         "ControlOnImageFillColorDisabledBrush",
+
+        # Accent Fill Colors
+        "AccentFillColorDisabledBrush",
+        "AccentFillColorSelectedTextBackgroundBrush",
+        "AccentTextFillColorPrimaryBrush",
         "AccentFillColorDefaultBrush",
         "AccentFillColorSecondaryBrush",
         "AccentFillColorTertiaryBrush",
-        "AccentFillColorDisabledBrush",
-        "AccentFillColorSelectedTextBackgroundBrush",
-        # Stroke type Color
+
+        # Stroke Colors
         "CardStrokeColorDefaultBrush",
         "CardStrokeColorDefaultSolidBrush",
-        "ControlElevationBorderBrush",
-        "CircleElevationBorderBrush",
-        "TextControlElevationBorderBrush",
-        "TextControlElevationBorderFocusedBrush",
-        "AccentControlElevationBorderBrush",
         "ControlStrokeColorDefaultBrush",
         "ControlStrokeColorSecondaryBrush",
         "ControlStrokeColorOnAccentDefaultBrush",
@@ -64,9 +62,54 @@ class ColorsMeta(type):
         "ControlStrongStrokeColorDisabledBrush",
         "SurfaceStrokeColorDefaultBrush",
         "SurfaceStrokeColorFlyoutBrush",
+        "SurfaceStrokeColorInverseBrush",
         "DividerStrokeColorDefaultBrush",
         "FocusStrokeColorOuterBrush",
-        "FocusStrokeColorInnerBrush"
+        "FocusStrokeColorInnerBrush",
+
+        # Background / Layer Colors
+        "CardBackgroundFillColorDefaultBrush",
+        "CardBackgroundFillColorSecondaryBrush",
+        "SmokeFillColorDefaultBrush",
+        "LayerFillColorDefaultBrush",
+        "LayerFillColorAltBrush",
+        "LayerOnAcrylicFillColorDefaultBrush",
+        "LayerOnAccentAcrylicFillColorDefaultBrush",
+        "LayerOnMicaBaseAltFillColorDefaultBrush",
+        "LayerOnMicaBaseAltFillColorSecondaryBrush",
+        "LayerOnMicaBaseAltFillColorTertiaryBrush",
+        "LayerOnMicaBaseAltFillColorTransparentBrush",
+
+        # Solid Background Colors
+        "SolidBackgroundFillColorBaseBrush",
+        "SolidBackgroundFillColorSecondaryBrush",
+        "SolidBackgroundFillColorTertiaryBrush",
+        "SolidBackgroundFillColorQuarternaryBrush",
+        "SolidBackgroundFillColorBaseAltBrush",
+
+        # System Fill Colors
+        "SystemFillColorSuccessBrush",
+        "SystemFillColorCautionBrush",
+        "SystemFillColorCriticalBrush",
+        "SystemFillColorNeutralBrush",
+        "SystemFillColorSolidNeutralBrush",
+        "SystemFillColorAttentionBackgroundBrush",
+        "SystemFillColorSuccessBackgroundBrush",
+        "SystemFillColorCautionBackgroundBrush",
+        "SystemFillColorCriticalBackgroundBrush",
+        "SystemFillColorNeutralBackgroundBrush",
+        "SystemFillColorSolidAttentionBackgroundBrush",
+        "SystemFillColorSolidNeutralBackgroundBrush",
+
+        # Temporary System Colors
+        "SystemColorWindowTextColorBrush",
+        "SystemColorWindowColorBrush",
+        "SystemColorButtonFaceColorBrush",
+        "SystemColorButtonTextColorBrush",
+        "SystemColorHighlightColorBrush",
+        "SystemColorHighlightTextColorBrush",
+        "SystemColorHotlightColorBrush",
+        "SystemColorGrayTextColorBrush"
     ]
 
     def __new__(mcs, name, bases, namespace):
@@ -84,32 +127,31 @@ class ColorsMeta(type):
 
 
 class BaseColors(metaclass=ColorsMeta):
-    # Text type Color
+    # Text Colors
     TextFillColorPrimaryBrush = ""
     TextFillColorSecondaryBrush = ""
     TextFillColorTertiaryBrush = ""
     TextFillColorDisabledBrush = ""
-    AccentTextFillColorPrimaryBrush = ""
+    TextFillColorInverseBrush = ""
+    # AccentTextFillColorPrimaryBrush = ""
     AccentTextFillColorSecondaryBrush = ""
     AccentTextFillColorTertiaryBrush = ""
     AccentTextFillColorDisabledBrush = ""
     TextOnAccentFillColorPrimaryBrush = ""
-    TextOnAccentFillColorSecondaryBrush = ""
+    # TextOnAccentFillColorSecondaryBrush = ""
     TextOnAccentFillColorDisabledBrush = ""
     TextOnAccentFillColorSelectedTextBrush = ""
 
-    # Fill type Color
+    # Fill Colors
     ControlFillColorDefaultBrush = ""
     ControlFillColorSecondaryBrush = ""
     ControlFillColorTertiaryBrush = ""
-    ControlFillColorQuarternaryBrush = ""
     ControlFillColorDisabledBrush = ""
     ControlFillColorTransparentBrush = ""
     ControlFillColorInputActiveBrush = ""
     ControlAltFillColorTransparentBrush = ""
     ControlAltFillColorSecondaryBrush = ""
     ControlAltFillColorTertiaryBrush = ""
-    ControlAltFillColorQuarternaryBrush = ""
     ControlAltFillColorDisabledBrush = ""
     ControlSolidFillColorDefaultBrush = ""
     ControlStrongFillColorDefaultBrush = ""
@@ -122,20 +164,17 @@ class BaseColors(metaclass=ColorsMeta):
     ControlOnImageFillColorSecondaryBrush = ""
     ControlOnImageFillColorTertiaryBrush = ""
     ControlOnImageFillColorDisabledBrush = ""
+    
+    # Accent Fill Colors
+    AccentFillColorDisabledBrush = ""
+    AccentFillColorSelectedTextBackgroundBrush = ""
     AccentFillColorDefaultBrush = ""
     AccentFillColorSecondaryBrush = ""
     AccentFillColorTertiaryBrush = ""
-    AccentFillColorDisabledBrush = ""
-    AccentFillColorSelectedTextBackgroundBrush = ""
 
-    # Stroke type Color
+    # Stroke Colors
     CardStrokeColorDefaultBrush = ""
     CardStrokeColorDefaultSolidBrush = ""
-    ControlElevationBorderBrush = ""
-    CircleElevationBorderBrush = ""
-    TextControlElevationBorderBrush = ""
-    TextControlElevationBorderFocusedBrush = ""
-    AccentControlElevationBorderBrush = ""
     ControlStrokeColorDefaultBrush = ""
     ControlStrokeColorSecondaryBrush = ""
     ControlStrokeColorOnAccentDefaultBrush = ""
@@ -147,6 +186,51 @@ class BaseColors(metaclass=ColorsMeta):
     ControlStrongStrokeColorDisabledBrush = ""
     SurfaceStrokeColorDefaultBrush = ""
     SurfaceStrokeColorFlyoutBrush = ""
+    SurfaceStrokeColorInverseBrush = ""
     DividerStrokeColorDefaultBrush = ""
     FocusStrokeColorOuterBrush = ""
     FocusStrokeColorInnerBrush = ""
+
+    # Background / Layer Colors
+    CardBackgroundFillColorDefaultBrush = ""
+    CardBackgroundFillColorSecondaryBrush = ""
+    SmokeFillColorDefaultBrush = ""
+    LayerFillColorDefaultBrush = ""
+    LayerFillColorAltBrush = ""
+    LayerOnAcrylicFillColorDefaultBrush = ""
+    LayerOnAccentAcrylicFillColorDefaultBrush = ""
+    LayerOnMicaBaseAltFillColorDefaultBrush = ""
+    LayerOnMicaBaseAltFillColorSecondaryBrush = ""
+    LayerOnMicaBaseAltFillColorTertiaryBrush = ""
+    LayerOnMicaBaseAltFillColorTransparentBrush = ""
+
+    # Solid Background Colors
+    SolidBackgroundFillColorBaseBrush = ""
+    SolidBackgroundFillColorSecondaryBrush = ""
+    SolidBackgroundFillColorTertiaryBrush = ""
+    SolidBackgroundFillColorQuarternaryBrush = ""
+    SolidBackgroundFillColorBaseAltBrush = ""
+
+    # System Fill Colors
+    SystemFillColorSuccessBrush = ""
+    SystemFillColorCautionBrush = ""
+    SystemFillColorCriticalBrush = ""
+    SystemFillColorNeutralBrush = ""
+    SystemFillColorSolidNeutralBrush = ""
+    SystemFillColorAttentionBackgroundBrush = ""
+    SystemFillColorSuccessBackgroundBrush = ""
+    SystemFillColorCautionBackgroundBrush = ""
+    SystemFillColorCriticalBackgroundBrush = ""
+    SystemFillColorNeutralBackgroundBrush = ""
+    SystemFillColorSolidAttentionBackgroundBrush = ""
+    SystemFillColorSolidNeutralBackgroundBrush = ""
+
+    # Temporary System Colors
+    SystemColorWindowTextColorBrush = ""
+    SystemColorWindowColorBrush = ""
+    SystemColorButtonFaceColorBrush = ""
+    SystemColorButtonTextColorBrush = ""
+    SystemColorHighlightColorBrush = ""
+    SystemColorHighlightTextColorBrush = ""
+    SystemColorHotlightColorBrush = ""
+    SystemColorGrayTextColorBrush = ""
