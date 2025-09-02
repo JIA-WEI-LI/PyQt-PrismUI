@@ -10,7 +10,7 @@ from ...utils.theme_manager import theme_manager
 
 class CheckBox(QCheckBox, BaseMixin):
     def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
-        super().__init__(text=text, icon=icon, parent=parent)
+        super().__init__(text, parent)
         self.isPressed = False
         self.isHover = False
         self._icon_source = None
@@ -43,26 +43,20 @@ class CheckBox(QCheckBox, BaseMixin):
 
     def _get_icon_color(self) -> str:
         if self.isEnabled():
-            if self.isHover:
-                color = theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
-            elif self.isPressed:
-                color = theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
-            else:
-                color = theme_manager.get_current_variables("--ThemeColor_Text_Default")
+            if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_Hovered")
+            elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_Pressed")
+            else: color = theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_Default")
         else:
-            color = theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
+            color = theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_Disabled")
         return color
     
     def _get_indicator_icon_color(self):
         if self.isEnabled():
-            if self.isHover:
-                color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Secondary")
-            elif self.isPressed:
-                color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Tertiary")
-            else:
-                color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
+            if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_On_Accent_Hovered")
+            elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_On_Accent_Pressed")
+            else: color = theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_On_Accent_Default")
         else:
-            color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Disabled")
+            color = theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_On_Accent_Disabled")
         return color
 
     def updateIcon(self):
@@ -106,23 +100,25 @@ class CheckBox(QCheckBox, BaseMixin):
 
         def _background_color():
             if not self.isEnabled():
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Control_Strong_Disabled'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Disabled'))
+            elif self.isChecked() and self.isHover:
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Checked_Hovered'))
             elif self.isChecked():
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Accent_Default'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Checked'))
             elif self.isHover:
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Control_Secondary'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Hovered'))
             else:
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Control_Default'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Default'))
 
         def _border_color():
             if not self.isEnabled():
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Text_Disabled'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Border_Disabled'))
             elif self.isChecked():
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Text_On_Accent_Default'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Border_Checked'))
             elif self.isHover:
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Text_Secondary'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Border_Hovered'))
             else:
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Text_Default'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Border_Default'))
 
         painter.setBrush(_background_color())
         painter.setPen(QPen(_border_color(), 0.1))
