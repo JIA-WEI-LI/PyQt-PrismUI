@@ -2,6 +2,7 @@ from typing import Union, List, Optional, Tuple
 from functools import partial
 from PyQt5.QtWidgets import QWidget, QPushButton, QGridLayout, QHBoxLayout
 from PyQt5.QtCore import pyqtSignal, pyqtSlot
+from PyQt5.QtGui import QIcon
 
 from .button import PushButton, ToggleButton, SegmentedButton
 
@@ -72,7 +73,7 @@ class BaseButtonGroup(QWidget):
             for r, row in enumerate(self._gridLabels):
                 for c, text in enumerate(row):
                     btn_id = flat_idx if self.useFlatId else (r, c)
-                    button: PushButton = self._createButton(text, btn_id)
+                    button: PushButton = self._createButton(btn_id, text=text)
                     corner = self._cornerRadiusForIndex(flat_idx, total)
                     button.setProperty("position", corner)
                     layout.addWidget(button, r, c)
@@ -83,13 +84,13 @@ class BaseButtonGroup(QWidget):
             layout.setSpacing(self._horizontalSpacing)
             total = len(self._flatLabels)
             for idx, text in enumerate(self._flatLabels):
-                button: PushButton = self._createButton(text, idx)
+                button: PushButton = self._createButton(idx, text=text)
                 corner = self._cornerRadiusForIndex(idx, total)
                 button.setProperty("position", corner)
                 layout.addWidget(button)
         return layout
     
-    def _createButton(self, text, btn_id: Union[int, tuple]):
+    def _createButton(self, btn_id: Union[int, tuple], text:str=None):
         btn = self.buttonClass(text=text)
         self.addButton(btn, btn_id)
         btn.clicked.connect(partial(self._onButtonClicked, btn_id))

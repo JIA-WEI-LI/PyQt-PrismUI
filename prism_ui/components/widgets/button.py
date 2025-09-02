@@ -8,21 +8,8 @@ from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
 class PushButton(QPushButton, BaseMixin):
-    def __init__(self, *args, **kwargs):
-        text = None
-        icon = None
-        parent = None
-
-        for arg in args:
-            if isinstance(arg, str) and text is None: text = arg
-            elif isinstance(arg, (QIcon, str)) and icon is None: icon = arg
-            elif isinstance(arg, QWidget) and parent is None: parent = arg
-
-        parent = kwargs.get("parent", parent)
-        text = kwargs.get("text", text)
-        icon = kwargs.get("icon", icon)
-
-        super().__init__(parent)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, parent=parent)
         self.isPressed = False
         self.isHover = False
         self._icon_cache = {}
@@ -119,8 +106,8 @@ class PrimaryButton(PushButton):
     """
     A primary styled button used in the UI.
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self.setProperty("class", "PrimaryButton")
 
     def _get_icon_color(self) -> str:
@@ -133,8 +120,8 @@ class PrimaryButton(PushButton):
         return color
 
 class ToggleButton(PushButton):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self._text_on = None
         self._text_off = None
         self._icon_on = None
@@ -197,23 +184,23 @@ class ToggleButton(PushButton):
         self.updateIcon()
 
 class TransparentPushButton(PushButton):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self.setProperty("class", "TransparentPushButton")
 
 class TransparentToggleButton(ToggleButton):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self.setProperty("class", "TransparentToggleButton")
 
 class HyperlinkButton(PushButton):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None, *args, **kwargs):
         self._url = kwargs.pop("url", None)
         self.auto_prefix_http = kwargs.pop("auto_prefix_http", False)
         self.ctrl_click_enabled = kwargs.pop("ctrl_click_enabled", False)
         self.middle_click_enabled = kwargs.pop("middle_click_enabled", False)
 
-        super().__init__(*args, **kwargs)
+        super().__init__(text=text, icon=icon, parent=parent)
 
         self.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.setProperty("class", "HyperlinkButton")
@@ -270,8 +257,8 @@ class HyperlinkButton(PushButton):
         return super().eventFilter(obj, event)
 
 class RepeatButton(PushButton):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None, *args, **kwargs):
+        super().__init__(text=text, icon=icon, parent=parent)
 
         self.setAutoRepeat(False)
         self._repeat_delay = kwargs.pop("repeat_delay", 400)
@@ -307,6 +294,6 @@ class RepeatButton(PushButton):
         return self._repeat_interval
     
 class SegmentedButton(ToggleButton):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self.setProperty("class", "SegmentedButton")

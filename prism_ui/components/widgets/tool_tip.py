@@ -7,7 +7,7 @@ from PyQt5.QtCore import Qt, QPropertyAnimation, QTimer, QPoint, QEvent, QRect
 from ...common.stylesheet_enum import PrismStyleSheet
 
 class ToolTip(QFrame):
-    def __init__(self, text="", parent=None):
+    def __init__(self, text:str = "", parent=None):
         super().__init__(parent=parent)
         self._text = text
         self._duration = 0

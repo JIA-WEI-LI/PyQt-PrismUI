@@ -8,24 +8,8 @@ from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
 class ToolButton(QToolButton, BaseMixin):
-    def __init__(self, *args, **kwargs):
-        icon = None
-        parent = None
-        text = None
-
-        for arg in args:
-            if isinstance(arg, (QIcon, str)) and icon is None:
-                icon = arg
-            elif isinstance(arg, QWidget) and parent is None:
-                parent = arg
-            elif isinstance(arg, str) and text is None:
-                text = arg
-
-        parent = kwargs.get("parent", parent)
-        icon = kwargs.get("icon", icon)
-        text = kwargs.get("text", text)
-
-        super().__init__(parent)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self.isPressed = False
         self.isHover = False
         self._icon_source = None
@@ -130,8 +114,8 @@ class ToolButton(QToolButton, BaseMixin):
         painter.end()
 
 class PrimaryToolButton(ToolButton):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self.setProperty("class", "PrimaryToolButton")
 
     def _get_icon_color(self) -> str:
@@ -144,8 +128,8 @@ class PrimaryToolButton(ToolButton):
         return color
     
 class ToggleToolButton(ToolButton):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self._icon_on = None
         self._icon_off = None
         
@@ -197,11 +181,11 @@ class ToggleToolButton(ToolButton):
         self.updateIcon()
 
 class TransparentToolButton(ToolButton):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self.setProperty("class", "TransparentToolButton")
 
 class TransparentToggleToolButton(ToggleToolButton):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self.setProperty("class", "TransparentToggleToolButton")

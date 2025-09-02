@@ -9,21 +9,8 @@ from ...icon_manager.blender_icon import BlenderIcon
 from ...utils.theme_manager import theme_manager
 
 class CheckBox(QCheckBox, BaseMixin):
-    def __init__(self, *args, **kwargs):
-        text = None
-        icon = None
-        parent = None
-
-        for arg in args:
-            if isinstance(arg, str) and text is None: text = arg
-            elif isinstance(arg, (QIcon, str)) and icon is None: icon = arg
-            elif isinstance(arg, QWidget) and parent is None: parent = arg
-
-        parent = kwargs.get("parent", parent)
-        text = kwargs.get("text", text)
-        icon = kwargs.get("icon", icon)
-
-        super().__init__(parent)
+    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
+        super().__init__(text=text, icon=icon, parent=parent)
         self.isPressed = False
         self.isHover = False
         self._icon_source = None
