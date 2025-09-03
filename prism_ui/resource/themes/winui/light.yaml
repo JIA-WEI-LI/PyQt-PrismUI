@@ -11,6 +11,14 @@ font:
   TitleLargeTextBlockSize: "40px"
   DisplayTextBlockSize: "68px"
 
+  CaptionTextBlockLineHeight: "16px"
+  BodyTextBlockLineHeight: "20px"
+  BodyStrongTextBlockLineHeight: "20px"
+  SubtitleTextBlockLineHeight: "28px"
+  TitleTextBlockLineHeight: "36px"
+  TitleLargeTextBlockLineHeight: "52px"
+  DisplayTextBlockLineHeight: "92px"
+
 color:  
   # Text Colors
   TextFillColorPrimaryBrush: "#E4000000"

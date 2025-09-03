@@ -12,38 +12,22 @@ class TextBlock(QLabel, BaseMixin):
         full_text = " ".join(text)
 
         parent: Optional[QWidget] = kwargs.get("parent", None)
+        typography: str = kwargs.get("typography", "body")
         alignment: Qt.Alignment = kwargs.get("alignment", Qt.AlignmentFlag.AlignLeft)
-        font_family: Optional[str] = kwargs.get("font_family", "Segoe UI")
-        font_size: Optional[int] = kwargs.get("font_size", 14)
-        bold: bool = kwargs.get("bold", False)
-        italic: bool = kwargs.get("italic", False)
-        underline: bool = kwargs.get("underline", False)
         selectable: bool = kwargs.get("selectable", False)
     
         super().__init__(full_text, parent)
 
         self.setProperty("class", "TextBlock")
+        self.setProperty("typography", str(typography).lower())
         self.setWordWrap(True)
         self.setAlignment(alignment)
+        self.setSelectable(selectable)
 
         PrismStyleSheet.TEXTBLOCK.apply(self)
-
-        font = self.font()
-        if font_family:
-            font.setFamily(font_family)
-        if font_size:
-            font.setPointSize(font_size)
-        if bold is not None:
-            font.setBold(bold)
-        if italic is not None:
-            font.setItalic(italic)
-        if underline is not None:
-            font.setUnderline(underline)
-        self.setFont(font)
-
-        self.setSelectable(selectable)
         
         theme_manager.register(self)
+        self.setStyle(self.style())
 
     def setSelectable(self, selectable:bool):
         if selectable:

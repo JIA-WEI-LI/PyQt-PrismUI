@@ -8,28 +8,35 @@ textblock:
   caption:
     family: "{TextFontFamily}"
     size: "{CaptionTextBlockSize}"
+    lineheight: "{CaptionTextBlockLineHeight}"
     weight: "{TextFontWeightNormal}"
   body:
     family: "{TextFontFamily}"
     size: "{BodyTextBlockSize}"
+    lineheight: "{BodyTextBlockLineHeight}"
     weight: "{TextFontWeightNormal}"
   bodystrong:
     family: "{TextFontFamily}"
     size: "{BodyStrongTextBlockSize}"
+    lineheight: "{BodyStrongTextBlockLineHeight}"
     weight: "{TextFontWeightBold}"
   subtitle:
     family: "{TextFontFamily}"
     size: "{SubtitleTextBlockSize}"
+    lineheight: "{SubtitleTextBlockLineHeight}"
     weight: "{TextFontWeightBold}"
   title:
     family: "{TextFontFamily}"
     size: "{TitleTextBlockSize}"
+    lineheight: "{TitleTextBlockLineHeight}"
     weight: "{TextFontWeightBold}"
   title_large:
     family: "{TextFontFamily}"
     size: "{TitleLargeTextBlockSize}"
+    lineheight: "{TitleLargeTextBlockLineHeight}"
     weight: "{TextFontWeightBold}"
   display:
     family: "{TextFontFamily}"
     size: "{DisplayTextBlockSize}"
+    lineheight: "{DisplayTextBlockLineHeight}"
     weight: "{TextFontWeightBold}"
