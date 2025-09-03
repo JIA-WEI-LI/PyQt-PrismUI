@@ -1,3 +1,9 @@
+button:
+  font:
+    family: "{TextFontFamily}"
+    size: "{SubtitleTextBlockSize}"
+    weight: "{TextFontWeightNormal}"
+
 textblock:
   caption:
     family: "{TextFontFamily}"

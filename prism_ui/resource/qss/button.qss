@@ -8,9 +8,9 @@ PushButton[class="SegmentedButton"]  {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     color: --ThemeColor_Button_Text_Default;
-    font-family: --ThemFont_Body_Family;
-    font-size: --ThemFont_Body_Size;
-    font-weight: --ThemFont_Body_Weight;
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
     padding: 5px 12px;
     outline: none;
 }
@@ -47,9 +47,9 @@ PushButton[class="TransparentToggleButton"]:checked {
     background-color: --ThemeColor_Button_Background_On_Accent_Default;
     border-radius: 5px;
     color: --ThemeColor_Button_Text_Inverse;
-    font-family: --ThemFont_Body_Family;
-    font-size: --ThemFont_Body_Size;
-    font-weight: --ThemFont_Body_Weight;
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
     padding: 5px 12px;
 }
 PushButton[class="PrimaryButton"]:hover,
@@ -79,6 +79,9 @@ PushButton[class="TransparentToggleButton"] {
     background-color: transparent;
     border-radius: 5px;
     color: --ThemeColor_Button_Text_Default;
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
     padding: 5px 12px;
 }
 
@@ -86,6 +89,9 @@ PushButton[class="HyperlinkButton"] {
     background-color: transparent;
     border-radius: 5px;
     color: --ThemeColor_Button_Text_On_Accent_Default;
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
     padding: 5px 12px;
     outline: none;
 }
@@ -107,10 +113,10 @@ QToolTip {
     border-color: --ThemeColor_Button_Background_Default;
     border-radius: 4px;
     padding: 2px;
-    font-family: --ThemFont_Body_Family;
-    font-size: --ThemFont_Body_Size;
-    font-weight: --ThemFont_Body_Weight;
-    color: --ThemeColor_Button_Text_Default;
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
+    color: --ThemeColor_Textblock_Button_Text_Default;
 }
 
 PushButton[position="bottom-left"],

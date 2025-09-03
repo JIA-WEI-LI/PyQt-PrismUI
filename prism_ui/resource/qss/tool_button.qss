@@ -1,10 +1,9 @@
 ToolButton[class="ToolButton"],
 ToolButton[class="ToggleToolButton"] {
-    background: --ThemeColor_Control_Default;
+    background: --ThemeColor_Button_Background_Default;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 5px;
-    color: --ThemeColor_Text_Default;
-    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    color: --ThemeColor_Button_Text_Default;
     padding: 5px 12px;
     outline: none;
 }
@@ -12,58 +11,57 @@ ToolButton[class="ToolButton"]:hover,
 ToolButton[class="ToggleToolButton"]:hover,
 ToolButton[class="TransparentToolButton"]:hover,
 ToolButton[class="TransparentToggleToolButton"]:hover {
-    background: --ThemeColor_Control_Secondary;
-    color: --ThemeColor_Text_Secondary;
+    background-color: --ThemeColor_Button_Background_Hovered;
+    color: --ThemeColor_Button_Text_Hovered;
 }
 ToolButton[class="ToolButton"]:pressed,
 ToolButton[class="ToggleToolButton"]:pressed,
 ToolButton[class="TransparentToolButton"]:pressed,
 ToolButton[class="TransparentToggleToolButton"]:pressed {
-    background: --ThemeColor_Control_Tertiary;
-    color: --ThemeColor_Text_Tertiary;
+    background-color: --ThemeColor_Button_Background_Pressed;
+    color: --ThemeColor_Button_Text_Pressed;
 }
 ToolButton[class="ToolButton"]:disabled,
 ToolButton[class="ToggleToolButton"]:disabled,
 ToolButton[class="TransparentToolButton"]:disabled,
 ToolButton[class="TransparentToggleToolButton"]:disabled {
-    background: --ThemeColor_Control_Disabled;
+    background-color: --ThemeColor_Button_Background_Disabled;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    color: --ThemeColor_Text_Disabled;
+    color: --ThemeColor_Button_Text_Disabled;
 }
 
 ToolButton[class="PrimaryToolButton"],
 ToolButton[class="ToggleToolButton"]:checked,
 ToolButton[class="TransparentToggleToolButton"]:checked {
-    background-color: --ThemeColor_Accent_Default;
+    background-color: --ThemeColor_Button_Background_On_Accent_Default;
     border-radius: 5px;
-    color: --ThemeColor_Text_On_Accent_Default;
+    color: --ThemeColor_Button_Text_Inverse;
     font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
 }
 ToolButton[class="PrimaryToolButton"]:hover,
 ToolButton[class="ToggleToolButton"]:checked:hover,
 ToolButton[class="TransparentToggleToolButton"]:checked:hover {
-    background-color: --ThemeColor_Accent_Secondary;
-    color: --ThemeColor_Text_On_Accent_Default;
+    background-color: --ThemeColor_Button_Background_On_Accent_Hovered;
+    color: --ThemeColor_Button_Text_Inverse;
 }
 ToolButton[class="PrimaryToolButton"]:pressed,
 ToolButton[class="ToggleToolButton"]:checked:pressed,
 ToolButton[class="TransparentToggleToolButton"]:checked:pressed {
-    background-color: --ThemeColor_Accent_Tertiary;
-    color: TextOnAccentFillColorSecondaryBrush;
+    background-color: --ThemeColor_Button_Background_On_Accent_Pressed;
+    color: --ThemeColor_Button_Text_Inverse;
 }
 ToolButton[class="PrimaryToolButton"]:disabled,
 ToolButton[class="ToggleToolButton"]:checked:disabled,
 ToolButton[class="TransparentToggleToolButton"]:checked:disabled {
-    background-color: --ThemeColor_Accent_Disabled;
-    color: --ThemeColor_Text_On_Accent_Disabled;
+    background-color: --ThemeColor_Button_Background_On_Accent_Disabled;
+    color: --ThemeColor_Button_Text_On_Accent_Disabled;
 }
 
 ToolButton[class="TransparentToolButton"],
 ToolButton[class="TransparentToggleToolButton"] {
     background-color: transparent;
     border-radius: 5px;
-    color: --ThemeColor_Text_Default;
-    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    color: --ThemeColor_Button_Text_Default;
     padding: 5px 12px;
 }

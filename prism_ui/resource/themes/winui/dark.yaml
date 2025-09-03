@@ -1,5 +1,5 @@
 font:
-  TextFontFamily: ("Segoe UI", "Microsoft YaHei", "PingFang SC", "Helvetica", "Arial", "sans-serif")
+  TextFontFamily: "Segoe UI"
 
   TextFontWeightNormal: "Normal"
   TextFontWeightBold: 'Bold'

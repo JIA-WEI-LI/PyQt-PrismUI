@@ -42,6 +42,8 @@ class TextBlock(QLabel, BaseMixin):
         self.setFont(font)
 
         self.setSelectable(selectable)
+        
+        theme_manager.register(self)
 
     def setSelectable(self, selectable:bool):
         if selectable:

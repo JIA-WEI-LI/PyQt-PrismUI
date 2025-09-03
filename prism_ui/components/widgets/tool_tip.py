@@ -5,6 +5,7 @@ from PyQt5.QtGui import QColor, QCursor
 from PyQt5.QtCore import Qt, QPropertyAnimation, QTimer, QPoint, QEvent, QRect
 
 from ...common.stylesheet_enum import PrismStyleSheet
+from ...utils.theme_manager import theme_manager
 
 class ToolTip(QFrame):
     def __init__(self, text:str = "", parent=None):
@@ -50,6 +51,7 @@ class ToolTip(QFrame):
         self.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint)
 
         PrismStyleSheet.TOOLTIP.apply(self)
+        theme_manager.register(self)
 
     def _createContainer(self) -> QFrame:
         frame = QFrame(self)

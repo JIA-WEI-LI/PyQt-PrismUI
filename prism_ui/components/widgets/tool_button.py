@@ -8,8 +8,8 @@ from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
 class ToolButton(QToolButton, BaseMixin):
-    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
-        super().__init__(text=text, icon=icon, parent=parent)
+    def __init__(self, icon: QIcon = None, parent: QWidget = None):
+        super().__init__(parent=parent)
         self.isPressed = False
         self.isHover = False
         self._icon_source = None
@@ -17,14 +17,13 @@ class ToolButton(QToolButton, BaseMixin):
         self.setProperty("class", "ToolButton")
         self.setIconSize(QSize(16, 16))
 
-        if text:
-            self.setText(text)
         if icon:
             self.setIcon(icon)
         else:
             self.setIcon(QIcon())
 
         PrismStyleSheet.TOOLBUTTOON.apply(self)
+        theme_manager.register(self)
 
     def setIcon(self, icon: Union[QIcon, Callable]):
         if callable(icon):
@@ -41,12 +40,12 @@ class ToolButton(QToolButton, BaseMixin):
     def _get_icon_color(self) -> str:
         from prism_ui.utils.theme_manager import theme_manager  # 確保可用
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Disabled")
         if self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Pressed")
         if self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
-        return theme_manager.get_current_variables("--ThemeColor_Text_Default")
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Hovered")
+        return theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
 
     def updateIcon(self):
         if hasattr(self, "_icon_source") and callable(self._icon_source):
@@ -114,22 +113,22 @@ class ToolButton(QToolButton, BaseMixin):
         painter.end()
 
 class PrimaryToolButton(ToolButton):
-    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
-        super().__init__(text=text, icon=icon, parent=parent)
+    def __init__(self, icon: QIcon = None, parent: QWidget = None):
+        super().__init__(icon=icon, parent=parent)
         self.setProperty("class", "PrimaryToolButton")
 
     def _get_icon_color(self) -> str:
         if self.isEnabled():
-            if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Secondary")
-            elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Tertiary")
-            else: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
+            if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+            elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+            else: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
         elif not self.isEnabled():
-            color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Disabled")
+            color = theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
         return color
     
 class ToggleToolButton(ToolButton):
-    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
-        super().__init__(text=text, icon=icon, parent=parent)
+    def __init__(self, icon: QIcon = None, parent: QWidget = None):
+        super().__init__(icon=icon, parent=parent)
         self._icon_on = None
         self._icon_off = None
         
@@ -149,18 +148,18 @@ class ToggleToolButton(ToolButton):
     def _get_icon_color(self) -> str:
         if self.isChecked():
             if self.isEnabled():
-                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
-                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Tertiary")
-                else: color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default")
+                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+                else: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
             else:
-                color = theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Disabled")
+                color = theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
         else:
             if self.isEnabled():
-                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
-                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
-                else: color = theme_manager.get_current_variables("--ThemeColor_Text_Default")
+                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Hovered")
+                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Pressed")
+                else: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
             else:
-                color = theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
+                color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Disabled")
         return color
 
     def _applyToggle(self):
@@ -181,11 +180,11 @@ class ToggleToolButton(ToolButton):
         self.updateIcon()
 
 class TransparentToolButton(ToolButton):
-    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
-        super().__init__(text=text, icon=icon, parent=parent)
+    def __init__(self, icon: QIcon = None, parent: QWidget = None):
+        super().__init__(icon=icon, parent=parent)
         self.setProperty("class", "TransparentToolButton")
 
 class TransparentToggleToolButton(ToggleToolButton):
-    def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
-        super().__init__(text=text, icon=icon, parent=parent)
+    def __init__(self, icon: QIcon = None, parent: QWidget = None):
+        super().__init__(icon=icon, parent=parent)
         self.setProperty("class", "TransparentToggleToolButton")
