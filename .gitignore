@@ -1,5 +1,6 @@
 # Resouurce files
 prism_ui/resource/icon/blender_icons
+prism_ui/icon_manager/icons/
 
 
 # Python cache files
@@ -21,3 +22,7 @@ test/
 
 # Log
 logs/
+
+# docs
+docs/
+build/

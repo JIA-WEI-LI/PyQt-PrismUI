@@ -1,0 +1,43 @@
+QLabel[class="TextBlock"] {
+    color: --ThemeColor_Textblock_Text_Default;
+    padding: 2px;
+}
+QLabel[class="TextBlock"]:disabled {
+    color: --ThemeColor_Textblock_Text_Disabled;
+}
+
+QLabel[class="TextBlock"][typography="caption"] {
+    font-family: --ThemeFont_Textblock_Caption_Family;
+    font-size: --ThemeFont_Textblock_Caption_Size;
+    font-weight: --ThemeFont_Textblock_Caption_Weight;
+}
+QLabel[class="TextBlock"][typography="body"] {
+    font-family: --ThemeFont_Textblock_Body_Family;
+    font-size: --ThemeFont_Textblock_Body_Size;
+    font-weight: --ThemeFont_Textblock_Body_Weight;
+}
+QLabel[class="TextBlock"][typography="bodystrong"] {
+    font-family: --ThemeFont_Textblock_Bodystrong_Family;
+    font-size: --ThemeFont_Textblock_Bodystrong_Size;
+    font-weight: --ThemeFont_Textblock_Bodystrong_Weight;
+}
+QLabel[class="TextBlock"][typography="subtitle"] {
+    font-family: --ThemeFont_Textblock_Subtitle_Family;
+    font-size: --ThemeFont_Textblock_Subtitle_Size;
+    font-weight: --ThemeFont_Textblock_Subtitle_Weight;
+}
+QLabel[class="TextBlock"][typography="title"] {
+    font-family: --ThemeFont_Textblock_Title_Family;
+    font-size: --ThemeFont_Textblock_Title_Size;
+    font-weight: --ThemeFont_Textblock_Title_Weight;
+}
+QLabel[class="TextBlock"][typography="title_large"] {
+    font-family: --ThemeFont_Textblock_Title_large_Family;
+    font-size: --ThemeFont_Textblock_Title_large_Size;
+    font-weight: --ThemeFont_Textblock_Title_large_Weight;
+}
+QLabel[class="TextBlock"][typography="display"] {
+    font-family: --ThemeFont_Textblock_Display_Family;
+    font-size: --ThemeFont_Textblock_Display_Size;
+    font-weight: --ThemeFont_Textblock_Display_Weight;
+}

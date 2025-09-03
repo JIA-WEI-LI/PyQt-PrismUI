@@ -1,0 +1,66 @@
+button:
+  background:
+    default: "{ControlFillColorDefaultBrush}"
+    hovered: "{ControlFillColorSecondaryBrush}"
+    pressed: "{ControlFillColorTertiaryBrush}"
+    disabled: "{ControlFillColorDisabledBrush}"
+    on_accent_default: "{AccentFillColorDefaultBrush}"
+    on_accent_hovered: "{AccentFillColorSecondaryBrush}"
+    on_accent_pressed: "{AccentFillColorTertiaryBrush}"
+    on_accent_disabled: "{AccentFillColorDisabledBrush}"
+  text:
+    default: "{TextFillColorPrimaryBrush}"
+    hovered: "{TextFillColorSecondaryBrush}"
+    pressed: "{TextFillColorTertiaryBrush}"
+    disabled: "{TextFillColorDisabledBrush}"
+    on_accent_default: "{AccentTextFillColorPrimaryBrush}"
+    on_accent_hovered: "{AccentTextFillColorSecondaryBrush}"
+    on_accent_pressed: "{TextOnAccentFillColorSecondaryBrush}"
+    on_accent_disabled: "{AccentTextFillColorDisabledBrush}"
+    inverse: "{TextFillColorInverseBrush}"
+
+checkbox:
+  background:
+    default: "{ControlFillColorDefaultBrush}"
+    hovered: "{ControlFillColorSecondaryBrush}"
+    pressed: "{ControlFillColorTertiaryBrush}"
+    checked: "{AccentFillColorDefaultBrush}"
+    disabled: "{ControlStrongFillColorDisabledBrush}"
+    on_accent_hovered: "{AccentFillColorSecondaryBrush}"
+  border:
+    default: "{TextFillColorPrimaryBrush}"
+    checked: "{TextOnAccentFillColorPrimaryBrush}"
+    hovered: "{TextFillColorSecondaryBrush}"
+    pressed: "{AccentFillColorTertiaryBrush}"
+    disabled: "{TextFillColorDisabledBrush}"
+  text:
+    default: "{TextFillColorPrimaryBrush}"
+    hovered: "{TextFillColorSecondaryBrush}"
+    pressed: "{TextFillColorTertiaryBrush}"
+    disabled: "{TextFillColorDisabledBrush}"
+    on_accent_default: "{TextOnAccentFillColorPrimaryBrush}"
+    on_accent_hovered: "{TextOnAccentFillColorPrimaryBrush}"
+    on_accent_pressed: "{TextOnAccentFillColorSecondaryBrush}"
+    on_accent_disabled: "{TextOnAccentFillColorDisabledBrush}"
+
+radiobutton:
+  text:
+    default: "{TextFillColorPrimaryBrush}"
+    hovered: "{TextFillColorSecondaryBrush}"
+    pressed: "{TextFillColorTertiaryBrush}"
+    disabled: "{TextFillColorDisabledBrush}"
+    on_accent_default: "{TextOnAccentFillColorPrimaryBrush}"
+  border:
+    default: "{TextFillColorPrimaryBrush}"
+    hovered: "{TextFillColorSecondaryBrush}"
+    pressed: "{TextFillColorTertiaryBrush}"
+    disabled: "{TextFillColorDisabledBrush}"
+    on_accent_default: "{AccentFillColorDefaultBrush}"
+    on_accent_hovered: "{AccentFillColorSecondaryBrush}"
+    on_accent_pressed: "{AccentFillColorTertiaryBrush}"
+    on_accent_disabled: "{AccentFillColorDisabledBrush}"
+
+textblock:
+  text:
+    default: "{TextFillColorPrimaryBrush}"
+    disabled: "{TextFillColorDisabledBrush}"

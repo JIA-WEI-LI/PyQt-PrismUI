@@ -1,0 +1,135 @@
+font:
+  TextFontFamily: "Segoe UI"
+  TextFontWeightNormal: "Normal"
+  TextFontWeightBold: 'Bold'
+
+  CaptionTextBlockSize: "12px"
+  BodyTextBlockSize: "14px"
+  BodyStrongTextBlockSize: "14px"
+  SubtitleTextBlockSize: "20px"
+  TitleTextBlockSize: "28px"
+  TitleLargeTextBlockSize: "40px"
+  DisplayTextBlockSize: "68px"
+
+  CaptionTextBlockLineHeight: "16px"
+  BodyTextBlockLineHeight: "20px"
+  BodyStrongTextBlockLineHeight: "20px"
+  SubtitleTextBlockLineHeight: "28px"
+  TitleTextBlockLineHeight: "36px"
+  TitleLargeTextBlockLineHeight: "52px"
+  DisplayTextBlockLineHeight: "92px"
+
+color:  
+  # Text Colors
+  TextFillColorPrimaryBrush: "#E4000000"
+  TextFillColorSecondaryBrush: "#9E000000"
+  TextFillColorTertiaryBrush: "#72000000"
+  TextFillColorDisabledBrush: "#5C000000"
+  TextFillColorInverseBrush: "#FFFFFF"
+  AccentTextFillColorDisabledBrush: "#5C000000"
+  TextOnAccentFillColorSelectedTextBrush: "#FFFFFF"
+  TextOnAccentFillColorPrimaryBrush: "#FFFFFF"
+  TextOnAccentFillColorSecondaryBrush: "#B3FFFFFF"
+  TextOnAccentFillColorDisabledBrush: "#FFFFFF"
+
+  # Control Fill Colors
+  ControlFillColorDefaultBrush: "#B3FFFFFF"
+  ControlFillColorSecondaryBrush: "#80F9F9F9"
+  ControlFillColorTertiaryBrush: "#4DF9F9F9"
+  ControlFillColorDisabledBrush: "#4DF9F9F9"
+  ControlFillColorTransparentBrush: "#00FFFFFF"
+  ControlFillColorInputActiveBrush: "#FFFFFFFF"
+  ControlStrongFillColorDefaultBrush: "#72000000"
+  ControlStrongFillColorDisabledBrush: "#51000000"
+  ControlSolidFillColorDefaultBrush: "#FFFFFF"
+
+  # Subtle Fill Colors
+  SubtleFillColorTransparentBrush: "#00FFFFFF"
+  SubtleFillColorSecondaryBrush: "#09000000"
+  SubtleFillColorTertiaryBrush: "#06000000"
+  SubtleFillColorDisabledBrush: "#00FFFFFF"
+
+  # Control Alt Fill Colors
+  ControlAltFillColorTransparentBrush: "#00FFFFFF"
+  ControlAltFillColorSecondaryBrush: "#06000000"
+  ControlAltFillColorTertiaryBrush: "#0F000000"
+  ControlAltFillColorQuarternaryBrush: "#18000000"
+  ControlAltFillColorDisabledBrush: "#00FFFFFF"
+
+  # Control On Image Fill Colors
+  ControlOnImageFillColorDefaultBrush: "#C9FFFFFF"
+  ControlOnImageFillColorSecondaryBrush: "#F3F3F3"
+  ControlOnImageFillColorTertiaryBrush: "#EBEBEB"
+  ControlOnImageFillColorDisabledBrush: "#00FFFFFF"
+
+  # Accent Fill Colors
+  AccentFillColorDisabledBrush: "#37000000"
+  AccentFillColorSelectedTextBackgroundBrush: "#000000"
+  AccentTextFillColorPrimaryBrush: "#003e92"
+  AccentTextFillColorSecondaryBrush: "#001a68"
+  AccentFillColorDefaultBrush: "#0067c0"
+  AccentFillColorSecondaryBrush: "#1975c5"
+  AccentFillColorTertiaryBrush: "#3183ca"
+
+  # Stroke Colors
+  ControlStrokeColorDefaultBrush: "#0F000000"
+  ControlStrokeColorSecondaryBrush: "#29000000"
+  ControlStrokeColorOnAccentDefaultBrush: "#14FFFFFF"
+  ControlStrokeColorOnAccentSecondaryBrush: "#66000000"
+  ControlStrokeColorOnAccentTertiaryBrush: "#37000000"
+  ControlStrokeColorOnAccentDisabledBrush: "#0F000000"
+  ControlStrokeColorForStrongFillWhenOnImageBrush: "#59FFFFFF"
+  CardStrokeColorDefaultBrush: "#0F000000"
+  CardStrokeColorDefaultSolidBrush: "#EBEBEB"
+  ControlStrongStrokeColorDefaultBrush: "#72000000"
+  ControlStrongStrokeColorDisabledBrush: "#37000000"
+  SurfaceStrokeColorDefaultBrush: "#66757575"
+  SurfaceStrokeColorFlyoutBrush: "#0F000000"
+  SurfaceStrokeColorInverseBrush: "#15FFFFFF"
+  DividerStrokeColorDefaultBrush: "#0F000000"
+  FocusStrokeColorOuterBrush: "#E4000000"
+  FocusStrokeColorInnerBrush: "#B3FFFFFF"
+
+  # Background / Layer Colors
+  CardBackgroundFillColorDefaultBrush: "#B3FFFFFF"
+  CardBackgroundFillColorSecondaryBrush: "#80F6F6F6"
+  SmokeFillColorDefaultBrush: "#4D000000"
+  LayerFillColorDefaultBrush: "#80FFFFFF"
+  LayerFillColorAltBrush: "#FFFFFF"
+  LayerOnAcrylicFillColorDefaultBrush: "#40FFFFFF"
+  LayerOnAccentAcrylicFillColorDefaultBrush: "#40FFFFFF"
+  LayerOnMicaBaseAltFillColorDefaultBrush: "#B3FFFFFF"
+  LayerOnMicaBaseAltFillColorSecondaryBrush: "#0A000000"
+  LayerOnMicaBaseAltFillColorTertiaryBrush: "#F9F9F9"
+  LayerOnMicaBaseAltFillColorTransparentBrush: "#00000000"
+
+  # Solid Background Colors
+  SolidBackgroundFillColorBaseBrush: "#F3F3F3"
+  SolidBackgroundFillColorSecondaryBrush: "#EEEEEE"
+  SolidBackgroundFillColorTertiaryBrush: "#F9F9F9"
+  SolidBackgroundFillColorQuarternaryBrush: "#FFFFFF"
+  SolidBackgroundFillColorBaseAltBrush: "#DADADA"
+
+  # System Fill Colors
+  SystemFillColorSuccessBrush: "#0F7B0F"
+  SystemFillColorCautionBrush: "#9D5D00"
+  SystemFillColorCriticalBrush: "#C42B1C"
+  SystemFillColorNeutralBrush: "#72000000"
+  SystemFillColorSolidNeutralBrush: "#8A8A8A"
+  SystemFillColorAttentionBackgroundBrush: "#80F6F6F6"
+  SystemFillColorSuccessBackgroundBrush: "#DFF6DD"
+  SystemFillColorCautionBackgroundBrush: "#FFF4CE"
+  SystemFillColorCriticalBackgroundBrush: "#FDE7E9"
+  SystemFillColorNeutralBackgroundBrush: "#06000000"
+  SystemFillColorSolidAttentionBackgroundBrush: "#F7F7F7"
+  SystemFillColorSolidNeutralBackgroundBrush: "#F3F3F3"
+
+  # Temporary system color placeholders (all #FF00FF in XAML)
+  SystemColorWindowTextColorBrush: "#FF00FF"
+  SystemColorWindowColorBrush: "#FF00FF"
+  SystemColorButtonFaceColorBrush: "#FF00FF"
+  SystemColorButtonTextColorBrush: "#FF00FF"
+  SystemColorHighlightColorBrush: "#FF00FF"
+  SystemColorHighlightTextColorBrush: "#FF00FF"
+  SystemColorHotlightColorBrush: "#FF00FF"
+  SystemColorGrayTextColorBrush: "#FF00FF"
