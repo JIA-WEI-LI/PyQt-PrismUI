@@ -3,13 +3,13 @@ font:
   TextFontWeightNormal: "Normal"
   TextFontWeightBold: 'Bold'
 
-  CaptionTextBlockSize: 12
-  BodyTextBlockSize: 14
-  BodyStrongTextBlockSize: 14
-  SubtitleTextBlockSize: 20
-  TitleTextBlockSize: 28
-  TitleLargeTextBlockSize: 40
-  DisplayTextBlockSize: 68
+  CaptionTextBlockSize: "12px"
+  BodyTextBlockSize: "14px"
+  BodyStrongTextBlockSize: "14px"
+  SubtitleTextBlockSize: "20px"
+  TitleTextBlockSize: "28px"
+  TitleLargeTextBlockSize: "40px"
+  DisplayTextBlockSize: "68px"
 
 color:  
   # Text Colors

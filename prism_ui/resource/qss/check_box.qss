@@ -1,6 +1,8 @@
 CheckBox[class="CheckBox"] {
     color: --ThemeColor_Checkbox_Text_Default;
-    font: 18px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
     spacing: 8px;
     min-width: 28px;
     min-height: 22px;

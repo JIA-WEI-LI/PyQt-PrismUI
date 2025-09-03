@@ -1,7 +1,7 @@
 button:
   font:
     family: "{TextFontFamily}"
-    size: "{SubtitleTextBlockSize}"
+    size: "{BodyTextBlockSize}"
     weight: "{TextFontWeightNormal}"
 
 textblock:
@@ -20,16 +20,16 @@ textblock:
   subtitle:
     family: "{TextFontFamily}"
     size: "{SubtitleTextBlockSize}"
-    weight: "{TextFontWeightNormal}"
+    weight: "{TextFontWeightBold}"
   title:
     family: "{TextFontFamily}"
     size: "{TitleTextBlockSize}"
-    weight: "{TextFontWeightNormal}"
+    weight: "{TextFontWeightBold}"
   title_large:
     family: "{TextFontFamily}"
     size: "{TitleLargeTextBlockSize}"
-    weight: "{TextFontWeightNormal}"
+    weight: "{TextFontWeightBold}"
   display:
     family: "{TextFontFamily}"
     size: "{DisplayTextBlockSize}"
-    weight: "{TextFontWeightNormal}"
+    weight: "{TextFontWeightBold}"
