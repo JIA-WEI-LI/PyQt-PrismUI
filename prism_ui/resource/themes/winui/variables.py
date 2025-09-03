@@ -1,8 +1,8 @@
-from .colors import LightThemeColors, DarkThemeColors
+from .colors import LightTheme, DarkTheme
 from ....utils.theme_manager import Theme
 
 def get_variables(theme: Theme) -> dict:
-    colors = DarkThemeColors if theme == Theme.DARK else LightThemeColors
+    colors = DarkTheme if theme == Theme.DARK else LightTheme
 
     return {
         # Button Background Colors

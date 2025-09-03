@@ -102,7 +102,7 @@ class CheckBox(QCheckBox, BaseMixin):
             if not self.isEnabled():
                 return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Disabled'))
             elif self.isChecked() and self.isHover:
-                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Checked_Hovered'))
+                return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_On_Accent_Hovered'))
             elif self.isChecked():
                 return QColor(theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Checked'))
             elif self.isHover:

@@ -5,9 +5,9 @@ from typing import Optional
 from PyQt5.QtCore import QObject, pyqtSignal, QFileSystemWatcher
 from PyQt5.QtWidgets import QWidget
 
+from .theme_loader import ThemeLoader
 from .variable_loader import Theme, get_variables
-# from ..resource.themes.winui.variables import get_variables
-from prism_ui.resource.themes.winui.colors import LightThemeColors, DarkThemeColors
+from prism_ui.resource.themes.winui.colors import LightTheme, DarkTheme
 
 class ThemeManager(QObject):
     theme_changed = pyqtSignal(Theme)
@@ -23,7 +23,7 @@ class ThemeManager(QObject):
         self._cache = {}
         self._watcher = QFileSystemWatcher()
         self._watcher.fileChanged.connect(self._on_qss_file_changed)
-
+        
         self._variables = {}
         self.set_theme(self._theme)
 
@@ -49,7 +49,7 @@ class ThemeManager(QObject):
         else:
             need_update = False
 
-        variables = get_variables(theme)
+        variables = get_variables(theme, "color.yaml")
         self.set_variables(variables)
 
         if need_update:

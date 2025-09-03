@@ -8,7 +8,9 @@ PushButton[class="SegmentedButton"]  {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     color: --ThemeColor_Button_Text_Default;
-    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    font-family: --ThemFont_Body_Family;
+    font-size: --ThemFont_Body_Size;
+    font-weight: --ThemFont_Body_Weight;
     padding: 5px 12px;
     outline: none;
 }
@@ -45,7 +47,9 @@ PushButton[class="TransparentToggleButton"]:checked {
     background-color: --ThemeColor_Button_Background_On_Accent_Default;
     border-radius: 5px;
     color: --ThemeColor_Button_Text_Inverse;
-    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    font-family: --ThemFont_Body_Family;
+    font-size: --ThemFont_Body_Size;
+    font-weight: --ThemFont_Body_Weight;
     padding: 5px 12px;
 }
 PushButton[class="PrimaryButton"]:hover,
@@ -75,7 +79,6 @@ PushButton[class="TransparentToggleButton"] {
     background-color: transparent;
     border-radius: 5px;
     color: --ThemeColor_Button_Text_Default;
-    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
 }
 
@@ -83,7 +86,6 @@ PushButton[class="HyperlinkButton"] {
     background-color: transparent;
     border-radius: 5px;
     color: --ThemeColor_Button_Text_On_Accent_Default;
-    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
     outline: none;
 }
@@ -105,7 +107,9 @@ QToolTip {
     border-color: --ThemeColor_Button_Background_Default;
     border-radius: 4px;
     padding: 2px;
-    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    font-family: --ThemFont_Body_Family;
+    font-size: --ThemFont_Body_Size;
+    font-weight: --ThemFont_Body_Weight;
     color: --ThemeColor_Button_Text_Default;
 }
 

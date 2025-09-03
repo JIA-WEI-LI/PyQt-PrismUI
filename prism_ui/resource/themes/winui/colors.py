@@ -1,7 +1,5 @@
-from prism_ui.common.base_colors import BaseColors
-
 #region Light
-class LightThemeColors(BaseColors):
+class LightTheme:
     # Text Colors
     TextFillColorPrimaryBrush = "#E4000000"
     TextFillColorSecondaryBrush = "#9E000000"
@@ -117,7 +115,7 @@ class LightThemeColors(BaseColors):
     SystemColorGrayTextColorBrush = "#FF00FF"
 
 # region Dark
-class DarkThemeColors(BaseColors):
+class DarkTheme:
     # Text Colors
     TextFillColorPrimaryBrush = "#FFFFFF"
     TextFillColorSecondaryBrush = "#C5FFFFFF"

@@ -9,7 +9,7 @@ from ...utils.theme_manager import theme_manager
 
 class RadioButton(QRadioButton, BaseMixin):
     def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
-        super().__init__(text=text, icon=icon, parent=parent)
+        super().__init__(text=text, parent=parent)
         self.isPressed = False
         self.isHover = False
         self._icon_source = None
@@ -38,14 +38,11 @@ class RadioButton(QRadioButton, BaseMixin):
 
     def _get_icon_color(self) -> str:
         if self.isEnabled():
-            if self.isHover:
-                return theme_manager.get_current_variables("--ThemeColor_Text_Secondary")
-            elif self.isPressed:
-                return theme_manager.get_current_variables("--ThemeColor_Text_Tertiary")
-            else:
-                return theme_manager.get_current_variables("--ThemeColor_Text_Default")
+            if self.isHover: return theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Hovered")
+            elif self.isPressed: return theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Pressed")
+            else: return theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Default")
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Text_Disabled")
+            return theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Disabled")
 
     def updateIcon(self):
         if hasattr(self, "_icon_source") and callable(self._icon_source):
@@ -97,23 +94,23 @@ class RadioButton(QRadioButton, BaseMixin):
         is_hover = self.isHover
         is_pressed = self.isPressed
 
-        border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Text_Disabled"))
+        border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Disabled"))
         fill_color = Qt.GlobalColor.transparent
         dot_color = Qt.GlobalColor.transparent
 
         if is_checked:
             if is_enabled:
                 border_color = QColor(Qt.GlobalColor.transparent)
-                if is_hover: fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Accent_Secondary"))
-                elif is_pressed: fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Accent_Tertiary"))
-                else: fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Accent_Default"))
+                if is_hover: fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_On_Accent_Hovered"))
+                elif is_pressed: fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_On_Accent_Pressed"))
+                else: fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_On_Accent_Default"))
             else:
                 border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Control_Strong_Disabled"))
-                fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Accent_Disabled"))
-            dot_color = QColor(theme_manager.get_current_variables("--ThemeColor_Text_On_Accent_Default"))
+                fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_On_Accent_Disabled"))
+            dot_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_On_Accent_Default"))
         else:
-            if is_enabled: border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Control_Strong_Default"))
-            else: border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Control_Strong_Disabled"))
+            if is_enabled: border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_Default"))
+            else: border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_Disabled"))
 
         painter.setRenderHints(QPainter.RenderHint.Antialiasing)
         painter.setPen(border_color)

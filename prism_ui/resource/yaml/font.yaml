@@ -1,0 +1,29 @@
+textblock:
+  caption:
+    family: "{TextFontFamily}"
+    size: "{CaptionTextBlockSize}"
+    weight: "{TextFontWeightNormal}"
+  body:
+    family: "{TextFontFamily}"
+    size: "{BodyTextBlockSize}"
+    weight: "{TextFontWeightNormal}"
+  bodystrong:
+    family: "{TextFontFamily}"
+    size: "{BodyStrongTextBlockSize}"
+    weight: "{TextFontWeightBold}"
+  subtitle:
+    family: "{TextFontFamily}"
+    size: "{SubtitleTextBlockSize}"
+    weight: "{TextFontWeightNormal}"
+  title:
+    family: "{TextFontFamily}"
+    size: "{TitleTextBlockSize}"
+    weight: "{TextFontWeightNormal}"
+  title_large:
+    family: "{TextFontFamily}"
+    size: "{TitleLargeTextBlockSize}"
+    weight: "{TextFontWeightNormal}"
+  display:
+    family: "{TextFontFamily}"
+    size: "{DisplayTextBlockSize}"
+    weight: "{TextFontWeightNormal}"

@@ -2,7 +2,7 @@ RadioButton[class=RadioButton]{
     background: transparent;
     border: none;
     border-radius: 5px;
-    color: --ThemeColor_Text_Default;
+    color: --ThemeColor_Radiobutton_Text_Default;
     font: 18px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
     padding: 5px 12px;
     padding-left: 24px;
@@ -17,7 +17,7 @@ RadioButton[class=RadioButton]:pressed {
 RadioButton[class=RadioButton]:disabled {
     background: transparent;
     border: none;
-    color: --ThemeColor_Text_Disabled;
+    color: --ThemeColor_Radiobutton_Text_Disabled;
 }
 RadioButton[class="RadioButton"]::indicator {
     image: none;

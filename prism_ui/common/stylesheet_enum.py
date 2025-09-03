@@ -1,5 +1,6 @@
 import os
 from enum import Enum
+
 from ..utils.theme_manager import theme_manager
 
 class PrismStyleSheet(Enum):
