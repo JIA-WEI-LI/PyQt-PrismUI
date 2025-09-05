@@ -16,8 +16,8 @@ QLineEdit[class="LineEdit"] {
 QLineEdit[class="LineEdit"]:hover {
     background-color: --ThemeColor_Lineedit_Background_Hovered;
 }
-QLineEdit[class="LineEdit"]:pressed {
-    background-color: --ThemeColor_Lineedit_Background_Pressed;
+QLineEdit[class="LineEdit"]:focus {
+    background-color: --ThemeColor_Lineedit_Background_Focus;
 }
 QLineEdit[class="LineEdit"]:checked {
     background-color: --ThemeColor_Lineedit_Background_On_Accent_Pressed;

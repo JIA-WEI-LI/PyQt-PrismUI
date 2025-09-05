@@ -69,7 +69,7 @@ lineedit:
   background:
     default: "{ControlFillColorDefaultBrush}"
     hovered: "{ControlFillColorSecondaryBrush}"
-    pressed: "{ControlFillColorTertiaryBrush}"
+    focus: "{ControlFillColorTertiaryBrush}"
     disabled: "{ControlFillColorDisabledBrush}"
     on_accent_default: "{AccentFillColorDefaultBrush}"
   text:
