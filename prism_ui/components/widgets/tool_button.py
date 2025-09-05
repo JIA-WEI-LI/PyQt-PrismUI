@@ -25,7 +25,6 @@ class ToolButton(QToolButton, BaseMixin):
         self.adjustToSquare()
 
         PrismStyleSheet.TOOLBUTTON.apply(self)
-        theme_manager.register(self)
 
     def setIcon(self, icon: Union[QIcon, Callable]):
         if callable(icon):

@@ -24,7 +24,6 @@ class PushButton(QPushButton, BaseMixin):
         else: self.setIcon(QIcon())
 
         PrismStyleSheet.BUTTON.apply(self)
-        theme_manager.register(self)
 
     def setIcon(self, icon: Union[QIcon, Callable]):
         if callable(icon):

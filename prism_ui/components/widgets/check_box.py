@@ -24,7 +24,6 @@ class CheckBox(QCheckBox, BaseMixin):
         self.setIndicatorIconSource(BlenderIcon.CHECK)
 
         PrismStyleSheet.CHECKBOX.apply(self)
-        theme_manager.register(self)
 
     def setIcon(self, icon: Union[QIcon, Callable]):
         if callable(icon):

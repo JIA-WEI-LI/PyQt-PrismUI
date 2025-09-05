@@ -51,7 +51,6 @@ class ToolTip(QFrame):
         self.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint)
 
         PrismStyleSheet.TOOLTIP.apply(self)
-        theme_manager.register(self)
 
     def _createContainer(self) -> QFrame:
         frame = QFrame(self)
