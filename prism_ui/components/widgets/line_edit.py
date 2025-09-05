@@ -80,6 +80,10 @@ class LineEdit(QLineEdit):
         m = self.textMargins()
         self.setTextMargins(left, m.top(), right, m.bottom())
 
+    def enterEvent(self, a0):
+        self.setCursor(Qt.CursorShape.IBeamCursor)
+        return super().enterEvent(a0)
+
 class TextBox(LineEdit):
     def __init__(self, text: str = "", parent=None):
         super().__init__(text, parent)
