@@ -64,3 +64,13 @@ textblock:
   text:
     default: "{TextFillColorPrimaryBrush}"
     disabled: "{TextFillColorDisabledBrush}"
+
+lineedit:
+  background:
+    default: "{ControlFillColorDefaultBrush}"
+    hovered: "{ControlFillColorSecondaryBrush}"
+    pressed: "{ControlFillColorTertiaryBrush}"
+    disabled: "{ControlFillColorDisabledBrush}"
+    on_accent_default: "{AccentFillColorDefaultBrush}"
+  text:
+    default: "{TextFillColorPrimaryBrush}"

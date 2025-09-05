@@ -22,7 +22,9 @@ class ToolButton(QToolButton, BaseMixin):
         else:
             self.setIcon(QIcon())
 
-        PrismStyleSheet.TOOLBUTTOON.apply(self)
+        self.adjustToSquare()
+
+        PrismStyleSheet.TOOLBUTTON.apply(self)
         theme_manager.register(self)
 
     def setIcon(self, icon: Union[QIcon, Callable]):
@@ -36,6 +38,11 @@ class ToolButton(QToolButton, BaseMixin):
     def setIconSource(self, icon_accessor: Callable[[str], QIcon]):
         self._icon_source = icon_accessor
         self.updateIcon()
+
+    def adjustToSquare(self, padding: int = 8):
+        size = self.iconSize()
+        side = max(size.width(), size.height()) + padding
+        self.setFixedSize(side, side)
 
     def _get_icon_color(self) -> str:
         from prism_ui.utils.theme_manager import theme_manager  # 確保可用
