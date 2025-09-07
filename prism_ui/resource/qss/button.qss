@@ -46,7 +46,7 @@ PushButton[class="SegmentedButton"]:checked,
 PushButton[class="TransparentToggleButton"]:checked {
     background-color: --ThemeColor_Button_Background_On_Accent_Default;
     border-radius: 5px;
-    color: --ThemeColor_Button_Text_Inverse;
+    color: --ThemeColor_Button_Text_On_Accent_Default;
     font-family: --ThemeFont_Button_Font_Family;
     font-size: --ThemeFont_Button_Font_Size;
     font-weight: --ThemeFont_Button_Font_Weight;
@@ -57,14 +57,14 @@ PushButton[class="ToggleButton"]:checked:hover,
 PushButton[class="SegmentedButton"]:checked:hover,
 PushButton[class="TransparentToggleButton"]:checked:hover {
     background-color: --ThemeColor_Button_Background_On_Accent_Hovered;
-    color: --ThemeColor_Button_Text_Inverse;
+    color: --ThemeColor_Button_Text_On_Accent_Hovered;
 }
 PushButton[class="PrimaryButton"]:pressed,
 PushButton[class="ToggleButton"]:checked:pressed,
 PushButton[class="SegmentedButton"]:checked:pressed,
 PushButton[class="TransparentToggleButton"]:checked:pressed {
     background-color: --ThemeColor_Button_Background_On_Accent_Pressed;
-    color: --ThemeColor_Button_Text_Inverse;
+    color: --ThemeColor_Button_Text_On_Accent_Pressed;
 }
 PushButton[class="PrimaryButton"]:disabled,
 PushButton[class="ToggleButton"]:checked:disabled,
@@ -88,7 +88,7 @@ PushButton[class="TransparentToggleButton"] {
 PushButton[class="HyperlinkButton"] {
     background-color: transparent;
     border-radius: 5px;
-    color: --ThemeColor_Button_Text_On_Accent_Default;
+    color: --ThemeColor_Button_Hyper_Default;
     font-family: --ThemeFont_Button_Font_Family;
     font-size: --ThemeFont_Button_Font_Size;
     font-weight: --ThemeFont_Button_Font_Weight;
@@ -97,15 +97,15 @@ PushButton[class="HyperlinkButton"] {
 }
 PushButton[class="HyperlinkButton"]:hover {
     background-color: --ThemeColor_Button_Background_Hovered;
-    color: --ThemeColor_Button_Text_On_Accent_Hovered;
+    color: --ThemeColor_Button_Hyper_Hovered;
 }
 PushButton[class="HyperlinkButton"]:pressed {
     background-color: --ThemeColor_Button_Background_Pressed;
-    color: --ThemeColor_Button_Text_On_Accent_Pressed;
+    color: --ThemeColor_Button_Hyper_Pressed;
 }
 PushButton[class="HyperlinkButton"]:disabled {
     background-color: transparent;
-    color: --ThemeColor_Button_Text_On_Accent_Disabled;
+    color: --ThemeColor_Button_Hyper_Disabled;
 }
 QToolTip {
     background-color: --ThemeColor_Button_Background_Default;
