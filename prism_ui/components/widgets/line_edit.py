@@ -1,6 +1,5 @@
-from PyQt5.QtWidgets import QAction, QToolButton, QLineEdit, QHBoxLayout
-from PyQt5.QtGui import QPainter
-from PyQt5.QtCore import QRectF, Qt
+from PyQt5.QtWidgets import QAction, QWidget, QLineEdit, QHBoxLayout, QTextEdit
+from PyQt5.QtCore import Qt
 
 from .tool_button import TransparentToolButton
 from ...icon_manager.blender_icon import BlenderIcon
@@ -44,12 +43,21 @@ class LineEdit(QLineEdit):
         super().__init__(text, parent)
         self.leftButtons = []
         self.rightButtons = []
-        self._isClearButtonEnabled = False
+        self._isClearButtonEnabled = True
+        self._clearButtonAlwaysVisible = False
         self.setProperty("class", "LineEdit")
 
         self.hBoxLayout = QHBoxLayout(self)
         self.hBoxLayout.setContentsMargins(4, 4, 4, 4)
         self.hBoxLayout.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+
+        self.clearButton = LineEditButton(BlenderIcon.CLOSE, self)
+        self.hBoxLayout.addWidget(self.clearButton, 0, Qt.AlignmentFlag.AlignRight)
+        self.clearButton.clicked.connect(self.clear)
+        self.textChanged.connect(self._updateClearButtonVisibility)
+
+        self._updateClearButtonVisibility()
+        self._adjustTextMargins()
 
         PrismStyleSheet.LINEEDIT.apply(self)
 
@@ -80,33 +88,18 @@ class LineEdit(QLineEdit):
         m = self.textMargins()
         self.setTextMargins(left, m.top(), right, m.bottom())
 
-    def enterEvent(self, a0):
-        self.setCursor(Qt.CursorShape.IBeamCursor)
-        return super().enterEvent(a0)
-
-class TextBox(LineEdit):
-    def __init__(self, text: str = "", parent=None):
-        super().__init__(text, parent)
-        self._isClearButtonEnabled = True
-        self._alwaysVisible = False
-
-        self.clearButton = LineEditButton(BlenderIcon.CLOSE, self)
-        self.hBoxLayout.addWidget(self.clearButton, 0, Qt.AlignmentFlag.AlignRight)
-
-        self.clearButton.clicked.connect(self.clear)
-        self.textChanged.connect(self._updateClearButtonVisibility)
-        
-        self._updateClearButtonVisibility()
-        self._adjustTextMargins()
-
     def _updateClearButtonVisibility(self):
-        should_be_visible = (self.hasFocus() and bool(self.text()) and self.isClearButtonEnabled()) or self._alwaysVisible
+        should_be_visible = (self.hasFocus() and bool(self.text()) and self.isClearButtonEnabled()) or self._clearButtonAlwaysVisible
         self.clearButton.setVisible(should_be_visible)
 
     def setClearButtonAlwaysVisible(self, always_visible: bool=True):
-        self._alwaysVisible = always_visible
+        self._clearButtonAlwaysVisible = always_visible
         self._updateClearButtonVisibility()
 
+    def enterEvent(self, a0):
+        self.setCursor(Qt.CursorShape.IBeamCursor)
+        return super().enterEvent(a0)
+    
     def focusInEvent(self, e):
         super().focusInEvent(e)
         self._updateClearButtonVisibility()
@@ -114,3 +107,23 @@ class TextBox(LineEdit):
     def focusOutEvent(self, e):
         super().focusOutEvent(e)
         self._updateClearButtonVisibility()
+
+class TextBox(QWidget):
+    def __init__(self, text: str = "", accepts_return: bool = False, parent=None):
+        super().__init__(text, parent)
+
+        self._accept_return = accepts_return
+        self._editor = QTextEdit(text, self) if self._accept_return else LineEdit(text, self)
+
+        layout = QHBoxLayout(self)
+        layout.addWidget(self._editor)
+        layout.setContentsMargins(0, 0, 0, 0)
+
+        self.setProperty("class", "LineEdit")
+        PrismStyleSheet.LINEEDIT.apply(self)
+
+    def setAcceptsReturn(self, accepts_return: bool=False):
+        self._accept_return = accepts_return
+        text = self._editor.text()
+        self._editor = QTextEdit(text, self) if self._accept_return else LineEdit(text, self)
+        
