@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QAction, QWidget, QLineEdit, QHBoxLayout, QTextEdit
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QRectF
+from PyQt5.QtGui import QPainter, QPainterPath, QColor
 
 from .tool_button import TransparentToolButton
 from ...icon_manager.blender_icon import BlenderIcon
@@ -108,9 +109,59 @@ class LineEdit(QLineEdit):
         super().focusOutEvent(e)
         self._updateClearButtonVisibility()
 
+    def paintEvent(self, e):
+        super().paintEvent(e)
+        border_color = "--ThemeColor_Lineedit_Border_Default" if not self.hasFocus() else "--ThemeColor_Lineedit_Border_Focus"
+
+        painter = QPainter(self)
+        painter.setRenderHints(QPainter.RenderHint.Antialiasing)
+        painter.setPen(Qt.PenStyle.NoPen)
+
+        m = self.contentsMargins()
+        w, h = self.width() - m.left() - m.right(), self.height()
+
+        path = QPainterPath()
+        path.addRoundedRect(QRectF(m.left(), h - 10, w, 10), 5, 5)
+
+        rectPath = QPainterPath()
+        rectPath.addRect(m.left(), h - 10, w, 8)
+        path = path.subtracted(rectPath)
+        
+        painter.fillPath(path, QColor(theme_manager.get_current_variables(border_color)))
+
+class TextEdit(QTextEdit):
+    #TODO: Not Done Yet
+    def __init__(self, text: str="", parent=None):
+        super().__init__(parent)
+        
+        self.setProperty("class", "TextEdit")
+        PrismStyleSheet.LINEEDIT.apply(self)
+
+    def paintEvent(self, e):
+        super().paintEvent(e)
+
+        border_color = "--ThemeColor_Lineedit_Border_Default" if not self.hasFocus() else "--ThemeColor_Lineedit_Border_Focus"
+
+        painter = QPainter(self.viewport())
+        painter.setRenderHints(QPainter.RenderHint.Antialiasing)
+        painter.setPen(Qt.PenStyle.NoPen)
+
+        m = self.contentsMargins()
+        w = self.viewport().width() - m.left() - m.right()
+        h = self.viewport().height()
+
+        path = QPainterPath()
+        path.addRoundedRect(QRectF(m.left(), h - 10, w, 10), 5, 5)
+
+        rectPath = QPainterPath()
+        rectPath.addRect(m.left(), h - 10, w, 8)
+        path = path.subtracted(rectPath)
+
+        painter.fillPath(path, QColor(theme_manager.get_current_variables(border_color)))
+
 class TextBox(QWidget):
     def __init__(self, text: str = "", accepts_return: bool = False, parent=None):
-        super().__init__(text, parent)
+        super().__init__(parent)
 
         self._accept_return = accepts_return
         self._editor = QTextEdit(text, self) if self._accept_return else LineEdit(text, self)
@@ -122,8 +173,11 @@ class TextBox(QWidget):
         self.setProperty("class", "LineEdit")
         PrismStyleSheet.LINEEDIT.apply(self)
 
+    def __getattr__(self, name):
+        return getattr(self._editor, name)
+
     def setAcceptsReturn(self, accepts_return: bool=False):
         self._accept_return = accepts_return
-        text = self._editor.text()
+        text = self._editor.text() if isinstance(self._editor, LineEdit) else self._editor.toPlainText()
         self._editor = QTextEdit(text, self) if self._accept_return else LineEdit(text, self)
         

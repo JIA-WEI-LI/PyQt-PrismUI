@@ -4,6 +4,7 @@ from PyQt5.QtGui import QIcon, QPainter
 from PyQt5.QtCore import QSize, QRectF, Qt
 
 from .base_widget_mixin import BaseMixin
+from .button import PushButton
 from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
@@ -16,12 +17,7 @@ class ToolButton(QToolButton, BaseMixin):
 
         self.setProperty("class", "ToolButton")
         self.setIconSize(QSize(16, 16))
-
-        if icon:
-            self.setIcon(icon)
-        else:
-            self.setIcon(QIcon())
-
+        self.setIcon(icon if icon else QIcon())
         self.adjustToSquare()
 
         PrismStyleSheet.TOOLBUTTON.apply(self)
@@ -100,20 +96,20 @@ class ToolButton(QToolButton, BaseMixin):
         elif self.isPressed:
             painter.setOpacity(0.78)
 
-        w = self.iconSize().width()
-        h = self.iconSize().height()
-        y = (self.height() - h) / 2
+        icon_width = self.iconSize().width()
+        icon_height = self.iconSize().height()
+        icon_y = (self.height() - icon_height) / 2
 
         text_width = self.fontMetrics().width(self.text()) if self.text() else 0
         spacing = 6
 
-        total_width = w + spacing + text_width if text_width else w
-        x = (self.width() - total_width) / 2
+        total_width = icon_width + spacing + text_width if text_width else icon_width
+        icon_x = (self.width() - total_width) / 2
 
         if self.layoutDirection() == Qt.RightToLeft:
-            x = self.width() - x - w
+            icon_x = self.width() - icon_x - icon_width
 
-        rect = QRectF(x, y, w, h)
+        rect = QRectF(icon_x, icon_y, icon_width, icon_height)
         self._icon.paint(painter, rect.toRect())
 
         painter.end()

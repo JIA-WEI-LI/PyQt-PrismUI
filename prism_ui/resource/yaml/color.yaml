@@ -79,3 +79,6 @@ lineedit:
     on_accent_default: "{AccentFillColorDefaultBrush}"
   text:
     default: "{TextFillColorPrimaryBrush}"
+  border:
+    default: "{AccentFillColorDisabledBrush}"
+    focus: "{AccentFillColorDefaultBrush}"

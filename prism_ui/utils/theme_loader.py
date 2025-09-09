@@ -6,8 +6,8 @@ class ThemeLoader:
     def __init__(self, base_path: str):
         self.base_path = base_path
 
-    def load(self, style: str, theme: str) -> SimpleNamespace:
-        theme_file = os.path.join(self.base_path, "themes", style, f"{theme}.yaml")
+    def load(self, theme: str) -> SimpleNamespace:
+        theme_file = os.path.join(self.base_path, "yaml", f"{theme}.yaml")
         theme_vars = self.yaml_to_dict(theme_file)
 
         color_file = os.path.join(self.base_path, "yaml", "color.yaml")

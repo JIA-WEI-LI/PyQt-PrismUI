@@ -18,10 +18,8 @@ class PushButton(QPushButton, BaseMixin):
 
         self.setProperty("class", "PushButton")
         self.setIconSize(QSize(16, 16))
-
-        if text: self.setText(text)
-        if icon: self.setIcon(icon)
-        else: self.setIcon(QIcon())
+        self.setText(text if text else "")
+        self.setIcon(icon if icon else QIcon())
 
         PrismStyleSheet.BUTTON.apply(self)
 
@@ -82,20 +80,20 @@ class PushButton(QPushButton, BaseMixin):
         elif self.isPressed:
             painter.setOpacity(0.78)
 
-        w = self.iconSize().width()
-        h = self.iconSize().height()
-        y = (self.height() - h) / 2
+        icon_width = self.iconSize().width()
+        icon_height = self.iconSize().height()
+        icon_y = (self.height() - icon_height) / 2
 
         text_width = self.fontMetrics().width(self.text()) if self.text() else 0
         spacing = 6
 
-        total_width = w + spacing + text_width if text_width else w
-        x = (self.width() - total_width) / 2
+        total_width = icon_width + spacing + text_width if text_width else icon_width
+        icon_x = (self.width() - total_width) / 2
 
-        if self.layoutDirection() == Qt.RightToLeft:
-            x = self.width() - x - w
+        if self.layoutDirection() == Qt.LayoutDirection.RightToLeft:
+            icon_x = self.width() - icon_x - icon_width
 
-        rect = QRectF(x, y, w, h)
+        rect = QRectF(icon_x, icon_y, icon_width, icon_height)
         self._icon.paint(painter, rect.toRect())
 
         painter.end()
