@@ -1,6 +1,7 @@
 from .button import *
 from .button_group import *
 from .check_box import *
+from .line_edit import *
 from .list_view import *
 from .radio_button import *
 from .text_block import *
@@ -11,6 +12,8 @@ __all__ = [
     "BaseButtonGroup",
     "CheckBox",
     "HyperlinkButton",
+    "LineEdit",
+    "LineEditButton",
     "ListItem",
     "ListView",
     "PrimaryButton", 
@@ -22,6 +25,7 @@ __all__ = [
     "SegmentedButton",
     "SegmentedButtonGroup",
     "TextBlock",
+    "TextBox",
     "ToggleButton",
     "ToggleButtonGroup",
     "ToggleToolButton",

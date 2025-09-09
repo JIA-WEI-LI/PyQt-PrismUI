@@ -28,10 +28,10 @@ color:
   TextFillColorDisabledBrush: "#5DFFFFFF"
   TextFillColorInverseBrush: "#E4000000"
 
-  AccentTextFillColorDisabledBrush: "#5DFFFFFF"
   TextOnAccentFillColorSelectedTextBrush: "#FFFFFF"
   TextOnAccentFillColorPrimaryBrush: "#000000"
   TextOnAccentFillColorSecondaryBrush: "#80000000"
+  TextOnAccentFillColorTertiaryBrush: "#60000000"
   TextOnAccentFillColorDisabledBrush: "#87FFFFFF"
 
   # Control Fill Colors
@@ -67,11 +67,13 @@ color:
   # Accent Fill Colors
   AccentFillColorDisabledBrush: "#28FFFFFF"
   AccentFillColorSelectedTextBackgroundBrush: "#ffffff"
-  AccentTextFillColorPrimaryBrush: "#99ebff"
-  AccentTextFillColorSecondaryBrush: "#85c8d8"
   AccentFillColorDefaultBrush: "#4cc2ff"
   AccentFillColorSecondaryBrush: "#47b1e8"
   AccentFillColorTertiaryBrush: "#42a1d2"
+  AccentTextFillColorPrimaryBrush: "#99ebff"
+  AccentTextFillColorSecondaryBrush: "#99ebff"
+  AccentTextFillColorTertiaryBrush: "#85c8d8"
+  AccentTextFillColorDisabledBrush: "#5DFFFFFF"
 
   # Stroke Colors
   ControlStrokeColorDefaultBrush: "#12FFFFFF"

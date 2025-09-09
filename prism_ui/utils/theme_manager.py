@@ -43,7 +43,7 @@ class ThemeManager(QObject):
         else:
             need_update = False
 
-        ns = self.loader.load(self._style_name, self._theme.value)
+        ns = self.loader.load(self._theme.value)
         self._variables = ns
 
         if need_update:

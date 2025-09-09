@@ -13,11 +13,16 @@ button:
     hovered: "{TextFillColorSecondaryBrush}"
     pressed: "{TextFillColorTertiaryBrush}"
     disabled: "{TextFillColorDisabledBrush}"
-    on_accent_default: "{AccentTextFillColorPrimaryBrush}"
-    on_accent_hovered: "{AccentTextFillColorSecondaryBrush}"
-    on_accent_pressed: "{TextOnAccentFillColorSecondaryBrush}"
-    on_accent_disabled: "{AccentTextFillColorDisabledBrush}"
+    on_accent_default: "{TextOnAccentFillColorPrimaryBrush}"
+    on_accent_hovered: "{TextOnAccentFillColorSecondaryBrush}"
+    on_accent_pressed: "{TextOnAccentFillColorTertiaryBrush}"
+    on_accent_disabled: "{TextOnAccentFillColorDisabledBrush}"
     inverse: "{TextFillColorInverseBrush}"
+  hyper:
+    default: "{AccentTextFillColorPrimaryBrush}"
+    hovered: "{AccentTextFillColorSecondaryBrush}"
+    pressed: "{AccentTextFillColorTertiaryBrush}"
+    disabled: "{AccentTextFillColorDisabledBrush}"
 
 checkbox:
   background:
@@ -64,3 +69,16 @@ textblock:
   text:
     default: "{TextFillColorPrimaryBrush}"
     disabled: "{TextFillColorDisabledBrush}"
+
+lineedit:
+  background:
+    default: "{ControlFillColorDefaultBrush}"
+    hovered: "{ControlFillColorSecondaryBrush}"
+    focus: "{ControlFillColorTertiaryBrush}"
+    disabled: "{ControlFillColorDisabledBrush}"
+    on_accent_default: "{AccentFillColorDefaultBrush}"
+  text:
+    default: "{TextFillColorPrimaryBrush}"
+  border:
+    default: "{AccentFillColorDisabledBrush}"
+    focus: "{AccentFillColorDefaultBrush}"

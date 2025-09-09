@@ -4,6 +4,7 @@ from PyQt5.QtGui import QIcon, QPainter
 from PyQt5.QtCore import QSize, QRectF, Qt
 
 from .base_widget_mixin import BaseMixin
+from .button import PushButton
 from ...common.stylesheet_enum import PrismStyleSheet
 from ...utils.theme_manager import theme_manager
 
@@ -16,14 +17,10 @@ class ToolButton(QToolButton, BaseMixin):
 
         self.setProperty("class", "ToolButton")
         self.setIconSize(QSize(16, 16))
+        self.setIcon(icon if icon else QIcon())
+        self.adjustToSquare()
 
-        if icon:
-            self.setIcon(icon)
-        else:
-            self.setIcon(QIcon())
-
-        PrismStyleSheet.TOOLBUTTOON.apply(self)
-        theme_manager.register(self)
+        PrismStyleSheet.TOOLBUTTON.apply(self)
 
     def setIcon(self, icon: Union[QIcon, Callable]):
         if callable(icon):
@@ -37,15 +34,20 @@ class ToolButton(QToolButton, BaseMixin):
         self._icon_source = icon_accessor
         self.updateIcon()
 
+    def adjustToSquare(self, padding: int = 8):
+        size = self.iconSize()
+        side = max(size.width(), size.height()) + padding
+        self.setFixedSize(side, side)
+
     def _get_icon_color(self) -> str:
-        from prism_ui.utils.theme_manager import theme_manager  # 確保可用
         if not self.isEnabled():
             return theme_manager.get_current_variables("--ThemeColor_Button_Text_Disabled")
-        if self.isPressed:
+        elif self.isPressed:
             return theme_manager.get_current_variables("--ThemeColor_Button_Text_Pressed")
-        if self.isHover:
+        elif self.isHover:
             return theme_manager.get_current_variables("--ThemeColor_Button_Text_Hovered")
-        return theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
+        else:
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
 
     def updateIcon(self):
         if hasattr(self, "_icon_source") and callable(self._icon_source):
@@ -87,27 +89,27 @@ class ToolButton(QToolButton, BaseMixin):
             return
 
         painter = QPainter(self)
-        painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform)
+        painter.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.SmoothPixmapTransform)
 
         if not self.isEnabled():
             painter.setOpacity(0.36)
         elif self.isPressed:
             painter.setOpacity(0.78)
 
-        w = self.iconSize().width()
-        h = self.iconSize().height()
-        y = (self.height() - h) / 2
+        icon_width = self.iconSize().width()
+        icon_height = self.iconSize().height()
+        icon_y = (self.height() - icon_height) / 2
 
         text_width = self.fontMetrics().width(self.text()) if self.text() else 0
         spacing = 6
 
-        total_width = w + spacing + text_width if text_width else w
-        x = (self.width() - total_width) / 2
+        total_width = icon_width + spacing + text_width if text_width else icon_width
+        icon_x = (self.width() - total_width) / 2
 
         if self.layoutDirection() == Qt.RightToLeft:
-            x = self.width() - x - w
+            icon_x = self.width() - icon_x - icon_width
 
-        rect = QRectF(x, y, w, h)
+        rect = QRectF(icon_x, icon_y, icon_width, icon_height)
         self._icon.paint(painter, rect.toRect())
 
         painter.end()
@@ -118,13 +120,14 @@ class PrimaryToolButton(ToolButton):
         self.setProperty("class", "PrimaryToolButton")
 
     def _get_icon_color(self) -> str:
-        if self.isEnabled():
-            if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
-            elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
-            else: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
-        elif not self.isEnabled():
-            color = theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
-        return color
+        if not self.isEnabled():
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
+        elif self.isPressed:
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+        elif self.isHover:
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+        else:
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
     
 class ToggleToolButton(ToolButton):
     def __init__(self, icon: QIcon = None, parent: QWidget = None):
@@ -147,20 +150,23 @@ class ToggleToolButton(ToolButton):
 
     def _get_icon_color(self) -> str:
         if self.isChecked():
-            if self.isEnabled():
-                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
-                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
-                else: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+            if not self.isEnabled():
+                return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
+            elif self.isPressed:
+                return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+            elif self.isHover:
+                return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
             else:
-                color = theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
+                return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+
+        if not self.isEnabled():
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Disabled")
+        elif self.isPressed:
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Pressed")
+        elif self.isHover:
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Hovered")
         else:
-            if self.isEnabled():
-                if self.isHover: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Hovered")
-                elif self.isPressed: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Pressed")
-                else: color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
-            else:
-                color = theme_manager.get_current_variables("--ThemeColor_Button_Text_Disabled")
-        return color
+            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
 
     def _applyToggle(self):
         if self._icon_on and self._icon_off:

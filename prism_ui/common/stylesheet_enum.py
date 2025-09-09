@@ -9,7 +9,8 @@ class PrismStyleSheet(Enum):
     LISTVIEW = "list_view"
     RADIOBUTTON = "radio_button"
     TEXTBLOCK = "text_block"
-    TOOLBUTTOON = "tool_button" 
+    LINEEDIT = "line_edit"
+    TOOLBUTTON = "tool_button" 
     TOOLTIP = "tool_tip"
 
     def apply(self, widget):

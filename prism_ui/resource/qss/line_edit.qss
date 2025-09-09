@@ -1,48 +1,73 @@
-QLabel[class="TextBlock"] {
-    color: --ThemeColor_Textblock_Text_Default;
-    padding: 2px;
+LineEdit[class="LineEdit"],
+TextEdit[class="TextEdit"] {
+    background-color: --ThemeColor_Lineedit_Background_Default;
+    color: --ThemeColor_Lineedit_Text_Default;
+    font-family: --ThemeFont_Textblock_Body_Family;
+    font-size: --ThemeFont_Textblock_Body_Size;
+    font-weight: --ThemeFont_Textblock_Body_Weight;
+    line-height: --ThemeFont_TextBlock_Body_Lineheight;
+    border-width: 1px;
+    border-style: none;
+    border-radius: 3px;
+    padding-top: 6px;
+    padding-left: 6px;
+    padding-bottom: 6px;
+    padding-right: 3px;
 }
-QLabel[class="TextBlock"]:disabled {
-    color: --ThemeColor_Textblock_Text_Disabled;
+LineEdit[class="LineEdit"]:hover,
+TextEdit[class="TextEdit"]:hover {
+    background-color: --ThemeColor_Lineedit_Background_Hovered;
 }
-
-QLabel[class="TextBlock"][typography="caption"] {
+LineEdit[class="LineEdit"]:focus,
+TextEdit[class="TextEdit"]:focus {
+    background-color: --ThemeColor_Lineedit_Background_Focus;
+}
+LineEdit[class="LineEdit"]:checked,
+TextEdit[class="TextEdit"]:checked {
+    background-color: --ThemeColor_Lineedit_Background_On_Accent_Pressed;
+}
+LineEdit[class="LineEdit"]:disabled,
+TextEdit[class="TextEdit"]:disabled {
+    color: --ThemeColor_Button_Text_Disabled;
+    background-color: --ThemeColor_Lineedit_Background_Disabled;
+}
+LineEdit[class="LineEdit"][typography="caption"] {
     font-family: --ThemeFont_Textblock_Caption_Family;
     font-size: --ThemeFont_Textblock_Caption_Size;
     font-weight: --ThemeFont_Textblock_Caption_Weight;
     line-height: --ThemeFont_TextBlock_Caption_Lineheight;
 }
-QLabel[class="TextBlock"][typography="body"] {
+LineEdit[class="LineEdit"][typography="body"] {
     font-family: --ThemeFont_Textblock_Body_Family;
     font-size: --ThemeFont_Textblock_Body_Size;
     font-weight: --ThemeFont_Textblock_Body_Weight;
     line-height: --ThemeFont_TextBlock_Body_Lineheight;
 }
-QLabel[class="TextBlock"][typography="bodystrong"] {
+LineEdit[class="LineEdit"][typography="bodystrong"] {
     font-family: --ThemeFont_Textblock_Bodystrong_Family;
     font-size: --ThemeFont_Textblock_Bodystrong_Size;
     font-weight: --ThemeFont_Textblock_Bodystrong_Weight;
     line-height: --ThemeFont_TextBlock_Bodystrong_Lineheight;
 }
-QLabel[class="TextBlock"][typography="subtitle"] {
+LineEdit[class="LineEdit"][typography="subtitle"] {
     font-family: --ThemeFont_Textblock_Subtitle_Family;
     font-size: --ThemeFont_Textblock_Subtitle_Size;
     font-weight: --ThemeFont_Textblock_Subtitle_Weight;
     line-height: --ThemeFont_TextBlock_Subtitle_Lineheight;
 }
-QLabel[class="TextBlock"][typography="title"] {
+LineEdit[class="LineEdit"][typography="title"] {
     font-family: --ThemeFont_Textblock_Title_Family;
     font-size: --ThemeFont_Textblock_Title_Size;
     font-weight: --ThemeFont_Textblock_Title_Weight;
     line-height: --ThemeFont_TextBlock_Title_Lineheight;
 }
-QLabel[class="TextBlock"][typography="title_large"] {
+LineEdit[class="LineEdit"][typography="title_large"] {
     font-family: --ThemeFont_Textblock_Title_large_Family;
     font-size: --ThemeFont_Textblock_Title_large_Size;
     font-weight: --ThemeFont_Textblock_Title_large_Weight;
     line-height: --ThemeFont_TextBlock_Title_large_Lineheight;
 }
-QLabel[class="TextBlock"][typography="display"] {
+LineEdit[class="LineEdit"][typography="display"] {
     font-family: --ThemeFont_Textblock_Display_Family;
     font-size: --ThemeFont_Textblock_Display_Size;
     font-weight: --ThemeFont_Textblock_Display_Weight;

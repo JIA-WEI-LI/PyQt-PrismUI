@@ -25,8 +25,7 @@ class TextBlock(QLabel, BaseMixin):
         self.setSelectable(selectable)
 
         PrismStyleSheet.TEXTBLOCK.apply(self)
-        
-        theme_manager.register(self)
+
         self.setStyle(self.style())
 
     def setSelectable(self, selectable:bool):
