@@ -13,16 +13,15 @@ class TextBlock(QLabel, BaseMixin):
 
         parent: Optional[QWidget] = kwargs.get("parent", None)
         typography: str = kwargs.get("typography", "body")
-        alignment: Qt.Alignment = kwargs.get("alignment", Qt.AlignmentFlag.AlignLeft)
-        selectable: bool = kwargs.get("selectable", False)
     
         super().__init__(full_text, parent)
 
         self.setProperty("class", "TextBlock")
         self.setProperty("typography", str(typography).lower())
+        self.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.setWordWrap(True)
-        self.setAlignment(alignment)
-        self.setSelectable(selectable)
+
+        self.setSelectable(False)
 
         PrismStyleSheet.TEXTBLOCK.apply(self)
 

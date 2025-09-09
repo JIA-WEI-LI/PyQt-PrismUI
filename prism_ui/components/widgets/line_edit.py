@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QAction, QWidget, QLineEdit, QHBoxLayout, QTextEdit
-from PyQt5.QtCore import Qt, QRectF
-from PyQt5.QtGui import QPainter, QPainterPath, QColor
+from PyQt5.QtCore import Qt, QRectF, QEvent
+from PyQt5.QtGui import QPainter, QPainterPath, QColor, QPen
 
 from .tool_button import TransparentToolButton
 from ...icon_manager.blender_icon import BlenderIcon
@@ -90,7 +90,7 @@ class LineEdit(QLineEdit):
         self.setTextMargins(left, m.top(), right, m.bottom())
 
     def _updateClearButtonVisibility(self):
-        should_be_visible = (self.hasFocus() and bool(self.text()) and self.isClearButtonEnabled()) or self._clearButtonAlwaysVisible
+        should_be_visible = (self.hasFocus() and bool(self.text() and not self.isReadOnly()) and self.isClearButtonEnabled()) or self._clearButtonAlwaysVisible
         self.clearButton.setVisible(should_be_visible)
 
     def setClearButtonAlwaysVisible(self, always_visible: bool=True):
@@ -118,46 +118,59 @@ class LineEdit(QLineEdit):
         painter.setPen(Qt.PenStyle.NoPen)
 
         m = self.contentsMargins()
-        w, h = self.width() - m.left() - m.right(), self.height()
+        border_width  = self.width() - m.left() - m.right()
+        border_height= self.height()
 
         path = QPainterPath()
-        path.addRoundedRect(QRectF(m.left(), h - 10, w, 10), 5, 5)
+        path.addRoundedRect(QRectF(m.left(), border_height - 10, border_width, 10), 5, 5)
 
         rectPath = QPainterPath()
-        rectPath.addRect(m.left(), h - 10, w, 8)
+        rectPath.addRect(m.left(), border_height - 10, border_width, 8)
         path = path.subtracted(rectPath)
         
         painter.fillPath(path, QColor(theme_manager.get_current_variables(border_color)))
 
-class TextEdit(QTextEdit):
-    #TODO: Not Done Yet
-    def __init__(self, text: str="", parent=None):
-        super().__init__(parent)
-        
-        self.setProperty("class", "TextEdit")
-        PrismStyleSheet.LINEEDIT.apply(self)
+class EditOverlay(QWidget):
+    def __init__(self, parent_widget):
+        super().__init__(parent_widget)
+        self.parent_widget = parent_widget
+        self.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+        self.setAttribute(Qt.WidgetAttribute.WA_NoSystemBackground)
+        self.setAttribute(Qt.WidgetAttribute.WA_AlwaysStackOnTop)
+        parent_widget.installEventFilter(self)
+        self.resize(parent_widget.size())
+
+    def eventFilter(self, obj, e):
+        if obj is self.parent() and e.type() == QEvent.Resize:
+            self.resize(e.size())
+
+        return super().eventFilter(obj, e)
 
     def paintEvent(self, e):
-        super().paintEvent(e)
+        border_color = "--ThemeColor_Lineedit_Border_Default" if not self.parent_widget.hasFocus() else "--ThemeColor_Lineedit_Border_Focus"
 
-        border_color = "--ThemeColor_Lineedit_Border_Default" if not self.hasFocus() else "--ThemeColor_Lineedit_Border_Focus"
-
-        painter = QPainter(self.viewport())
+        painter = QPainter(self)
         painter.setRenderHints(QPainter.RenderHint.Antialiasing)
         painter.setPen(Qt.PenStyle.NoPen)
 
         m = self.contentsMargins()
-        w = self.viewport().width() - m.left() - m.right()
-        h = self.viewport().height()
-
         path = QPainterPath()
-        path.addRoundedRect(QRectF(m.left(), h - 10, w, 10), 5, 5)
+        w, h = self.width()-m.left()-m.right(), self.height()
+        path.addRoundedRect(QRectF(m.left(), h-10, w, 10), 5, 5)
 
         rectPath = QPainterPath()
-        rectPath.addRect(m.left(), h - 10, w, 8)
+        rectPath.addRect(m.left(), h-10, w, 7.5)
         path = path.subtracted(rectPath)
 
         painter.fillPath(path, QColor(theme_manager.get_current_variables(border_color)))
+
+class TextEdit(QTextEdit):
+    def __init__(self, text: str="", parent=None):
+        super().__init__(parent)
+        self.layout = EditOverlay(self)
+
+        self.setProperty("class", "TextEdit")
+        PrismStyleSheet.LINEEDIT.apply(self)
 
 class TextBox(QWidget):
     def __init__(self, text: str = "", accepts_return: bool = False, parent=None):
