@@ -140,11 +140,11 @@ class EditOverlay(QWidget):
         parent_widget.installEventFilter(self)
         self.resize(parent_widget.size())
 
-    def eventFilter(self, obj, e):
-        if obj is self.parent() and e.type() == QEvent.Resize:
-            self.resize(e.size())
+    def eventFilter(self, obj, event: QEvent):
+        if obj is self.parent() and event.type() == QEvent.Type.Resize:
+            self.resize(event.size())
 
-        return super().eventFilter(obj, e)
+        return super().eventFilter(obj, event)
 
     def paintEvent(self, e):
         border_color = "--ThemeColor_Lineedit_Border_Default" if not self.parent_widget.hasFocus() else "--ThemeColor_Lineedit_Border_Focus"
