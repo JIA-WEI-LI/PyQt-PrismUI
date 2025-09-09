@@ -21,6 +21,7 @@ __all__ = [
     "PushButton",
     "PushButtonGroup",
     "RadioButton",
+    "RadioButtonGroup",
     "RepeatButton",
     "SegmentedButton",
     "SegmentedButtonGroup",
