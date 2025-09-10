@@ -1,9 +1,10 @@
 from typing import Union
-from PyQt5.QtWidgets import QApplication, QProgressBar, QSizePolicy, QStyle, QStyleOption, QStyleOptionProgressBar, QWidget
+from PyQt5.QtWidgets import QApplication, QProgressBar, QStyle, QStyleOption, QStyleOptionProgressBar, QWidget
 from PyQt5.QtGui import QColor, QCursor, QFont, QMouseEvent, QPainter
-from PyQt5.QtCore import QEvent, QPointF, Qt
+from PyQt5.QtCore import QEvent, QPointF, Qt, QSize
 
-from ...common.stylesheet_enum import PrismStyleSheet, ThemeState
+from ...common.stylesheet_enum import PrismStyleSheet, ThemeState, ThemeFontType
+from ...utils.theme_manager import theme_manager, Theme
 
 class PrismSliderStyle(QStyle):
     def drawControl(
@@ -48,6 +49,8 @@ class PrismSliderBar(QProgressBar):
         
         self._background_color = PrismStyleSheet.SLIDER.color("Background", ThemeState.DEFAULT)
         self._sliderbar_color = PrismStyleSheet.SLIDER.color("Sliderbar", ThemeState.DEFAULT)
+        self._text_color = PrismStyleSheet.SLIDER.color("Text", ThemeState.DEFAULT) 
+
         self.initial_value = initial_value
         self.decimal_places = decimal_places
         self.apply_style = False
@@ -55,30 +58,44 @@ class PrismSliderBar(QProgressBar):
         self.isHover = False
         self.isDragging = False
         self.isPressed = False
-
+        
         self.setAlignment(Qt.AlignmentFlag.AlignVCenter)
         self.setMinimum(0)
         self.setMaximum(100)
         self.setValue(50)
-        self._setInitialValue(self.initial_value)
+        self.setInitialValue(self.initial_value)
 
         PrismStyleSheet.SLIDER.apply(self)
+        theme_manager.theme_changed.connect(self._on_theme_changed)
 
-    def _setInitialValue(self, initial_value: Union[float, int]):
+    def setInitialValue(self, initial_value: Union[float, int]):
         if isinstance(initial_value, float) and 0 <= initial_value <= 1:
             self.setValue(int(initial_value * 100))
         elif isinstance(initial_value, int) or isinstance(initial_value, float):
             self.setValue(initial_value)
         else: raise TypeError("initial_value must be a float or an integer")
 
+    def setDecimalPlaces(self, decimal_places: int):
+        self.decimal_places = decimal_places
+
+    def setDisabled(self, disabled: bool) -> None:
+        super().setDisabled(disabled)
+        self._getColor()
+        self.update()
+
+    def setEnabled(self, enabled: bool) -> None:
+        super().setEnabled(enabled)
+        self._getColor()
+        self.update()
+
     def mousePressEvent(self, event: QMouseEvent):
         self.isPressed = True
-        self._getColor()
         if event.buttons() == Qt.MouseButton.LeftButton and self.rect().contains(event.pos()):
             self.isDragging = True
             self.update()
             self.updateProgress(event)
             QApplication.setOverrideCursor(QCursor(Qt.CursorShape.BlankCursor))
+        self._getColor()
     
     def mouseMoveEvent(self, event):
         if hasattr(self, 'isDragging') and self.isDragging:
@@ -93,6 +110,7 @@ class PrismSliderBar(QProgressBar):
             self.update()
         else:
             super().mouseReleaseEvent(event)
+        self._getColor()
 
     def enterEvent(self, event: QEvent) -> None:
         super().enterEvent(event)
@@ -108,17 +126,25 @@ class PrismSliderBar(QProgressBar):
 
     def _getColor(self) -> str:
         if not self.isEnabled():
-            self._background_color = PrismStyleSheet.SLIDER.color("Background", ThemeState.DISABLED)
-            self._sliderbar_color = PrismStyleSheet.SLIDER.color("Sliderbar", ThemeState.DISABLED)
+            state = ThemeState.DISABLED
         elif self.isPressed:
-            self._background_color = PrismStyleSheet.SLIDER.color("Background", ThemeState.PRESSED)
-            self._sliderbar_color = PrismStyleSheet.SLIDER.color("Sliderbar", ThemeState.PRESSED)
+            state = ThemeState.PRESSED
         elif self.isHover:
-            self._background_color = PrismStyleSheet.SLIDER.color("Background", ThemeState.HOVERED)
-            self._sliderbar_color = PrismStyleSheet.SLIDER.color("Sliderbar", ThemeState.HOVERED)
+            state = ThemeState.HOVERED
         else:
-            self._background_color = PrismStyleSheet.SLIDER.color("Background", ThemeState.DEFAULT)
-            self._sliderbar_color = PrismStyleSheet.SLIDER.color("Sliderbar", ThemeState.DEFAULT)
+            state = ThemeState.DEFAULT
+
+        self._background_color = PrismStyleSheet.SLIDER.color("Background", state)
+        self._sliderbar_color = PrismStyleSheet.SLIDER.color("Sliderbar", state)
+        self._text_color = PrismStyleSheet.SLIDER.color("Text", state)
+
+    def _on_theme_changed(self, theme: Theme):
+        self._getColor()
+        self.update()
+
+    def sizeHint(self) -> QSize:
+        base = super().sizeHint()
+        return QSize(base.width(), 30) 
         
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -132,15 +158,19 @@ class PrismSliderBar(QProgressBar):
 
         style.drawControl(QStyle.ControlElement.CE_ProgressBar, opt, painter, self._background_color, self._sliderbar_color, self)
 
+        font = QFont(
+            PrismStyleSheet.SLIDER.font("Font", ThemeFontType.FAMILY),
+            int(PrismStyleSheet.SLIDER.font("Font", ThemeFontType.SIZE)))
+        painter.setFont(QFont(font))
         painter.setBackgroundMode(Qt.BGMode.TransparentMode)
-        painter.setPen(QColor(Qt.GlobalColor.white))
-        painter.drawText(QPointF(10, self.height() / 2 + 5), self._text)
+        painter.setPen(QColor(self._text_color))
+        left_rect = self.rect().adjusted(10, 0, -10, 0)
+        painter.drawText(left_rect, Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, self._text)
 
         progress = self.value() * (self.maximum() - self.minimum()) / 100 + self.minimum()
         text = f"{progress:.{self.decimal_places}f}"
-        text_rect = painter.boundingRect(self.rect(), Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
-        text_rect.adjust(-5, 0, -5, 0)
-        painter.drawText(text_rect, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
+        right_rect = self.rect().adjusted(10, 0, -10, 0)
+        painter.drawText(right_rect, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
 
     def updateProgress(self, event):
         mouse_x = event.x()
