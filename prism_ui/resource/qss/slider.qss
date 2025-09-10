@@ -1,0 +1,3 @@
+PrismSliderBar[class="PrismSliderBar"] {
+    color: --ThemeColor_Button_Text_Default;
+}
