@@ -4,9 +4,7 @@ from PyQt5.QtGui import QIcon, QPainter
 from PyQt5.QtCore import QSize, QRectF, Qt
 
 from .base_widget_mixin import BaseMixin
-from .button import PushButton
-from ...common.stylesheet_enum import PrismStyleSheet
-from ...utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet, ThemeState
 
 class ToolButton(QToolButton, BaseMixin):
     def __init__(self, icon: QIcon = None, parent: QWidget = None):
@@ -41,13 +39,13 @@ class ToolButton(QToolButton, BaseMixin):
 
     def _get_icon_color(self) -> str:
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Disabled")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Pressed")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Hovered")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.DEFAULT)
 
     def updateIcon(self):
         if hasattr(self, "_icon_source") and callable(self._icon_source):
@@ -121,13 +119,13 @@ class PrimaryToolButton(ToolButton):
 
     def _get_icon_color(self) -> str:
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_DEFAULT)
     
 class ToggleToolButton(ToolButton):
     def __init__(self, icon: QIcon = None, parent: QWidget = None):
@@ -151,22 +149,22 @@ class ToggleToolButton(ToolButton):
     def _get_icon_color(self) -> str:
         if self.isChecked():
             if not self.isEnabled():
-                return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
+                return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_DISABLED)
             elif self.isPressed:
-                return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+                return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_PRESSED)
             elif self.isHover:
-                return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+                return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_HOVERED)
             else:
-                return theme_manager.get_current_variables("--ThemeColor_Button_Text_Inverse")
+                return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_DEFAULT)
 
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Disabled")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Pressed")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Hovered")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.DEFAULT)
 
     def _applyToggle(self):
         if self._icon_on and self._icon_off:

@@ -8,6 +8,8 @@ class ThemeState(Enum):
     HOVERED = "Hovered"
     PRESSED = "Pressed"
     DISABLED = "Disabled"
+    CHECKED = "Checked"
+    FOCUS = "Focus"
     ON_ACCENT_DEFAULT = "On_Accent_Default"
     ON_ACCENT_HOVERED = "On_Accent_Hovered"
     ON_ACCENT_PRESSED = "On_Accent_Pressed"

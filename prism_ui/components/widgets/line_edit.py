@@ -4,8 +4,7 @@ from PyQt5.QtGui import QPainter, QPainterPath, QColor, QPen
 
 from .tool_button import TransparentToolButton
 from ...icon_manager.blender_icon import BlenderIcon
-from ...common.stylesheet_enum import PrismStyleSheet
-from ...utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet, ThemeState
 
 class LineEditButton(TransparentToolButton):
     def __init__(self, icon, parent=None):
@@ -111,8 +110,7 @@ class LineEdit(QLineEdit):
 
     def paintEvent(self, e):
         super().paintEvent(e)
-        border_color = "--ThemeColor_Lineedit_Border_Default" if not self.hasFocus() else "--ThemeColor_Lineedit_Border_Focus"
-
+        
         painter = QPainter(self)
         painter.setRenderHints(QPainter.RenderHint.Antialiasing)
         painter.setPen(Qt.PenStyle.NoPen)
@@ -128,7 +126,7 @@ class LineEdit(QLineEdit):
         rectPath.addRect(m.left(), border_height - 10, border_width, 8)
         path = path.subtracted(rectPath)
         
-        painter.fillPath(path, QColor(theme_manager.get_current_variables(border_color)))
+        painter.fillPath(path, QColor(PrismStyleSheet.LINEEDIT.color("Border", ThemeState.FOCUS if self.hasFocus() else ThemeState.DEFAULT)))
 
 class EditOverlay(QWidget):
     def __init__(self, parent_widget):
@@ -147,8 +145,6 @@ class EditOverlay(QWidget):
         return super().eventFilter(obj, event)
 
     def paintEvent(self, e):
-        border_color = "--ThemeColor_Lineedit_Border_Default" if not self.parent_widget.hasFocus() else "--ThemeColor_Lineedit_Border_Focus"
-
         painter = QPainter(self)
         painter.setRenderHints(QPainter.RenderHint.Antialiasing)
         painter.setPen(Qt.PenStyle.NoPen)
@@ -162,7 +158,7 @@ class EditOverlay(QWidget):
         rectPath.addRect(m.left(), h-10, w, 7.5)
         path = path.subtracted(rectPath)
 
-        painter.fillPath(path, QColor(theme_manager.get_current_variables(border_color)))
+        painter.fillPath(path, QColor(PrismStyleSheet.LINEEDIT.color("Border", ThemeState.FOCUS if self.hasFocus() else ThemeState.DEFAULT)))
 
 class TextEdit(QTextEdit):
     def __init__(self, text: str="", parent=None):

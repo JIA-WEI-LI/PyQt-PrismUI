@@ -4,8 +4,7 @@ from PyQt5.QtGui import QIcon, QPainter, QColor
 from PyQt5.QtCore import QSize, QRectF, Qt
 
 from .base_widget_mixin import BaseMixin
-from ...common.stylesheet_enum import PrismStyleSheet
-from ...utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet, ThemeState
 
 class RadioButton(QRadioButton, BaseMixin):
     def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
@@ -38,13 +37,13 @@ class RadioButton(QRadioButton, BaseMixin):
 
     def _get_icon_color(self) -> str:
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Disabled")
+            return PrismStyleSheet.RADIOBUTTON.color("Text", ThemeState.DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Pressed")
+            return PrismStyleSheet.RADIOBUTTON.color("Text", ThemeState.PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Hovered")
+            return PrismStyleSheet.RADIOBUTTON.color("Text", ThemeState.HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Default")
+            return PrismStyleSheet.RADIOBUTTON.color("Text", ThemeState.DEFAULT)
 
     def updateIcon(self):
         if hasattr(self, "_icon_source") and callable(self._icon_source):
@@ -91,30 +90,29 @@ class RadioButton(QRadioButton, BaseMixin):
         cy = (self.height() - size) // 2
         outer_rect = QRectF(cx, cy, size, size)
 
-        border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_Disabled"))
+        border_color = QColor(PrismStyleSheet.RADIOBUTTON.color("Text", ThemeState.DISABLED))
         fill_color = Qt.GlobalColor.transparent
         dot_color = Qt.GlobalColor.transparent
 
         if self.isChecked():
-            
-            dot_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Text_On_Accent_Default"))
+            dot_color = QColor(PrismStyleSheet.RADIOBUTTON.color("Text", ThemeState.ON_ACCENT_DEFAULT))
 
             if self.isEnabled():
                 border_color = QColor(Qt.GlobalColor.transparent)
-                if self.isHover: 
-                    fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_On_Accent_Hovered"))
-                elif self.isPressed: 
-                    fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_On_Accent_Pressed"))
-                else: 
-                    fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_On_Accent_Default"))
+                if self.isPressed:
+                    fill_color = QColor(PrismStyleSheet.RADIOBUTTON.color("Border", ThemeState.ON_ACCENT_PRESSED))
+                elif self.isHover:
+                    fill_color = QColor(PrismStyleSheet.RADIOBUTTON.color("Border", ThemeState.ON_ACCENT_HOVERED))
+                else:
+                    fill_color = QColor(PrismStyleSheet.RADIOBUTTON.color("Border", ThemeState.ON_ACCENT_DEFAULT))
             else:
-                border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Control_Strong_Disabled"))
-                fill_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_On_Accent_Disabled"))
+                border_color = QColor(PrismStyleSheet.RADIOBUTTON.color("Border", ThemeState.ON_ACCENT_DISABLED))
+                fill_color = QColor(PrismStyleSheet.RADIOBUTTON.color("Border", ThemeState.ON_ACCENT_DISABLED))
         else:
             if self.isEnabled(): 
-                border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_Default"))
+                border_color = QColor(PrismStyleSheet.RADIOBUTTON.color("Border", ThemeState.DEFAULT))
             else: 
-                border_color = QColor(theme_manager.get_current_variables("--ThemeColor_Radiobutton_Border_Disabled"))
+                border_color = QColor(PrismStyleSheet.RADIOBUTTON.color("Border", ThemeState.DISABLED))
 
         painter.setRenderHints(QPainter.RenderHint.Antialiasing)
         painter.setPen(border_color)

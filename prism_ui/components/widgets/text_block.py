@@ -5,7 +5,6 @@ from PyQt5.QtGui import QFont, QCursor
 
 from .base_widget_mixin import BaseMixin
 from ...common.stylesheet_enum import PrismStyleSheet
-from ...utils.theme_manager import theme_manager
 
 class TextBlock(QLabel, BaseMixin):
     def __init__(self, *text: str, **kwargs):

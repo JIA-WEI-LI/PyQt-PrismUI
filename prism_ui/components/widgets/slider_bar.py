@@ -4,7 +4,6 @@ from PyQt5.QtGui import QColor, QCursor, QFont, QMouseEvent, QPainter
 from PyQt5.QtCore import QEvent, QPointF, Qt
 
 from ...common.stylesheet_enum import PrismStyleSheet, ThemeState
-from ...utils.theme_manager import theme_manager
 
 class PrismSliderStyle(QStyle):
     def drawControl(
