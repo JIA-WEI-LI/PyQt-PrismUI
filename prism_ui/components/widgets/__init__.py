@@ -3,7 +3,9 @@ from .button_group import *
 from .check_box import *
 from .line_edit import *
 from .list_view import *
+from .list_widget import *
 from .radio_button import *
+from .slider import *
 from .text_block import *
 from .tool_button import *
 from .tool_tip import *
@@ -14,13 +16,17 @@ __all__ = [
     "HyperlinkButton",
     "LineEdit",
     "LineEditButton",
+    "ListBox",
     "ListItem",
     "ListView",
+    "ListWidget",
     "PrimaryButton", 
     "PrimaryToolButton", 
+    "PrismSliderBar",
     "PushButton",
     "PushButtonGroup",
     "RadioButton",
+    "RadioButtonGroup",
     "RepeatButton",
     "SegmentedButton",
     "SegmentedButtonGroup",

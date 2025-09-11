@@ -4,9 +4,8 @@ from PyQt5.QtGui import QIcon, QPainter, QColor, QPen
 from PyQt5.QtCore import QSize, Qt, QRect
 
 from .base_widget_mixin import BaseMixin
-from ...common.stylesheet_enum import PrismStyleSheet
+from ...common.stylesheet_enum import PrismStyleSheet, ThemeState
 from ...icon_manager.blender_icon import BlenderIcon
-from ...utils.theme_manager import theme_manager
 
 class CheckBox(QCheckBox, BaseMixin):
     def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
@@ -43,23 +42,23 @@ class CheckBox(QCheckBox, BaseMixin):
 
     def _get_icon_color(self) -> str:
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_Disabled")
+            return PrismStyleSheet.CHECKBOX.color("Text", ThemeState.DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_Pressed")
+            return PrismStyleSheet.CHECKBOX.color("Text", ThemeState.PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_Hovered")
+            return PrismStyleSheet.CHECKBOX.color("Text", ThemeState.HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_Default")
+            return PrismStyleSheet.CHECKBOX.color("Text", ThemeState.DEFAULT)
     
     def _get_indicator_icon_color(self):
         if not self.isEnabled():
-            return theme_manager.get_current_variables("-ThemeColor_Checkbox_Text_On_Accent_Disabled")
+            return PrismStyleSheet.CHECKBOX.color("Text", ThemeState.ON_ACCENT_DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_On_Accent_Pressed")
+            return PrismStyleSheet.CHECKBOX.color("Text", ThemeState.ON_ACCENT_PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_On_Accent_Hovered")
+            return PrismStyleSheet.CHECKBOX.color("Text", ThemeState.ON_ACCENT_HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Checkbox_Text_On_Accent_Default")
+            return PrismStyleSheet.CHECKBOX.color("Text", ThemeState.ON_ACCENT_DEFAULT)
 
     def updateIcon(self):
         if hasattr(self, "_icon_source") and callable(self._icon_source):
@@ -102,25 +101,25 @@ class CheckBox(QCheckBox, BaseMixin):
 
         def _background_color():
             if not self.isEnabled():
-                return theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Disabled')
+                return PrismStyleSheet.CHECKBOX.color("Background", ThemeState.DISABLED)
             elif self.isChecked() and self.isHover:
-                return theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_On_Accent_Hovered')
+                return PrismStyleSheet.CHECKBOX.color("Background", ThemeState.ON_ACCENT_HOVERED)
             elif self.isChecked():
-                return theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Checked')
+                return PrismStyleSheet.CHECKBOX.color("Background", ThemeState.CHECKED)
             elif self.isHover:
-                return theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Hovered')
+                return PrismStyleSheet.CHECKBOX.color("Background", ThemeState.HOVERED)
             else:
-                return theme_manager.get_current_variables('--ThemeColor_Checkbox_Background_Default')
+                return PrismStyleSheet.CHECKBOX.color("Background", ThemeState.DEFAULT)
 
         def _border_color():
             if not self.isEnabled():
-                return theme_manager.get_current_variables('--ThemeColor_Checkbox_Border_Disabled')
+                return PrismStyleSheet.CHECKBOX.color("Border", ThemeState.DISABLED)
             elif self.isChecked():
-                return theme_manager.get_current_variables('--ThemeColor_Checkbox_Border_Checked')
+                return PrismStyleSheet.CHECKBOX.color("Border", ThemeState.CHECKED)
             elif self.isHover:
-                return theme_manager.get_current_variables('--ThemeColor_Checkbox_Border_Hovered')
+                return PrismStyleSheet.CHECKBOX.color("Border", ThemeState.HOVERED)
             else:
-                return theme_manager.get_current_variables('--ThemeColor_Checkbox_Border_Default')
+                return PrismStyleSheet.CHECKBOX.color("Border", ThemeState.DEFAULT)
 
         painter.setBrush(QColor(_background_color()))
         painter.setPen(QPen(QColor(_border_color()), 0.1))

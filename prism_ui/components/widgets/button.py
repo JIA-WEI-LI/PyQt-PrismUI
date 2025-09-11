@@ -4,8 +4,7 @@ from PyQt5.QtGui import QIcon, QPainter, QCursor, QDesktopServices, QMouseEvent
 from PyQt5.QtCore import QSize, QRectF, Qt, QUrl, QEvent, QTimer
 
 from .base_widget_mixin import BaseMixin
-from ...common.stylesheet_enum import PrismStyleSheet
-from ...utils.theme_manager import theme_manager
+from ...common.stylesheet_enum import PrismStyleSheet, ThemeState
 
 class PushButton(QPushButton, BaseMixin):
     def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
@@ -37,13 +36,13 @@ class PushButton(QPushButton, BaseMixin):
 
     def _get_icon_color(self) -> str:
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Disabled")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Pressed")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Hovered")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.DEFAULT)
 
     def updateIcon(self):
         if not callable(getattr(self, "_icon_source", None)):
@@ -108,14 +107,13 @@ class PrimaryButton(PushButton):
 
     def _get_icon_color(self) -> str:
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Pressed")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Hovered")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Default")
-
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_DEFAULT)
 
 class ToggleButton(PushButton):
     def __init__(self, text: str = "", icon: QIcon = None, parent: QWidget = None):
@@ -151,23 +149,23 @@ class ToggleButton(PushButton):
     def _get_icon_color(self) -> str:
         if self.isChecked():
             if not self.isEnabled():
-                return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Disabled")
+                return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_DISABLED)
             elif self.isPressed:
-                return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Pressed")
+                return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_PRESSED)
             elif self.isHover:
-                return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Hovered")
+                return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_HOVERED)
             else:
-                return theme_manager.get_current_variables("--ThemeColor_Button_Text_On_Accent_Default")
+                return PrismStyleSheet.BUTTON.color("Text", ThemeState.ON_ACCENT_DEFAULT)
 
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Disabled")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Pressed")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Hovered")
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Text_Default")
-
+            return PrismStyleSheet.BUTTON.color("Text", ThemeState.DEFAULT)
+        
     def _applyToggle(self):
         if self._text_on and self._text_off:
             text = self._text_on if self.isChecked() else self._text_off
@@ -230,13 +228,13 @@ class HyperlinkButton(PushButton):
 
     def _get_icon_color(self) -> str:
         if not self.isEnabled():
-            return theme_manager.get_current_variables("--ThemeColor_Button_Hyper_Disabled")
+            return PrismStyleSheet.BUTTON.color("Hyper", ThemeState.DISABLED)
         elif self.isPressed:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Hyper_Pressed")
+            return PrismStyleSheet.BUTTON.color("Hyper", ThemeState.PRESSED)
         elif self.isHover:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Hyper_Hovered")
+            return PrismStyleSheet.BUTTON.color("Hyper", ThemeState.HOVERED)
         else:
-            return theme_manager.get_current_variables("--ThemeColor_Button_Hyper_Default")
+            return PrismStyleSheet.BUTTON.color("Hyper", ThemeState.DEFAULT)
 
     def mouseReleaseEvent(self, event: QMouseEvent):
         if event.button() == Qt.MouseButton.MiddleButton and self.middle_click_enabled:

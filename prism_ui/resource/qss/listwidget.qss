@@ -1,0 +1,27 @@
+ListWidget[class="ListWidget"] {
+    background-color: --ThemeColor_Listwidget_Background_Default;
+    border: transparent;
+    color: --ThemeColor_Button_Text_Default;
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
+    outline: none;
+}
+
+ListWidget[class="ListWidget"]::item {
+    background-color: --ThemeColor_Listwidget_Item_Default;
+    border: transparent;
+    color: --ThemeColor_Button_Text_Default;
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
+    padding: 8px 12px;
+}
+ListWidget[class="ListWidget"]::item:hover {
+    background-color: --ThemeColor_Listwidget_Item_Hovered;
+    border: transparent;
+}
+ListWidget[class="ListBox"]::item:selected {
+    background-color: --ThemeColor_Listwidget_Item_Selected;
+    border: ListWidget;
+}

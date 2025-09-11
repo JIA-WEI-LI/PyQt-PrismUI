@@ -5,7 +5,6 @@ from PyQt5.QtGui import QFont, QCursor
 
 from .base_widget_mixin import BaseMixin
 from ...common.stylesheet_enum import PrismStyleSheet
-from ...utils.theme_manager import theme_manager
 
 class TextBlock(QLabel, BaseMixin):
     def __init__(self, *text: str, **kwargs):
@@ -13,16 +12,15 @@ class TextBlock(QLabel, BaseMixin):
 
         parent: Optional[QWidget] = kwargs.get("parent", None)
         typography: str = kwargs.get("typography", "body")
-        alignment: Qt.Alignment = kwargs.get("alignment", Qt.AlignmentFlag.AlignLeft)
-        selectable: bool = kwargs.get("selectable", False)
     
         super().__init__(full_text, parent)
 
         self.setProperty("class", "TextBlock")
         self.setProperty("typography", str(typography).lower())
+        self.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.setWordWrap(True)
-        self.setAlignment(alignment)
-        self.setSelectable(selectable)
+
+        self.setSelectable(False)
 
         PrismStyleSheet.TEXTBLOCK.apply(self)
 

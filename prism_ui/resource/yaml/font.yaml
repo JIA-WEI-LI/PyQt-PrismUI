@@ -40,3 +40,9 @@ textblock:
     size: "{DisplayTextBlockSize}"
     lineheight: "{DisplayTextBlockLineHeight}"
     weight: "{TextFontWeightBold}"
+
+slider:
+  font:
+    family: "{TextFontFamily}"
+    size: "{BodyTextBlockSize}"
+    weight: "{TextFontWeightNormal}"

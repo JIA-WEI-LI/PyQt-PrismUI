@@ -1,3 +1,4 @@
+from tkinter import Radiobutton
 from typing import Union, List, Optional, Tuple
 from functools import partial
 from PyQt5.QtWidgets import QWidget, QPushButton, QGridLayout, QHBoxLayout
@@ -5,6 +6,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot
 from PyQt5.QtGui import QIcon
 
 from .button import PushButton, ToggleButton, SegmentedButton
+from .radio_button import RadioButton
 
 class BaseButtonGroup(QWidget):
 
@@ -121,17 +123,17 @@ class BaseButtonGroup(QWidget):
     def setVerticalSpacing(self, value: int=1):
         self._verticalSpacing = value
 
-    def addButton(self, button: QPushButton, btn_id: Union[int, tuple]):
-        if btn_id is None:
-            btn_id = self._nextId
-            self._nextId += 1
-        self._buttonIdMap[button] = btn_id
-        self._idButtonMap[btn_id] = button
-
     def setId(self, button: QPushButton, btn_id: Union[int, tuple]):
         old_id = self._buttonIdMap.get(button)
         if old_id is not None:
             del self._idButtonMap[old_id]
+        self._buttonIdMap[button] = btn_id
+        self._idButtonMap[btn_id] = button
+
+    def addButton(self, button: QPushButton, btn_id: Union[int, tuple]):
+        if btn_id is None:
+            btn_id = self._nextId
+            self._nextId += 1
         self._buttonIdMap[button] = btn_id
         self._idButtonMap[btn_id] = button
 
@@ -156,7 +158,16 @@ class BaseButtonGroup(QWidget):
             btn.setEnabled(True)
             self._disabledIds.discard(btn_id)
 
-    def setDisabledIds(self, ids: List[Union[int, tuple]]):
+    def setDefaultDisabledIds(self, disabledIds: Union[int, Tuple[int, int], List[int], List[Tuple[int, int]]]):
+        if isinstance(disabledIds, (int, tuple)):
+            ids = {disabledIds}
+        else:
+            ids = set(disabledIds)
+
+        for btn_id, btn in self._idButtonMap.items():
+            if btn_id not in ids:
+                btn.setEnabled(True)
+
         for btn_id in ids:
             self.disableButton(btn_id)
 
@@ -196,7 +207,7 @@ class SegmentedButtonGroup(BaseButtonGroup):
     def __init__(
         self,
         labels: List[Union[str, List[str]]],
-        parent=None,
+        parent: Optional[QWidget] = None,
         useFlatId: bool = False,
         **kwargs,
     ):
@@ -222,13 +233,6 @@ class SegmentedButtonGroup(BaseButtonGroup):
     
     def setDefaultCheckedId(self, checkedId: Union[int, Tuple[int, int]]):
         self._setButtonClicked(checkedId)
-    
-    def setDefaultDisabledIds(self, disabledIds: Union[int, Tuple[int, int], List[int], List[Tuple[int, int]]]):
-        if not isinstance(disabledIds, list):
-            disabledIds = [disabledIds]
-
-        for btn_id in disabledIds:
-            self.disableButton(btn_id)
 
     @pyqtSlot(object)
     def _setButtonClicked(self, btn_id):
@@ -258,10 +262,6 @@ class ToggleButtonGroup(BaseButtonGroup):
             **kwargs
         )
 
-        self._initiallyDisabledIds = {
-            btn_id for btn_id, btn in self._idButtonMap.items() if not btn.isEnabled()
-        }
-
         self.setMinChecked()
         self.setMaxChecked()
 
@@ -282,7 +282,7 @@ class ToggleButtonGroup(BaseButtonGroup):
         max_reached = self._maxChecked is not None and checked_count >= self._maxChecked
 
         for btn_id, btn in self._idButtonMap.items():
-            if btn_id in self._initiallyDisabledIds:
+            if btn_id in self._disabledIds:
                 continue
 
             if max_reached:
@@ -310,27 +310,52 @@ class ToggleButtonGroup(BaseButtonGroup):
         self._strictChecked(self._defaultCheckedIds)
         self._updateButtonsEnableState()
 
-    def setDefaultDisabledIds(self, disabledIds: Union[int, Tuple[int, int], List[int], List[Tuple[int, int]]]):
-        if isinstance(disabledIds, (int, tuple)):
-            ids = {disabledIds}
-        else:
-            ids = set(disabledIds)
-
-        for btn_id, btn in self._idButtonMap.items():
-            if btn_id not in self._initiallyDisabledIds:
-                btn.setEnabled(True)
-
-        for btn_id in ids:
-            btn = self.button(btn_id)
-            if btn:
-                btn.setEnabled(False)
-
-        self._initiallyDisabledIds.update(ids)
-        self._updateButtonsEnableState()
-
     def setMinChecked(self, count: int = 0):
         self._minChecked = max(0, count)
 
     def setMaxChecked(self, count: Optional[int] = None):
         self._maxChecked = count if count is None or count >= 0 else 0
         self._updateButtonsEnableState()
+
+class RadioButtonGroup(BaseButtonGroup):
+    def __init__(
+        self,
+        labels: List[Union[str, List[str]]],
+        parent: Optional[QWidget] = None,
+        **kwargs
+    ):
+        super().__init__(
+            labels=labels,
+            parent=parent,
+            buttonClass=RadioButton,
+            useFlatId=True,
+            **kwargs
+        )
+
+        self._currentCheckId = None
+
+        for btn_id, btn in self._idButtonMap.items():
+            btn.clicked.connect(partial(self._onRadioClicked, btn_id))
+
+    def _onRadioClicked(self, btn_id):
+        if btn_id in self._disabledIds:
+            return
+
+        if self._currentCheckedId is not None and self._currentCheckedId != btn_id:
+            old_btn = self.button(self._currentCheckedId)
+            if old_btn:
+                old_btn.setChecked(False)
+
+        new_btn = self.button(btn_id)
+        if new_btn:
+            new_btn.setChecked(True)
+
+        self._currentCheckedId = btn_id
+
+        self.buttonClicked.emit(self._convertIdForEmit(btn_id))
+    
+    def setDefaultCheckedId(self, btn_id):
+        btn = self.button(btn_id)
+        if btn:
+            btn.setChecked(True)
+            self._currentCheckedId = btn_id

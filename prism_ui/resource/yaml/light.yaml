@@ -113,6 +113,10 @@ color:
   SolidBackgroundFillColorQuarternaryBrush: "#FFFFFF"
   SolidBackgroundFillColorBaseAltBrush: "#DADADA"
 
+  # Accent Acrylic Background
+  AccentAcrylicBackgroundFillColorBaseBrush: "#ABE7F5"
+  AccentAcrylicBackgroundFillColorDefaultBrush: "#ABE7F5"
+
   # System Fill Colors
   SystemFillColorSuccessBrush: "#0F7B0F"
   SystemFillColorCautionBrush: "#9D5D00"

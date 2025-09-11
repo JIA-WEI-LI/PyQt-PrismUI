@@ -78,4 +78,4 @@ class ThemeLoader:
                 if key in flat_theme:
                     setattr(ns, attr, flat_theme[key])
                 else:
-                    print(f"[theme_loader] WARNING: variable {key} not found")
+                    print(f"[theme_loader] WARNING: variable {key} not found in {value}")
