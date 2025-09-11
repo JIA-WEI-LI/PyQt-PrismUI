@@ -81,12 +81,10 @@ class PrismSliderBar(QProgressBar):
     def setDisabled(self, disabled: bool) -> None:
         super().setDisabled(disabled)
         self._getColor()
-        self.update()
 
     def setEnabled(self, enabled: bool) -> None:
         super().setEnabled(enabled)
         self._getColor()
-        self.update()
 
     def mousePressEvent(self, event: QMouseEvent):
         self.isPressed = True
@@ -116,18 +114,18 @@ class PrismSliderBar(QProgressBar):
         super().enterEvent(event)
         self.isHover = True
         self._getColor()
-        self.update()
 
     def leaveEvent(self, event: QEvent) -> None:
         super().enterEvent(event)
         self.isHover = False
         self._getColor()
-        self.update()
 
     def _getColor(self) -> str:
         if not self.isEnabled():
             state = ThemeState.DISABLED
         elif self.isPressed:
+            state = ThemeState.PRESSED
+        elif self.isDragging:
             state = ThemeState.PRESSED
         elif self.isHover:
             state = ThemeState.HOVERED
@@ -137,6 +135,7 @@ class PrismSliderBar(QProgressBar):
         self._background_color = PrismStyleSheet.SLIDER.color("Background", state)
         self._sliderbar_color = PrismStyleSheet.SLIDER.color("Sliderbar", state)
         self._text_color = PrismStyleSheet.SLIDER.color("Text", state)
+        self.update()
 
     def _on_theme_changed(self, theme: Theme):
         self._getColor()

@@ -61,6 +61,19 @@ lineedit:
     default: "{AccentFillColorDisabledBrush}"
     focus: "{AccentFillColorDefaultBrush}"
 
+listwidget:
+  background:
+    hovered: "{ControlFillColorSecondaryBrush}"
+    focus: "{ControlFillColorTertiaryBrush}"
+    disabled: "{ControlFillColorDisabledBrush}"
+    on_accent_default: "{AccentFillColorDefaultBrush}"
+  item:
+    default: "{ControlFillColorPrimaryBrush}"
+    hovered: "{AccentAcrylicBackgroundFillColorDefaultBrush}"
+    focus: "{AccentAcrylicBackgroundFillColorBaseBrush}"
+    disabled: "{ControlFillColorDisabledBrush}"
+    on_accent_default: "{AccentFillColorDefaultBrush}"
+
 radiobutton:
   text:
     default: "{TextFillColorPrimaryBrush}"
@@ -95,9 +108,9 @@ slider:
     on_accent_disabled: "{TextOnAccentFillColorDisabledBrush}"
     inverse: "{TextFillColorInverseBrush}"
   sliderbar:
-    default: "{AccentFillColorDefaultBrush}"
-    hovered: "{AccentFillColorSecondaryBrush}"
-    pressed: "{AccentFillColorTertiaryBrush}"
+    default: "{AccentAcrylicBackgroundFillColorBaseBrush}"
+    hovered: "{AccentAcrylicBackgroundFillColorDefaultBrush}"
+    pressed: "{AccentAcrylicBackgroundFillColorBaseBrush}"
     disabled: "{AccentFillColorDisabledBrush}"
 
 textblock:

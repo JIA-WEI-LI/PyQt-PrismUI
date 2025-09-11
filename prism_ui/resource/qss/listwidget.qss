@@ -1,0 +1,25 @@
+ListBox[class="ListBox"] {
+    background-color: --ThemeColor_Button_Background_Default;
+    border: transparent;
+    color: --ThemeColor_Button_Text_Default;
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
+}
+
+ListBox[class="ListBox"]::item {
+    background-color: --ThemeColor_Button_Background_Default;
+    border: transparent;
+    color: --ThemeColor_Button_Text_Default;
+    font-family: --ThemeFont_Button_Font_Family;
+    font-size: --ThemeFont_Button_Font_Size;
+    font-weight: --ThemeFont_Button_Font_Weight;
+}
+ListBox[class="ListBox"]::item:hover {
+    background-color: --ThemeColor_Button_Background_Hovered;
+    border: transparent;
+}
+ListBox[class="ListBox"]::item:selected {
+    background-color: --ThemeColor_Button_Background_On_Accent_Default;
+    border: transparent;
+}

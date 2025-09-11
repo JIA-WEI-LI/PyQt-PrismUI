@@ -30,6 +30,7 @@ class PrismStyleSheet(Enum):
     RADIOBUTTON = "radiobutton"
     TEXTBLOCK = "textblock"
     LINEEDIT = "lineedit"
+    LISTWIDGET = "listwidget"
     SLIDER = "slider"
     TOOLBUTTON = "toolbutton" 
     TOOLTIP = "tooltip"
