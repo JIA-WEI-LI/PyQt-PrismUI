@@ -1,4 +1,4 @@
-ListBox[class="ListBox"] {
+ListWidget[class="ListWidget"] {
     background-color: --ThemeColor_Listwidget_Background_Default;
     border: transparent;
     color: --ThemeColor_Button_Text_Default;
@@ -8,7 +8,7 @@ ListBox[class="ListBox"] {
     outline: none;
 }
 
-ListBox[class="ListBox"]::item {
+ListWidget[class="ListWidget"]::item {
     background-color: --ThemeColor_Listwidget_Item_Default;
     border: transparent;
     color: --ThemeColor_Button_Text_Default;
@@ -17,11 +17,11 @@ ListBox[class="ListBox"]::item {
     font-weight: --ThemeFont_Button_Font_Weight;
     padding: 8px 12px;
 }
-ListBox[class="ListBox"]::item:hover {
+ListWidget[class="ListWidget"]::item:hover {
     background-color: --ThemeColor_Listwidget_Item_Hovered;
     border: transparent;
 }
-ListBox[class="ListBox"]::item:selected {
+ListWidget[class="ListBox"]::item:selected {
     background-color: --ThemeColor_Listwidget_Item_Selected;
-    border: transparent;
+    border: ListWidget;
 }
