@@ -1,7 +1,7 @@
 from typing import Union
 from PyQt5.QtWidgets import QApplication, QProgressBar, QStyle, QStyleOption, QStyleOptionProgressBar, QWidget
-from PyQt5.QtGui import QColor, QCursor, QFont, QMouseEvent, QPainter
-from PyQt5.QtCore import QEvent, QPointF, Qt, QSize
+from PyQt5.QtGui import QColor, QCursor, QFont, QMouseEvent, QPainter, QPainterPath
+from PyQt5.QtCore import QEvent, QPointF, Qt, QSize, QRectF
 
 from ...common.stylesheet_enum import PrismStyleSheet, ThemeState, ThemeFontType
 from ...utils.theme_manager import theme_manager, Theme
@@ -170,7 +170,7 @@ class PrismSliderBar(QProgressBar):
         text = f"{progress:.{self.decimal_places}f}"
         right_rect = self.rect().adjusted(10, 0, -10, 0)
         painter.drawText(right_rect, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
-
+        
     def updateProgress(self, event):
         mouse_x = event.x()
         total_width = self.width()

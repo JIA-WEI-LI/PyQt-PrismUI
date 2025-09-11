@@ -63,16 +63,11 @@ lineedit:
 
 listwidget:
   background:
-    hovered: "{ControlFillColorSecondaryBrush}"
-    focus: "{ControlFillColorTertiaryBrush}"
-    disabled: "{ControlFillColorDisabledBrush}"
-    on_accent_default: "{AccentFillColorDefaultBrush}"
+    default: "{ControlFillColorDefaultBrush}"
   item:
-    default: "{ControlFillColorPrimaryBrush}"
-    hovered: "{AccentAcrylicBackgroundFillColorDefaultBrush}"
-    focus: "{AccentAcrylicBackgroundFillColorBaseBrush}"
-    disabled: "{ControlFillColorDisabledBrush}"
-    on_accent_default: "{AccentFillColorDefaultBrush}"
+    default: "{ControlFillColorTertiaryBrush}"
+    hovered: "{ControlFillColorSecondaryBrush}"
+    selected: "{AccentAcrylicBackgroundFillColorDefaultBrush}"
 
 radiobutton:
   text:
